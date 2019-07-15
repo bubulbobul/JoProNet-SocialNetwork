@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
+const { check, validationResult } = require("express-validator/check");
 
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
@@ -25,5 +26,69 @@ router.get("/me", auth, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+// @route   POST api/profile
+// @desc    To create or update a user profile
+// @access  Private
+router.post(
+  "/",
+  [
+    auth,
+    [
+      check("status", "Status is required")
+        .not()
+        .isEmpty(),
+      check("skills", "Skills is required")
+        .not()
+        .isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const {
+      company,
+      website,
+      location,
+      bio,
+      status,
+      githubusername,
+      skills,
+      youtube,
+      facebook,
+      twitter,
+      instagram,
+      linkedin
+    } = req.body;
+
+    // Build profile object
+
+    const profileFields = {};
+    profileFields.user = req.user.id;
+    if (req.body.handle) profileFields.handle = req.body.handle;
+    if (req.body.company) profileFields.company = req.body.company;
+    if (req.body.website) profileFields.website = req.body.website;
+    if (req.body.location) profileFields.location = req.body.location;
+    if (req.body.bio) profileFields.bio = req.body.bio;
+    if (req.body.status) profileFields.status = req.body.status;
+    if (req.body.githubusername)
+      profileFields.githubusername = req.body.githubusername;
+    // Skills - Spilt into array
+    // if (typeof req.body.skills !== "undefined") {
+    //   profileFields.skills = req.body.skills.split(",");
+    // }
+
+    // OR
+    if (skills) {
+      profileFields.skills = skills.split(",").map(skill => skill.trim());
+    }
+
+    console.log(profileFields.skills);
+    res.send("hello");
+  }
+);
 
 module.exports = router;
