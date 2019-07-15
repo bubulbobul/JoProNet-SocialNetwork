@@ -86,6 +86,14 @@ router.post(
       profileFields.skills = skills.split(",").map(skill => skill.trim());
     }
 
+    // Build Social network
+    profileFields.social = {};
+    if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
+    if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
+    if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
+    if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
+    if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
+
     console.log(profileFields.skills);
     res.send("hello");
   }
