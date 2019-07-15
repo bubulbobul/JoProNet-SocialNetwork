@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://bubul:3slFiDL3Jo51otHt@devsocialnet-e2emg.mongodb.net/test?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://bubul:3slFiDL3Jo51otHt@devsocialnet-e2emg.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecretToken": "mySecretToken"
 }
