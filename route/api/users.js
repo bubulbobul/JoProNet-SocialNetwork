@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const gravatar = require("gravatar");
 const { check, validationResult } = require("express-validator/check");
 
 const User = require("../../models/User");
@@ -39,6 +40,19 @@ router.post(
       }
 
       // Get users gravatar based on the email
+      const avatar = gravatar.url(email, {
+        s: "200",
+        r: "pg",
+        d: "mm"
+      });
+
+      // This doesn't save the user it just create an instance of the user
+      user = new User({
+        name: name,
+        email: email,
+        avatar: avatar,
+        password: password
+      });
 
       // Encrypt password using bcrypt
 
