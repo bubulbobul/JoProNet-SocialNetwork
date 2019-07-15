@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator/check");
 
+const User = require("../../models/User");
+
 // @route   POST apt/users
 // @desc    Register user
 // @access  Public
@@ -19,13 +21,29 @@ router.post(
       min: 6
     })
   ],
-  (req, res) => {
+  async (req, res) => {
     // console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    res.send("User route");
+
+    const { name, email, password } = req.body;
+
+    try {
+      // See if user exists (if user exists will send and error)
+
+      // Get users gravatar based on the email
+
+      // Encrypt password using bcrypt
+
+      // Return jsonwebtoken
+
+      res.send("User route");
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
   }
 );
 
