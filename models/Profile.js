@@ -6,11 +6,6 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user"
   },
-  handle: {
-    type: String,
-    required: true,
-    max: 40
-  },
   company: {
     type: String
   },
@@ -20,14 +15,17 @@ const ProfileSchema = new mongoose.Schema({
   location: {
     type: String
   },
+  // Mean: developer, junior dev or senior dev,intructor etc...
   status: {
     type: String,
     required: true
   },
+  // An array of string
   skills: {
     type: [String],
     required: true
   },
+  // Biographie
   bio: {
     type: String
   },
