@@ -1,5 +1,6 @@
 const express = require("express");
 const connectDB = require("./config/db");
+var cors = require("cors");
 
 const app = express();
 
@@ -9,6 +10,7 @@ connectDB();
 // Init Middleware
 // Middleware to enable body parser (ex: allow to get data in req.body)
 app.use(express.json({ extended: false }));
+app.use(cors());
 
 app.get("/", (req, res) => res.send("API Running"));
 

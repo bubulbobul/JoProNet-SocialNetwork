@@ -10,6 +10,7 @@ export const setAlert = (
 ) => dispatch => {
   const id = uuid.v4();
 
+  console.log("setAlert fct", msgHeader, alertType);
   dispatch({
     type: SET_ALERT,
     payload: {

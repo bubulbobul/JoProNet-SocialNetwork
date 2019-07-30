@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alertAct";
-
+import { registerAct } from "../../actions/authAct";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 import {
@@ -30,15 +31,17 @@ const Register = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (password !== passwordConfirmation) {
-      // console.log("Passwords do not match");
-      props.setAlert("Password Error", "Password do not match", "error");
-    } else if (isFormEmpty()) {
-      // console.log("Please fill all the form");
-      props.setAlert("Error empty form", "Please fill all the form", "error");
-    } else {
-      console.log(formData);
-    }
+    // if (password !== passwordConfirmation) {
+    //   // console.log("Passwords do not match");
+    //   props.setAlert("Password Error", "Password do not match", "error");
+    // } else if (isFormEmpty()) {
+    //   // console.log("Please fill all the form");
+    //   props.setAlert("Error empty form", "Please fill all the form", "error");
+    // } else {
+    //   // console.log(formData);
+    //   props.registerAct({ name, email, password });
+    // }
+    props.registerAct({ name, email, password });
   };
 
   const isFormEmpty = (name, email, password, passwordConfirmation) => {
@@ -125,11 +128,16 @@ const Register = props => {
   );
 };
 
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  registerAct: PropTypes.func.isRequired
+};
+
 const mapStateToProps = state => ({
   alerts: state.alert
 });
 
 export default connect(
   mapStateToProps,
-  { setAlert }
+  { setAlert, registerAct }
 )(Register);
