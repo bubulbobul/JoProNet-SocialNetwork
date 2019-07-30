@@ -23,6 +23,8 @@ export class SignedOutLinks extends Component {
           />
           <Menu.Menu position='right'>
             <Menu.Item
+              as={NavLink}
+              to='/profiles'
               name='developers'
               active={activeItem === "developers"}
               content='Developers'
