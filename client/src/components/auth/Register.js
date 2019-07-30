@@ -22,11 +22,6 @@ const Register = props => {
     password: "",
     passwordConfirmation: ""
   });
-  const [errorUseState, setError] = useState({
-    error: false,
-    errorHeader: "",
-    errorMessage: ""
-  });
 
   const { name, email, password, passwordConfirmation } = formData;
   const { alerts } = props;
@@ -39,14 +34,8 @@ const Register = props => {
       // console.log("Passwords do not match");
       props.setAlert("Password Error", "Password do not match", "error");
     } else if (isFormEmpty()) {
-      console.log("Please fill all the form");
+      // console.log("Please fill all the form");
       props.setAlert("Error empty form", "Please fill all the form", "error");
-      setError({
-        ...errorUseState,
-        error: true,
-        errorHeader: "Error empty form",
-        errorMessage: "Please fill all the form"
-      });
     } else {
       console.log(formData);
     }
