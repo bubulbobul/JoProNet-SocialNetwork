@@ -46,7 +46,7 @@ const Register = () => {
       setError({
         ...errorUseState,
         error: true,
-        errorHeader: "Empty Form",
+        errorHeader: "Error empty form",
         errorMessage: "Please fill all the form"
       });
     } else {

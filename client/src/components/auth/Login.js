@@ -32,12 +32,12 @@ const Login = () => {
   const handleSubmit = e => {
     e.preventDefault();
     if (isFormEmpty()) {
-      console.log("Please enter you name and password");
+      console.log("Please enter you Email and Password");
       setError({
         ...errorUseState,
         error: true,
         errorHeader: "Error credentials",
-        errorMessage: "Please enter you name and password"
+        errorMessage: "Please enter you Email and Password"
       });
     } else {
       console.log(formData);
