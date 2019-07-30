@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { setAlert } from "../../actions/alertAct";
+
 import { Link } from "react-router-dom";
 
 import {
@@ -12,7 +15,7 @@ import {
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
-const Register = () => {
+const Register = props => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,23 +29,18 @@ const Register = () => {
   });
 
   const { name, email, password, passwordConfirmation } = formData;
-  const { error, errorHeader, errorMessage } = errorUseState;
-
+  const { alerts } = props;
   const handleChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = e => {
     e.preventDefault();
     if (password !== passwordConfirmation) {
-      console.log("Passwords do not match");
-      setError({
-        ...errorUseState,
-        error: true,
-        errorHeader: "Password Error",
-        errorMessage: "Password do not match"
-      });
+      // console.log("Passwords do not match");
+      props.setAlert("Password Error", "Password do not match", "error");
     } else if (isFormEmpty()) {
       console.log("Please fill all the form");
+      props.setAlert("Error empty form", "Please fill all the form", "error");
       setError({
         ...errorUseState,
         error: true,
@@ -63,6 +61,7 @@ const Register = () => {
     );
   };
 
+  // console.log(props.alerts);
   return (
     <Grid textAlign='center' style={{ height: "80vh" }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
@@ -115,12 +114,20 @@ const Register = () => {
             </Button>
           </Segment>
         </Form>
-        {error && (
-          <Message error>
-            <Message.Header>{errorHeader}</Message.Header>
-            <p>{errorMessage}</p>
-          </Message>
-        )}
+        {alerts !== null &&
+          alerts.length > 0 &&
+          alerts.map(alert => (
+            <React.Fragment key={alert.id}>
+              {alert.alertType === "error" ? (
+                <Message error>
+                  <Message.Header>{alert.msgHeader}</Message.Header>
+                  <p>{alert.msgContent}</p>
+                </Message>
+              ) : (
+                <div style={{ display: "none" }} />
+              )}
+            </React.Fragment>
+          ))}
         <Message>
           Already have an account ? <Link to='/login'>Get Logged-in</Link>
         </Message>
@@ -129,4 +136,11 @@ const Register = () => {
   );
 };
 
-export default Register;
+const mapStateToProps = state => ({
+  alerts: state.alert
+});
+
+export default connect(
+  mapStateToProps,
+  { setAlert }
+)(Register);
