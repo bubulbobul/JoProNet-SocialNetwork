@@ -8,8 +8,7 @@ import { REGISTER_SUCCESS, REGISTER_FAIL } from "./types";
 export const registerAct = ({ name, email, password }) => async dispatch => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*"
+      "Content-Type": "application/json"
     }
   };
 
@@ -27,7 +26,8 @@ export const registerAct = ({ name, email, password }) => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    const errors = err.res.data.erros;
+    const errors = err.response.data.errors;
+    console.log(errors);
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
     }

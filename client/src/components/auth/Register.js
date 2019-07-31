@@ -31,26 +31,23 @@ const Register = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // if (password !== passwordConfirmation) {
-    //   // console.log("Passwords do not match");
-    //   props.setAlert("Password Error", "Password do not match", "error");
-    // } else if (isFormEmpty()) {
-    //   // console.log("Please fill all the form");
-    //   props.setAlert("Error empty form", "Please fill all the form", "error");
-    // } else {
-    //   // console.log(formData);
-    //   props.registerAct({ name, email, password });
-    // }
-    props.registerAct({ name, email, password });
+    if (password !== passwordConfirmation) {
+      // console.log("Passwords do not match");
+      props.setAlert("Password Error", "Password do not match", "error");
+    } else {
+      // console.log(formData);
+      props.registerAct({ name, email, password });
+    }
+    // props.registerAct({ name, email, password });
   };
 
-  const isFormEmpty = (name, email, password, passwordConfirmation) => {
-    return (
-      !formData.name.length ||
-      !formData.email.length ||
-      !formData.password.length ||
-      !formData.passwordConfirmation.length
-    );
+  const handleReset = e => {
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      passwordConfirmation: ""
+    });
   };
 
   // console.log(props.alerts);
@@ -60,7 +57,7 @@ const Register = props => {
         <Header as='h2' color='teal' textAlign='center'>
           <Icon name='signup' /> Get Register & Enjoy
         </Header>
-        <Form size='large' onSubmit={e => handleSubmit(e)}>
+        <Form size='large'>
           <Segment stacked>
             <Form.Input
               fluid
@@ -100,10 +97,26 @@ const Register = props => {
               value={passwordConfirmation}
               onChange={e => handleChange(e)}
             />
-
-            <Button color='teal' fluid size='large'>
-              Login
-            </Button>
+            <Segment raised color='teal'>
+              <Form.Group>
+                <Button
+                  color='teal'
+                  fluid
+                  size='large'
+                  onClick={e => handleSubmit(e)}
+                >
+                  Register
+                </Button>
+                <Button
+                  color='teal'
+                  fluid
+                  size='large'
+                  onClick={e => handleReset(e)}
+                >
+                  Cancel
+                </Button>
+              </Form.Group>
+            </Segment>
           </Segment>
         </Form>
         {alerts !== null &&
