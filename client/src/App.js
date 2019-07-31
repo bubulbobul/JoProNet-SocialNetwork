@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 
 import Navbar from "./components/layout/Navbar";
 import Welcome from "./components/Welcome";
-import Profiles from "./components/profile/Profiles";
+import Developers from "./components/profile/Developers";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -37,11 +37,12 @@ const App = props => {
   }, []);
 
   const { runApp } = run;
-
-  console.log("localStorage.token", localStorage.token);
+  const { apiUrl } = props;
+  // console.log("localStorage.token", localStorage.token);
   console.log("apiUrl", props.apiUrl);
-  console.log("run", run.runApp);
-  console.log("props.isAuthenticated", props.isAuthenticated);
+  // console.log("run", run.runApp);
+  // console.log("props.isAuthenticated", props.isAuthenticated);
+  console.log("App.js");
   return (
     <Fragment>
       {runApp === false ? (
@@ -49,26 +50,24 @@ const App = props => {
           <Loading />
         </Fragment>
       ) : (
-        <BrowserRouter>
-          <Fragment>
-            <Navbar />
-            {props.apiUrl === [] ? (
+        <Fragment>
+          {apiUrl !== (null || undefined) && (
+            <BrowserRouter>
               <Fragment>
-                <Loading />
+                <Navbar />
+                <Fragment>
+                  <Switch>
+                    <Route exact path='/' component={Welcome} />
+                    <Route path='/profiles' component={Developers} />
+                    <Route path='/login' component={Login} />
+                    <Route path='/register' component={Register} />
+                    <PrivateRoute path='/dashboard' component={Dashboard} />
+                  </Switch>
+                </Fragment>
               </Fragment>
-            ) : (
-              <Fragment>
-                <Switch>
-                  <Route exact path='/' component={Welcome} />
-                  <Route path='/profiles' component={Profiles} />
-                  <Route path='/login' component={Login} />
-                  <Route path='/register' component={Register} />
-                  <PrivateRoute path='/dashboard' component={Dashboard} />
-                </Switch>
-              </Fragment>
-            )}
-          </Fragment>
-        </BrowserRouter>
+            </BrowserRouter>
+          )}
+        </Fragment>
       )}
     </Fragment>
   );

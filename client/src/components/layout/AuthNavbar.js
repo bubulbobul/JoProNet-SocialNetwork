@@ -20,6 +20,8 @@ const AuthNavbar = props => {
   return (
     <Menu size='huge' stackable>
       <Menu.Item
+        as={NavLink}
+        to='/dashboard'
         name='jopronet'
         active={activeItem === "jopronet"}
         content='JoProNet'
@@ -27,6 +29,8 @@ const AuthNavbar = props => {
       />
       <Menu.Menu position='right'>
         <Menu.Item
+          as={NavLink}
+          to='/nothin'
           name='SignedInLinks'
           active={activeItem === "SignedInLinks"}
           content='SignedInLinks'
