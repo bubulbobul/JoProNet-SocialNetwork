@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState, useLayoutEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { getAPIAct } from "./actions/getApiAct";
@@ -28,7 +28,7 @@ const App = props => {
     runApp: false
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     console.log(`useLayoutEffect`);
     props.getAPIAct();
     setRun({

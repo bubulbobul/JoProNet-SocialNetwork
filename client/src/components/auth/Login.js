@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alertAct";
-
+import { loginAct } from "../../actions/authAct";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 import {
@@ -37,7 +38,8 @@ const Login = props => {
         "error"
       );
     } else {
-      console.log(formData);
+      // console.log(formData);
+      props.loginAct(props.apiUrl, email, password);
     }
   };
 
@@ -45,7 +47,7 @@ const Login = props => {
     return !formData.email.length || !formData.password.length;
   };
 
-  // console.log(props.alerts);
+  console.log(props.alerts);
   return (
     <Grid textAlign='center' style={{ height: "80vh" }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
@@ -101,11 +103,26 @@ const Login = props => {
   );
 };
 
+Login.protoType = {
+  login: PropTypes.func.isRequired
+};
 const mapStateToProps = state => ({
-  alerts: state.alert
+  alerts: state.alert,
+  apiUrl: state.apiUrl.apiUrl
 });
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setAlert: () => {
+      dispatch(setAlert());
+    },
+    loginAct: (apiUrl, email, password) => {
+      dispatch(loginAct(apiUrl, email, password));
+    }
+  };
+};
 
 export default connect(
   mapStateToProps,
-  { setAlert }
+  mapDispatchToProps
 )(Login);
