@@ -5,7 +5,7 @@ import alert from "./alertRed";
 import auth from "./authRed";
 
 export default combineReducers({
-  alert,
   apiUrl,
+  alert,
   auth
 });

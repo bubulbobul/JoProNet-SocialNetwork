@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { setAlert } from "../../actions/alertAct";
 import { loginAct } from "../../actions/authAct";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import {
   Grid,
@@ -47,7 +47,13 @@ const Login = props => {
     return !formData.email.length || !formData.password.length;
   };
 
-  console.log(props.alerts);
+  // Redirect if LOGGED IN
+  if (props.isAuthenticated) {
+    return <Redirect to='/dashboard' />;
+  }
+
+  // console.log(props.alerts);
+  console.log(props.isAuthenticated);
   return (
     <Grid textAlign='center' style={{ height: "80vh" }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
@@ -104,11 +110,13 @@ const Login = props => {
 };
 
 Login.protoType = {
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
 };
 const mapStateToProps = state => ({
   alerts: state.alert,
-  apiUrl: state.apiUrl.apiUrl
+  apiUrl: state.apiUrl.apiUrl,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 const mapDispatchToProps = dispatch => {
