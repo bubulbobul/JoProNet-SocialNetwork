@@ -1,9 +1,27 @@
+import axios from "axios";
 import { FETCH_CONFIG } from "./types";
 
-export const getAPIAct = api => dispatch => {
-  console.log("setAlert fct", api);
-  dispatch({
+const apiUrl = `${window.location.protocol}//${
+  window.location.host
+}/config/config.json`;
+
+export const getAPIActData = apiUrl => {
+  return {
     type: FETCH_CONFIG,
-    payload: api
-  });
+    apiUrl
+  };
+};
+
+export const getAPIAct = () => {
+  return dispatch => {
+    return axios
+      .get(apiUrl)
+      .then(response => {
+        // console.log(response.data);
+        dispatch(getAPIActData(response.data));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
 };

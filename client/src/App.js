@@ -14,20 +14,20 @@ import Register from "./components/auth/Register";
 
 import Loading from "./utils/Loader";
 
-const api = `http://localhost:5000`;
+// const api = `http://localhost:5000`;
 
 class App extends React.Component {
   componentWillMount() {
-    console.log("componentWillMount");
-    this.props.getAPIAct(api);
+    // console.log("componentWillMount");
+    this.props.getAPIAct();
   }
   render() {
-    console.log("api", this.props.api);
+    // console.log("apiUrl", this.props.apiUrl);
     return (
       <BrowserRouter>
         <Fragment>
           <Navbar />
-          {this.props.api === [] ? (
+          {this.props.apiUrl === [] ? (
             <Fragment>
               <Loading />
             </Fragment>
@@ -49,7 +49,7 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    api: state.api
+    apiUrl: state.apiUrl
   };
 };
 

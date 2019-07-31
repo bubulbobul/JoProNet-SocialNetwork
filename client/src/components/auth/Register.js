@@ -36,7 +36,7 @@ const Register = props => {
       props.setAlert("Password Error", "Password do not match", "error");
     } else {
       // console.log(formData);
-      props.registerAct({ name, email, password });
+      props.registerAct(props.apiUrl.apiUrl, { name, email, password });
     }
     // props.registerAct({ name, email, password });
   };
@@ -50,7 +50,7 @@ const Register = props => {
     });
   };
 
-  // console.log(props.alerts);
+  console.log(props.apiUrl.apiUrl);
   return (
     <Grid textAlign='center' style={{ height: "80vh" }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
@@ -147,7 +147,8 @@ Register.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  alerts: state.alert
+  alerts: state.alert,
+  apiUrl: state.apiUrl
 });
 
 export default connect(

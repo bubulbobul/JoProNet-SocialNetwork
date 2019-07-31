@@ -1,10 +1,11 @@
 import { FETCH_CONFIG } from "../actions/types";
 
 export default function getConfigReducer(state = [], action) {
-  switch (action.type) {
+  const { type, apiUrl } = action;
+  switch (type) {
     case FETCH_CONFIG:
-      console.log(action.payload);
-      return action.payload;
+      // console.log(apiUrl);
+      return apiUrl;
     default:
       return state;
   }
