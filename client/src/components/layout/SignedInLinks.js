@@ -1,44 +1,71 @@
-import React, { Component } from "react";
-import { Menu } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Menu, Button } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
-export class SignedInLinks extends Component {
-  state = {};
+import { connect } from "react-redux";
+import { logoutAct } from "../../actions/authAct";
+import { NavLink } from "react-router-dom";
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-  render() {
-    const { activeItem } = this.state;
-    return (
-      <Menu size='huge' stackable>
+const SignedInLinks = props => {
+  const [active, setActive] = useState({
+    activeItem: ""
+  });
+
+  const handleItemClick = (e, { name }) => setActive({ activeItem: name });
+
+  const handleLogout = () => {
+    props.logoutAct();
+  };
+  const { activeItem } = active;
+  return (
+    <Menu size='huge' stackable>
+      <Menu.Item
+        name='jopronet'
+        active={activeItem === "jopronet"}
+        content='JoProNet'
+        onClick={handleItemClick}
+      />
+      <Menu.Menu position='right'>
         <Menu.Item
-          name='jopronet'
-          active={activeItem === "jopronet"}
-          content='JoProNet'
-          onClick={this.handleItemClick}
+          name='SignedInLinks'
+          active={activeItem === "SignedInLinks"}
+          content='SignedInLinks'
+          onClick={handleItemClick}
         />
-        <Menu.Menu position='right'>
-          <Menu.Item
-            name='SignedInLinks'
-            active={activeItem === "SignedInLinks"}
-            content='SignedInLinks'
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name='SignedInLinks'
-            active={activeItem === "SignedInLinks"}
-            content='SignedInLinks'
-            onClick={this.handleItemClick}
-          />
-          <Menu.Item
-            name='SignedInLinks'
-            active={activeItem === "SignedInLinks"}
-            content='SignedInLinks'
-            onClick={this.handleItemClick}
-          />
-        </Menu.Menu>
-      </Menu>
-    );
-  }
-}
+        <Menu.Item
+          name='SignedInLinks'
+          active={activeItem === "SignedInLinks"}
+          content='SignedInLinks'
+          onClick={handleItemClick}
+        />
+        <Menu.Item
+          name='SignedInLinks'
+          active={activeItem === "SignedInLinks"}
+          content='SignedInLinks'
+          onClick={handleItemClick}
+        />
+        {/* <Menu.Item
+          name='login'
+          active={activeItem === "login"}
+          content='LogOut'
+          onClick={props.logoutAct}
+        /> */}
+        <Menu.Item onClick={handleLogout}>
+          <Button color='red'>LOG OUT</Button>
+        </Menu.Item>
+      </Menu.Menu>
+    </Menu>
+  );
+};
 
-export default SignedInLinks;
+const mapStateToProps = state => {
+  return {
+    apiUrl: state.apiUrl.apiUrl,
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { logoutAct }
+)(SignedInLinks);

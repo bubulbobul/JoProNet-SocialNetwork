@@ -1,16 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 
-export class Navbar extends Component {
-  render() {
-    return (
-      <div>
-        <SignedInLinks />
-        <SignedOutLinks />
-      </div>
-    );
-  }
-}
+const Navbar = ({ isAuthenticated }) => {
+  // console.log(isAuthenticated);
+
+  const links = isAuthenticated ? <SignedInLinks /> : <SignedOutLinks />;
+  return <React.Fragment>{links}</React.Fragment>;
+};
 
 export default Navbar;

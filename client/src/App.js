@@ -2,10 +2,8 @@ import React, { Fragment, useEffect, useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { getAPIAct } from "./actions/getApiAct";
-import { loadUser } from "./actions/authAct";
 // Redux
 import { connect } from "react-redux";
-import store from "./store";
 
 import Navbar from "./components/layout/Navbar";
 import Welcome from "./components/Welcome";
@@ -41,6 +39,7 @@ const App = props => {
   console.log("localStorage.token", localStorage.token);
   console.log("apiUrl", props.apiUrl);
   console.log("run", run.runApp);
+  console.log("props.isAuthenticated", props.isAuthenticated);
   return (
     <Fragment>
       {runApp === false ? (
@@ -50,7 +49,7 @@ const App = props => {
       ) : (
         <BrowserRouter>
           <Fragment>
-            <Navbar />
+            <Navbar isAuthenticated={props.isAuthenticated} />
             {props.apiUrl === [] ? (
               <Fragment>
                 <Loading />
@@ -74,7 +73,8 @@ const App = props => {
 
 const mapStateToProps = state => {
   return {
-    apiUrl: state.apiUrl.apiUrl
+    apiUrl: state.apiUrl.apiUrl,
+    isAuthenticated: state.auth.isAuthenticated
   };
 };
 
