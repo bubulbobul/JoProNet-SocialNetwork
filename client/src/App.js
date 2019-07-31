@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import PrivateRoute from "./utils/PrivateRoute";
 
 import { getAPIAct } from "./actions/getApiAct";
 // Redux
@@ -10,6 +11,7 @@ import Welcome from "./components/Welcome";
 import Profiles from "./components/profile/Profiles";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import Dashboard from "./components/dashboard/Dashboard";
 
 import Loading from "./utils/Loader";
 import setAuthToken from "./utils/setAuthToken";
@@ -61,6 +63,7 @@ const App = props => {
                   <Route path='/profiles' component={Profiles} />
                   <Route path='/login' component={Login} />
                   <Route path='/register' component={Register} />
+                  <PrivateRoute path='/dashboard' component={Dashboard} />
                 </Switch>
               </Fragment>
             )}

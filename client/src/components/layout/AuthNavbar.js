@@ -51,7 +51,9 @@ const AuthNavbar = props => {
           onClick={props.logoutAct}
         /> */}
         <Menu.Item onClick={handleLogout}>
-          <Button color='red'>LOG OUT</Button>
+          <Button color='red' size='medium'>
+            LOG OUT
+          </Button>
         </Menu.Item>
       </Menu.Menu>
     </Menu>
