@@ -5,21 +5,22 @@ import { setAlert } from "./alertAct";
 import { REGISTER_SUCCESS, REGISTER_FAIL } from "./types";
 
 // This fct is for Register a User
-export const registerAct = ({ name, email, password }) => async dispatch => {
+export const registerAct = (
+  apiUrl,
+  name,
+  email,
+  password
+) => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json"
     }
   };
-
+  console.log("registerAct", apiUrl, name, email, password);
   const body = JSON.stringify({ name, email, password });
 
   try {
-    const res = await axios.post(
-      "http://localhost:5000/api/users",
-      body,
-      config
-    );
+    const res = await axios.post(`${apiUrl}/api/users`, body, config);
 
     dispatch({
       type: REGISTER_SUCCESS,

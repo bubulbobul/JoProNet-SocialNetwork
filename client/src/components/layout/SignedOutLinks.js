@@ -12,7 +12,7 @@ export class SignedOutLinks extends Component {
     const { activeItem } = this.state;
     return (
       <React.Fragment>
-        <Menu inverted size='huge'>
+        <Menu inverted size='huge' stackable>
           <Menu.Item
             as={NavLink}
             to='/'

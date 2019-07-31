@@ -36,7 +36,7 @@ const Register = props => {
       props.setAlert("Password Error", "Password do not match", "error");
     } else {
       // console.log(formData);
-      props.registerAct(props.apiUrl.apiUrl, { name, email, password });
+      props.registerAct(props.apiUrl, name, email, password);
     }
     // props.registerAct({ name, email, password });
   };
@@ -50,7 +50,7 @@ const Register = props => {
     });
   };
 
-  console.log(props.apiUrl.apiUrl);
+  console.log(props.apiUrl);
   return (
     <Grid textAlign='center' style={{ height: "80vh" }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
@@ -148,10 +148,21 @@ Register.propTypes = {
 
 const mapStateToProps = state => ({
   alerts: state.alert,
-  apiUrl: state.apiUrl
+  apiUrl: state.apiUrl.apiUrl
 });
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setAlert: () => {
+      dispatch(setAlert());
+    },
+    registerAct: (apiUrl, name, email, password) => {
+      dispatch(registerAct(apiUrl, name, email, password));
+    }
+  };
+};
 
 export default connect(
   mapStateToProps,
-  { setAlert, registerAct }
+  mapDispatchToProps
 )(Register);

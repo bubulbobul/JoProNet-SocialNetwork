@@ -9,7 +9,7 @@ export class SignedInLinks extends Component {
   render() {
     const { activeItem } = this.state;
     return (
-      <Menu size='huge'>
+      <Menu size='huge' stackable>
         <Menu.Item
           name='jopronet'
           active={activeItem === "jopronet"}
