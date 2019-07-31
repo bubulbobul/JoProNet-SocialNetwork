@@ -1,12 +1,25 @@
-import React from "react";
-import SignedInLinks from "./SignedInLinks";
-import SignedOutLinks from "./SignedOutLinks";
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
 
-const Navbar = ({ isAuthenticated }) => {
-  // console.log(isAuthenticated);
+import AuthNavbar from "./AuthNavbar";
+import GuestNavbar from "./GuestNavbar";
 
-  const links = isAuthenticated ? <SignedInLinks /> : <SignedOutLinks />;
-  return <React.Fragment>{links}</React.Fragment>;
+const Navbar = props => {
+  return (
+    <Fragment>
+      {!props.auth.loading && (
+        <Fragment>
+          {props.auth.isAuthenticated ? <AuthNavbar /> : <GuestNavbar />}
+        </Fragment>
+      )}
+    </Fragment>
+  );
 };
 
-export default Navbar;
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default connect(mapStateToProps)(Navbar);

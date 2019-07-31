@@ -49,7 +49,7 @@ const App = props => {
       ) : (
         <BrowserRouter>
           <Fragment>
-            <Navbar isAuthenticated={props.isAuthenticated} />
+            <Navbar />
             {props.apiUrl === [] ? (
               <Fragment>
                 <Loading />
@@ -73,8 +73,7 @@ const App = props => {
 
 const mapStateToProps = state => {
   return {
-    apiUrl: state.apiUrl.apiUrl,
-    isAuthenticated: state.auth.isAuthenticated
+    apiUrl: state.apiUrl.apiUrl
   };
 };
 

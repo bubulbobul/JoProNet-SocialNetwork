@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
-const SignedOutLinks = () => {
+const GuestNavbar = () => {
   const [active, setActive] = useState({
     activeItem: ""
   });
@@ -53,4 +53,4 @@ const SignedOutLinks = () => {
     </React.Fragment>
   );
 };
-export default SignedOutLinks;
+export default GuestNavbar;

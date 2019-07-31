@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { logoutAct } from "../../actions/authAct";
 import { NavLink } from "react-router-dom";
 
-const SignedInLinks = props => {
+const AuthNavbar = props => {
   const [active, setActive] = useState({
     activeItem: ""
   });
@@ -68,4 +68,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { logoutAct }
-)(SignedInLinks);
+)(AuthNavbar);
