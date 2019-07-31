@@ -2,9 +2,16 @@ import axios from "axios";
 
 import { setAlert } from "./alertAct";
 
-import { REGISTER_SUCCESS, REGISTER_FAIL } from "./types";
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  USER_LOADED,
+  AUTH_ERROR
+} from "./types";
 
-// This fct is for Register a User
+import setAuthToken from "../utils/setAuthToken";
+
+// This fct is for REGISTER a USER
 export const registerAct = (
   apiUrl,
   name,
@@ -34,6 +41,29 @@ export const registerAct = (
     }
     dispatch({
       type: REGISTER_FAIL
+    });
+  }
+};
+
+// This fct is to LOAD a USER
+// Check if there is a TOKEN if there is
+// Then put it in the global header
+export const loadUser = apiUrl => async dispatch => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+  console.log("loadUSer", apiUrl);
+  try {
+    const res = await axios.get(`${apiUrl}/api/auth`);
+
+    console.log("loadUser", res.data);
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR
     });
   }
 };

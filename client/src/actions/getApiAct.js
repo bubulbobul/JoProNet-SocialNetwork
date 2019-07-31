@@ -1,6 +1,13 @@
 import axios from "axios";
 import { FETCH_CONFIG } from "./types";
 
+import setAuthToken from "../utils/setAuthToken";
+import { loadUser } from "./authAct";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
 const apiUrl = `${window.location.protocol}//${
   window.location.host
 }/config/config.json`;
@@ -19,6 +26,7 @@ export const getAPIAct = () => {
       .then(response => {
         // console.log(response.data);
         dispatch(getAPIActData(response.data));
+        dispatch(loadUser(response.data.apiUrl));
       })
       .catch(error => {
         throw error;
