@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Menu, Button } from "semantic-ui-react";
+import { Menu, Button, Icon } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
 import { connect } from "react-redux";
@@ -20,8 +20,6 @@ const AuthNavbar = props => {
   return (
     <Menu size='huge' stackable>
       <Menu.Item
-        as={NavLink}
-        to='/dashboard'
         name='jopronet'
         active={activeItem === "jopronet"}
         content='JoProNet'
@@ -30,30 +28,31 @@ const AuthNavbar = props => {
       <Menu.Menu position='right'>
         <Menu.Item
           as={NavLink}
-          to='/nothin'
-          name='SignedInLinks'
-          active={activeItem === "SignedInLinks"}
-          content='SignedInLinks'
+          to='/developers'
+          name='developers'
+          active={activeItem === "developers"}
+          content='Developers'
           onClick={handleItemClick}
         />
         <Menu.Item
-          name='SignedInLinks'
-          active={activeItem === "SignedInLinks"}
-          content='SignedInLinks'
+          as={NavLink}
+          to='/posts'
+          name='posts'
+          active={activeItem === "posts"}
+          content='Posts'
           onClick={handleItemClick}
         />
         <Menu.Item
-          name='SignedInLinks'
-          active={activeItem === "SignedInLinks"}
-          content='SignedInLinks'
+          as={NavLink}
+          to='/dashboard'
+          name='dashboard'
+          active={activeItem === "dashboard"}
+          content='Dashboard'
           onClick={handleItemClick}
-        />
-        {/* <Menu.Item
-          name='login'
-          active={activeItem === "login"}
-          content='LogOut'
-          onClick={props.logoutAct}
-        /> */}
+        >
+          <Icon name='user' />
+          Dashboard
+        </Menu.Item>
         <Menu.Item onClick={handleLogout}>
           <Button color='red' size='medium'>
             LOG OUT

@@ -16,8 +16,6 @@ const GuestNavbar = () => {
     <React.Fragment>
       <Menu inverted size='huge' stackable>
         <Menu.Item
-          as={NavLink}
-          to='/'
           name='jopronet'
           active={activeItem === "jopronet"}
           content='JoProNet'
@@ -26,7 +24,7 @@ const GuestNavbar = () => {
         <Menu.Menu position='right'>
           <Menu.Item
             as={NavLink}
-            to='/profiles'
+            to='/developers'
             name='developers'
             active={activeItem === "developers"}
             content='Developers'

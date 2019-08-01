@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfileAct } from "../../actions/profileAct";
+import { LoadingProfile } from "../../utils/Loader";
+import { Link } from "react-router-dom";
+
+import { Container, Grid, Segment, Header, Icon } from "semantic-ui-react";
+import "semantic-ui-css/semantic.min.css";
 
 const Dashboard = props => {
-  // useEffect(() => {
-  //   console.log("useEffect from Dashboard");
-  //   props.getCurrentProfileAct(props.apiUrl);
-  // }, []);
-
-  const { apiUrl } = props;
+  const { apiUrl, auth, profile } = props;
 
   useEffect(function getCurrentProfil() {
     // 👍 We're not breaking the first rule anymore
@@ -18,11 +18,95 @@ const Dashboard = props => {
     }
   }, []);
 
-  console.log("Dashboard.js");
-
-  console.log("props.apiUrl from Dashboard", props.apiUrl);
-  console.log("props.apiUrl from Dashboard", apiUrl);
-  return <div>Dashboard</div>;
+  return profile.loading && profile.profile === null ? (
+    <LoadingProfile />
+  ) : (
+    <Fragment>
+      <Container style={{ marginTop: "50px" }}>
+        <Grid columns='equal'>
+          <Grid.Column>
+            <Header as='h1' color='blue'>
+              Dashboard
+            </Header>
+          </Grid.Column>
+          <Grid.Column width={12} />
+        </Grid>
+        <Grid columns='equal'>
+          <Grid.Column>
+            <Header as='h3'>
+              <Icon name='user' />
+              <Header.Content>
+                Welcome {auth.user && auth.user.name}
+              </Header.Content>
+            </Header>
+          </Grid.Column>
+          <Grid.Column width={10} />
+        </Grid>
+        <Grid columns='equal'>
+          <Grid.Column>
+            <Link to=''>
+              <Segment raised>
+                <Header as='h5' color='grey'>
+                  <Icon name='user circle' color='blue' />
+                  <Header.Content>Edit Profile</Header.Content>
+                </Header>
+              </Segment>
+            </Link>
+          </Grid.Column>
+          <Grid.Column>
+            <Link to=''>
+              <Segment raised>
+                <Header as='h5' color='grey'>
+                  <Icon name='file alternate' color='blue' />
+                  <Header.Content>Add Experience</Header.Content>
+                </Header>
+              </Segment>
+            </Link>
+          </Grid.Column>
+          <Grid.Column>
+            <Link to=''>
+              <Segment raised>
+                <Header as='h5' color='grey'>
+                  <Icon name='graduation cap' color='blue' />
+                  <Header.Content>Add Education</Header.Content>
+                </Header>
+              </Segment>
+            </Link>
+          </Grid.Column>
+        </Grid>
+        {profile.hasProfile !== null ? (
+          <Fragment>
+            <Grid columns='equal'>
+              <Grid.Column> hasProfile</Grid.Column>
+            </Grid>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <Grid columns='equal'>
+              <Grid.Column>
+                {" "}
+                <p>You have not yet setup a profile, please add some info</p>
+              </Grid.Column>
+            </Grid>{" "}
+            <Grid columns='equal'>
+              <Grid.Column>
+                <Link to='/create-profile'>
+                  <Segment raised>
+                    <Header as='h5' color='grey'>
+                      <Icon name='user plus' color='blue' />
+                      <Header.Content>Create Profile</Header.Content>
+                    </Header>
+                  </Segment>
+                </Link>
+              </Grid.Column>
+              <Grid.Column />
+              <Grid.Column />
+            </Grid>
+          </Fragment>
+        )}
+      </Container>
+    </Fragment>
+  );
 };
 
 Dashboard.propTypes = {

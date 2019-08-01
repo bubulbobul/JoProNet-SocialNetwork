@@ -1,12 +1,16 @@
-import React from "react";
-import { Dimmer, Loader } from "semantic-ui-react";
+import React, { Fragment } from "react";
+import { Dimmer, Loader, Segment } from "semantic-ui-react";
 
-const Loading = () => (
-  <div>
+export const Loading = () => (
+  <Fragment>
     <Dimmer active>
       <Loader size='massive'>Loading ...</Loader>
     </Dimmer>
-  </div>
+  </Fragment>
 );
 
-export default Loading;
+export const LoadingProfile = () => (
+  <Dimmer active inverted>
+    <Loader size='massive'>Loading ...</Loader>
+  </Dimmer>
+);

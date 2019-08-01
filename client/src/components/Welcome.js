@@ -1,9 +1,24 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export class Welcome extends Component {
-  render() {
-    return <div>Welcome</div>;
+const Welcome = ({ isAuthenticated }) => {
+  if (isAuthenticated) {
+    return <Redirect to='/dashboard' />;
   }
-}
 
-export default Welcome;
+  return <div>Welcome</div>;
+};
+
+Welcome.protoTypes = {
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
+export default connect(mapStateToProps)(Welcome);

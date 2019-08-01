@@ -13,7 +13,7 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Dashboard from "./components/dashboard/Dashboard";
 
-import Loading from "./utils/Loader";
+import { Loading } from "./utils/Loader";
 import setAuthToken from "./utils/setAuthToken";
 
 // const api = `http://localhost:5000`;
@@ -58,7 +58,7 @@ const App = props => {
                 <Fragment>
                   <Switch>
                     <Route exact path='/' component={Welcome} />
-                    <Route path='/profiles' component={Developers} />
+                    <Route path='/developers' component={Developers} />
                     <Route path='/login' component={Login} />
                     <Route path='/register' component={Register} />
                     <PrivateRoute path='/dashboard' component={Dashboard} />
