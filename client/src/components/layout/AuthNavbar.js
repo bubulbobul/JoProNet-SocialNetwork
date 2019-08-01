@@ -31,23 +31,26 @@ const AuthNavbar = props => {
           to='/developers'
           name='developers'
           active={activeItem === "developers"}
-          content='Developers'
           onClick={handleItemClick}
-        />
+        >
+           <Icon name='address book' />
+           Developers
+        </Menu.Item>
         <Menu.Item
           as={NavLink}
           to='/posts'
           name='posts'
           active={activeItem === "posts"}
-          content='Posts'
           onClick={handleItemClick}
-        />
+        >
+          <Icon name='comments' />
+          Posts
+        </Menu.Item>
         <Menu.Item
           as={NavLink}
           to='/dashboard'
           name='dashboard'
           active={activeItem === "dashboard"}
-          content='Dashboard'
           onClick={handleItemClick}
         >
           <Icon name='user' />

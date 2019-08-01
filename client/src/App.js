@@ -12,6 +12,7 @@ import Developers from "./components/profile/Developers";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Dashboard from "./components/dashboard/Dashboard";
+import CreateProfile from "./components/profile/profile-froms/CreateProfile";
 
 import { Loading } from "./utils/Loader";
 import setAuthToken from "./utils/setAuthToken";
@@ -62,6 +63,10 @@ const App = props => {
                     <Route path='/login' component={Login} />
                     <Route path='/register' component={Register} />
                     <PrivateRoute path='/dashboard' component={Dashboard} />
+                    <PrivateRoute
+                      path='/create-profile'
+                      component={CreateProfile}
+                    />
                   </Switch>
                 </Fragment>
               </Fragment>
