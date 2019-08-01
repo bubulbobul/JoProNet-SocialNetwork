@@ -1,8 +1,11 @@
-import React, { useState, Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createProfileAct } from "../../../actions/profileAct";
+import {
+  createOrUpdateProfileAct,
+  getCurrentProfileAct
+} from "../../../actions/profileAct";
 
 import {
   Button,
@@ -20,7 +23,7 @@ import {
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
-const CreateProfile = props => {
+const EditProfile = props => {
   const [formData, setFormData] = useState({
     company: "",
     status: "",
@@ -37,8 +40,41 @@ const CreateProfile = props => {
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+  const {
+    apiUrl,
+    auth,
+    profile: { profile, loading },
+    alerts
+  } = props;
 
-  const { apiUrl, auth, alerts } = props;
+  useEffect(
+    () => {
+      console.log("useEffect editprofile");
+      props.getCurrentProfileAct(apiUrl);
+      setFormData({
+        company: loading || !profile.company ? "" : profile.company,
+        status: loading || !profile.status ? "" : profile.status,
+        website: loading || !profile.website ? "" : profile.website,
+        location: loading || !profile.location ? "" : profile.location,
+        skills: loading || !profile.skills ? "" : profile.skills,
+        githubusername:
+          loading || !profile.githubusername ? "" : githubusername,
+        bio: loading || !profile.bio ? "" : profile.bio,
+        twitter: loading || !profile.social ? "" : profile.social.twitter,
+        facebook: loading || !profile.social ? "" : profile.social.facebook,
+        linkedin: loading || !profile.social ? "" : profile.social.linkedin,
+        youtube: loading || !profile.social ? "" : profile.social.youtube,
+        instagram: loading || !profile.social ? "" : profile.social.instagram
+      });
+    },
+    // The conditon is when it's loading it will run
+    [loading]
+    // []
+  );
+
+  console.log("apiUrl editProfile", apiUrl);
+  console.log("profile.loading", loading);
+  // console.log("profile.loading", props.profile.loading);
   const icon = "black tie";
 
   const {
@@ -71,7 +107,25 @@ const CreateProfile = props => {
   const handleSubmit = e => {
     console.log(formData);
     e.preventDefault();
-    props.createProfileAct(apiUrl, formData, props.history);
+    props.createOrUpdateProfileAct(apiUrl, formData, props.history, true);
+    // handleReset();
+  };
+
+  const handleReset = e => {
+    setFormData({
+      company: "",
+      status: "",
+      website: "",
+      location: "",
+      skills: "",
+      githubusername: "",
+      bio: "",
+      twitter: "",
+      facebook: "",
+      linkedin: "",
+      youtube: "",
+      instagram: ""
+    });
   };
 
   return (
@@ -81,9 +135,9 @@ const CreateProfile = props => {
           <Grid columns='equal'>
             <Grid.Column>
               <Header as='h1' color='blue'>
-                <Header.Content>Create Your Profile</Header.Content>
+                <Header.Content>Edit Your Profile</Header.Content>
                 <Header.Subheader>
-                  Let's get some information to make your profile stand out
+                  Let's get some new information to make your profile stand out
                 </Header.Subheader>
               </Header>
             </Grid.Column>
@@ -95,7 +149,7 @@ const CreateProfile = props => {
                 <Divider horizontal>
                   <Header as='h3'>
                     <Icon name='user plus' />
-                    Hey {auth.user && auth.user.name.toUpperCase()} create your
+                    Hey {auth.user && auth.user.name.toUpperCase()} edit your
                     profile
                   </Header>
                 </Divider>
@@ -162,7 +216,6 @@ const CreateProfile = props => {
                       <Form.Input
                         label='Skills'
                         placeholder='Write your skills'
-                        required
                         name='skills'
                         value={skills}
                         onChange={e => handleChange(e)}
@@ -323,9 +376,25 @@ const CreateProfile = props => {
             <Divider hidden />
             <Divider hidden />
             <Divider hidden />
-            <Button primary onClick={handleSubmit}>
+            <Button
+              primary
+              icon
+              labelPosition='left'
+              onClick={e => handleSubmit(e)}
+            >
               Submit
+              <Icon name='chevron down' />
             </Button>
+            <Button icon labelPosition='left' onClick={e => handleReset(e)}>
+              Cancel
+              <Icon name='cancel' />
+            </Button>
+            <Link to='/dashboard'>
+              <Button icon labelPosition='left' floated='right'>
+                Go Back
+                <Icon name='left arrow' />
+              </Button>
+            </Link>
           </Form>
           <Fragment>
             {alerts !== null &&
@@ -365,20 +434,26 @@ const CreateProfile = props => {
   );
 };
 
-CreateProfile.propTypes = {
-  createProfileAct: PropTypes.func.isRequired
+EditProfile.propTypes = {
+  createOrUpdateProfileAct: PropTypes.func.isRequired,
+  getCurrentProfileAct: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   alerts: state.alert,
   apiUrl: state.apiUrl.apiUrl,
-  auth: state.auth
+  auth: state.auth,
+  profile: state.profile
 });
 
 const mapDispatchToProps = dispatch => {
   return {
-    createProfileAct: (apiUrl, formData, history) => {
-      dispatch(createProfileAct(apiUrl, formData, history));
+    createOrUpdateProfileAct: (apiUrl, formData, history) => {
+      dispatch(createOrUpdateProfileAct(apiUrl, formData, history));
+    },
+    getCurrentProfileAct: apiUrl => {
+      dispatch(getCurrentProfileAct(apiUrl));
     }
   };
 };
@@ -386,4 +461,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(CreateProfile));
+)(withRouter(EditProfile));

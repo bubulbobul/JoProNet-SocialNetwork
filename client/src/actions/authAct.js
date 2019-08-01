@@ -81,7 +81,7 @@ export const loginAct = (apiUrl, email, password) => async dispatch => {
       "Content-Type": "application/json"
     }
   };
-  // console.log("loginAct", apiUrl, email, password);
+  console.log("loginAct", apiUrl, email, password);
   const body = JSON.stringify({ email, password });
 
   try {

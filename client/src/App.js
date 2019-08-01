@@ -12,7 +12,8 @@ import Developers from "./components/profile/Developers";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Dashboard from "./components/dashboard/Dashboard";
-import CreateProfile from "./components/profile/profile-froms/CreateProfile";
+import CreateProfile from "./components/profile/profile-forms/CreateProfile";
+import EditProfile from "./components/profile/profile-forms/EditProfile";
 
 import { Loading } from "./utils/Loader";
 import setAuthToken from "./utils/setAuthToken";
@@ -30,7 +31,7 @@ const App = props => {
   });
 
   useEffect(() => {
-    console.log(`useLayoutEffect`);
+    // console.log(`useEffect`);
     props.getAPIAct();
     setRun({
       runApp: true
@@ -66,6 +67,10 @@ const App = props => {
                     <PrivateRoute
                       path='/create-profile'
                       component={CreateProfile}
+                    />
+                    <PrivateRoute
+                      path='/edit-profile'
+                      component={EditProfile}
                     />
                   </Switch>
                 </Fragment>

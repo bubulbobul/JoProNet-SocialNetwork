@@ -37,7 +37,7 @@ export const getCurrentProfileAct = apiUrl => async dispatch => {
 };
 
 // To Create or update a profile
-export const createProfileAct = (
+export const createOrUpdateProfileAct = (
   apiUrl,
   formData,
   history,
@@ -61,7 +61,9 @@ export const createProfileAct = (
     if (edit) {
       dispatch(setAlert("Profile Updated Successfully", null, "success"));
     } else {
-      dispatch(setAlert("Profile Created Successfully", null, "success"));
+      dispatch(
+        setAlert("Your profile has been successfully created", null, "success")
+      );
     }
     if (!edit) {
       setTimeout(() => history.push("/dashboard"), 7000);
