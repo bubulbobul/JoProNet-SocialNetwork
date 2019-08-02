@@ -19,6 +19,8 @@ import {
   Message
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import { statusOptions } from "../../../utils/dropdownData";
+import { countryOptions } from "../../../utils/dropdownData";
 
 const CreateProfile = props => {
   const [formData, setFormData] = useState({
@@ -26,6 +28,7 @@ const CreateProfile = props => {
     status: "",
     number: "",
     languages: "",
+    country: "",
     website: "",
     location: "",
     skills: "",
@@ -59,22 +62,12 @@ const CreateProfile = props => {
     youtube,
     instagram
   } = formData;
-  const statusOptions = [
-    { key: "0", text: "Developer", value: "Developer" },
-    { key: "1", text: "Junior Developer", value: "Junior Developer" },
-    { key: "2", text: "Senior Developer", value: "Senior Developer" },
-    { key: "3", text: "Manager", value: "Manager" },
-    { key: "4", text: "Student or Learning", value: "Student or Learning" },
-    { key: "5", text: "Instructor", value: "Instructor" },
-    { key: "6", text: "Intern", value: "Intern" },
-    { key: "7", text: "Other", value: "Other" }
-  ];
 
   const handleChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = e => {
-    console.log(formData);
+    // console.log(formData);
     e.preventDefault();
     props.createOrUpdateProfileAct(apiUrl, formData, props.history, edit);
     handleReset();
@@ -85,6 +78,7 @@ const CreateProfile = props => {
       company: "",
       number: "",
       languages: "",
+      country: "",
       status: "",
       website: "",
       location: "",
@@ -170,6 +164,7 @@ const CreateProfile = props => {
                       </p>
                     </Form.Field>
                   </Form.Group>
+
                   <Form.Field>
                     <Form.Input
                       label='Location'
@@ -178,7 +173,7 @@ const CreateProfile = props => {
                       value={location}
                       onChange={e => handleChange(e)}
                     />
-                    <p style={{ color: "#888", marginTop: "-15px" }}>
+                    <p style={{ color: "#888" }}>
                       City & state suggested (eg. Boston, MA)
                     </p>
                   </Form.Field>
@@ -213,18 +208,6 @@ const CreateProfile = props => {
                   <Form.Group widths='equal'>
                     <Form.Field>
                       <Form.Input
-                        label='Number'
-                        placeholder='Enter your number'
-                        name='number'
-                        value={number}
-                        onChange={e => handleChange(e)}
-                      />
-                      <p style={{ color: "#888" }}>
-                        Please enter the number in this format: +33 12345 67890
-                      </p>
-                    </Form.Field>
-                    <Form.Field>
-                      <Form.Input
                         label='Spoken Languages'
                         placeholder='Which language do you speak'
                         name='languages'
@@ -251,6 +234,44 @@ const CreateProfile = props => {
                     </p>
                   </Form.Field>
                 </Segment>
+                <Divider hidden />
+                <Divider hidden />
+                <Divider hidden />
+
+                <Divider horizontal>
+                  <Header as='h3'>Let's get in Touch</Header>
+                </Divider>
+                <Form.Group widths='equal'>
+                  <Form.Field>
+                    <label htmlFor='country'>Country</label>
+                    <Dropdown
+                      button
+                      className='icon'
+                      fluid
+                      labeled
+                      icon='world'
+                      search
+                      placeholder='From which country are you from'
+                      options={countryOptions}
+                      onChange={(e, { value }) =>
+                        setFormData({ ...formData, country: value })
+                      }
+                    />
+                    <p style={{ color: "#888" }}>
+                      You can search for a country
+                    </p>
+                  </Form.Field>
+                  <Form.Field>
+                    <Form.Input
+                      label='Number'
+                      placeholder='Enter your number'
+                      name='number'
+                      value={number}
+                      onChange={e => handleChange(e)}
+                    />
+                    <p style={{ color: "#888" }}>Please enter your number</p>
+                  </Form.Field>
+                </Form.Group>
                 <Divider hidden />
                 <Divider hidden />
                 <Divider hidden />

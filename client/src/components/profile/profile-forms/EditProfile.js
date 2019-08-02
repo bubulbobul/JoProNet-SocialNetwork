@@ -23,11 +23,15 @@ import {
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
+import { statusOptions } from "../../../utils/dropdownData";
+import { countryOptions } from "../../../utils/dropdownData";
+
 const EditProfile = props => {
   const [formData, setFormData] = useState({
     company: "",
     number: "",
     languages: "",
+    country: "",
     status: "",
     website: "",
     location: "",
@@ -56,6 +60,7 @@ const EditProfile = props => {
       setFormData({
         company: loading || !profile.company ? "" : profile.company,
         number: loading || !profile.number ? "" : profile.number,
+        country: loading || !profile.country ? "" : profile.country,
         status: loading || !profile.status ? "" : profile.status,
         website: loading || !profile.website ? "" : profile.website,
         location: loading || !profile.location ? "" : profile.location,
@@ -98,16 +103,6 @@ const EditProfile = props => {
     youtube,
     instagram
   } = formData;
-  const statusOptions = [
-    { key: "0", text: "Developer", value: "Developer" },
-    { key: "1", text: "Junior Developer", value: "Junior Developer" },
-    { key: "2", text: "Senior Developer", value: "Senior Developer" },
-    { key: "3", text: "Manager", value: "Manager" },
-    { key: "4", text: "Student or Learning", value: "Student or Learning" },
-    { key: "5", text: "Instructor", value: "Instructor" },
-    { key: "6", text: "Intern", value: "Intern" },
-    { key: "7", text: "Other", value: "Other" }
-  ];
 
   const handleChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -124,6 +119,7 @@ const EditProfile = props => {
       company: "",
       status: "",
       number: "",
+      country: "",
       languages: "",
       website: "",
       location: "",
@@ -292,6 +288,43 @@ const EditProfile = props => {
                     </p>
                   </Form.Field>
                 </Segment>
+                <Divider hidden />
+                <Divider hidden />
+                <Divider hidden />
+                <Divider horizontal>
+                  <Header as='h3'>Let's get in Touch</Header>
+                </Divider>
+                <Form.Group widths='equal'>
+                  <Form.Field>
+                    <label htmlFor='country'>Country</label>
+                    <Dropdown
+                      button
+                      className='icon'
+                      fluid
+                      labeled
+                      icon='world'
+                      search
+                      placeholder='From which country are you from'
+                      options={countryOptions}
+                      onChange={(e, { value }) =>
+                        setFormData({ ...formData, country: value })
+                      }
+                    />
+                    <p style={{ color: "#888" }}>
+                      You can search for a country
+                    </p>
+                  </Form.Field>
+                  <Form.Field>
+                    <Form.Input
+                      label='Number'
+                      placeholder='Enter your number'
+                      name='number'
+                      value={number}
+                      onChange={e => handleChange(e)}
+                    />
+                    <p style={{ color: "#888" }}>Please enter your number</p>
+                  </Form.Field>
+                </Form.Group>
                 <Divider hidden />
                 <Divider hidden />
                 <Divider hidden />
