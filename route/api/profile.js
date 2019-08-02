@@ -43,6 +43,9 @@ router.post(
         .isEmpty(),
       check("skills", "Skills is required")
         .not()
+        .isEmpty(),
+      check("number", "Number is required")
+        .not()
         .isEmpty()
     ]
   ],
@@ -56,6 +59,8 @@ router.post(
 
     const {
       company,
+      number,
+      languages,
       website,
       location,
       bio,
@@ -73,6 +78,7 @@ router.post(
     const profileFields = {};
     profileFields.user = req.user.id;
     if (company) profileFields.company = company;
+    if (number) profileFields.number = number;
     if (website) profileFields.website = website;
     if (location) profileFields.location = location;
     if (bio) profileFields.bio = bio;
@@ -86,8 +92,14 @@ router.post(
     if (skills) {
       profileFields.skills = skills.split(",").map(skill => skill.trim());
     }
+    if (languages) {
+      profileFields.languages = languages
+        .split(",")
+        .map(language => language.trim());
+    }
 
     console.log(profileFields.skills);
+    console.log(profileFields.languages);
 
     // Build social object
     profileFields.social = {};
@@ -204,6 +216,7 @@ router.put(
     const {
       title,
       company,
+      country,
       location,
       from,
       to,
@@ -214,6 +227,7 @@ router.put(
     const newExp = {
       title,
       company,
+      country,
       location,
       from,
       to,
@@ -293,6 +307,7 @@ router.put(
       school,
       degree,
       fieldofstudy,
+      country,
       from,
       to,
       current,
@@ -302,6 +317,7 @@ router.put(
     const newEdu = {
       school,
       degree,
+      country,
       fieldofstudy,
       from,
       to,

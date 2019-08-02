@@ -9,6 +9,13 @@ const ProfileSchema = new mongoose.Schema({
   company: {
     type: String
   },
+  number: {
+    type: String,
+    required: true
+  },
+  languages: {
+    type: [String]
+  },
   website: {
     type: String
   },
@@ -42,6 +49,9 @@ const ProfileSchema = new mongoose.Schema({
         type: String,
         required: true
       },
+      country: {
+        type: String
+      },
       location: {
         type: String
       },
@@ -74,6 +84,9 @@ const ProfileSchema = new mongoose.Schema({
       fieldofstudy: {
         type: String,
         required: true
+      },
+      country: {
+        type: String
       },
       from: {
         type: Date,
