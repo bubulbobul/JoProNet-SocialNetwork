@@ -13,6 +13,9 @@ const ProfileSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  country: {
+    type: String
+  },
   languages: {
     type: [String]
   },
