@@ -24,6 +24,8 @@ const CreateProfile = props => {
   const [formData, setFormData] = useState({
     company: "",
     status: "",
+    number: "",
+    languages: "",
     website: "",
     location: "",
     skills: "",
@@ -40,10 +42,13 @@ const CreateProfile = props => {
 
   const { apiUrl, auth, alerts } = props;
   const icon = "black tie";
+  const edit = false;
 
   const {
     company,
     website,
+    number,
+    languages,
     location,
     skills,
     githubusername,
@@ -69,15 +74,17 @@ const CreateProfile = props => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = e => {
-    // console.log(formData);
+    console.log(formData);
     e.preventDefault();
-    props.createOrUpdateProfileAct(apiUrl, formData, props.history);
+    props.createOrUpdateProfileAct(apiUrl, formData, props.history, edit);
     handleReset();
   };
 
   const handleReset = e => {
     setFormData({
       company: "",
+      number: "",
+      languages: "",
       status: "",
       website: "",
       location: "",
@@ -203,10 +210,35 @@ const CreateProfile = props => {
                       </p>
                     </Form.Field>
                   </Form.Group>
+                  <Form.Group widths='equal'>
+                    <Form.Field>
+                      <Form.Input
+                        label='Number'
+                        placeholder='Enter your number'
+                        name='number'
+                        value={number}
+                        onChange={e => handleChange(e)}
+                      />
+                      <p style={{ color: "#888" }}>
+                        Please enter the number in this format: +33 12345 67890
+                      </p>
+                    </Form.Field>
+                    <Form.Field>
+                      <Form.Input
+                        label='Spoken Languages'
+                        placeholder='Which language do you speak'
+                        name='languages'
+                        value={languages}
+                        onChange={e => handleChange(e)}
+                      />
+                      <p style={{ color: "#888" }}>
+                        Please use comma separated values (eg.
+                        French,English,Lingala,German)
+                      </p>
+                    </Form.Field>
+                  </Form.Group>
                   <Form.Field>
-                    <p>
-                      <strong>Tell us more</strong>
-                    </p>
+                    <label>Tell us more</label>
                     <TextArea
                       placeholder='A short bio of yourseft'
                       style={{ minHeight: 100 }}
@@ -410,8 +442,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    createOrUpdateProfileAct: (apiUrl, formData, history) => {
-      dispatch(createOrUpdateProfileAct(apiUrl, formData, history));
+    createOrUpdateProfileAct: (apiUrl, formData, history, edit) => {
+      dispatch(createOrUpdateProfileAct(apiUrl, formData, history, edit));
     }
   };
 };

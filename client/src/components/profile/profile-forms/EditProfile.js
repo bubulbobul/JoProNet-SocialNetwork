@@ -26,6 +26,8 @@ import "semantic-ui-css/semantic.min.css";
 const EditProfile = props => {
   const [formData, setFormData] = useState({
     company: "",
+    number: "",
+    languages: "",
     status: "",
     website: "",
     location: "",
@@ -53,10 +55,13 @@ const EditProfile = props => {
       props.getCurrentProfileAct(apiUrl);
       setFormData({
         company: loading || !profile.company ? "" : profile.company,
+        number: loading || !profile.number ? "" : profile.number,
         status: loading || !profile.status ? "" : profile.status,
         website: loading || !profile.website ? "" : profile.website,
         location: loading || !profile.location ? "" : profile.location,
-        skills: loading || !profile.skills ? "" : profile.skills,
+        skills: loading || !profile.skills ? "" : profile.skills.toString(),
+        languages:
+          loading || !profile.languages ? "" : profile.languages.toString(),
         githubusername:
           loading || !profile.githubusername ? "" : githubusername,
         bio: loading || !profile.bio ? "" : profile.bio,
@@ -74,11 +79,14 @@ const EditProfile = props => {
 
   console.log("apiUrl editProfile", apiUrl);
   console.log("profile.loading", loading);
+  console.log("formData", formData);
   // console.log("profile.loading", props.profile.loading);
   const icon = "black tie";
-
+  const edit = true;
   const {
     company,
+    number,
+    languages,
     website,
     location,
     skills,
@@ -107,14 +115,16 @@ const EditProfile = props => {
   const handleSubmit = e => {
     console.log(formData);
     e.preventDefault();
-    props.createOrUpdateProfileAct(apiUrl, formData, props.history, true);
-    // handleReset();
+    props.createOrUpdateProfileAct(apiUrl, formData, props.history, edit);
+    handleReset();
   };
 
   const handleReset = e => {
     setFormData({
       company: "",
       status: "",
+      number: "",
+      languages: "",
       website: "",
       location: "",
       skills: "",
@@ -236,6 +246,33 @@ const EditProfile = props => {
                       <p style={{ color: "#888" }}>
                         If you want your latest repos and a Github link, include
                         your username in Github
+                      </p>
+                    </Form.Field>
+                  </Form.Group>
+                  <Form.Group widths='equal'>
+                    <Form.Field>
+                      <Form.Input
+                        label='Number'
+                        placeholder='Enter your number'
+                        name='number'
+                        value={number}
+                        onChange={e => handleChange(e)}
+                      />
+                      <p style={{ color: "#888" }}>
+                        Please enter the number in this format: +33 12345 67890
+                      </p>
+                    </Form.Field>
+                    <Form.Field>
+                      <Form.Input
+                        label='Spoken Languages'
+                        placeholder='Which language do you speak'
+                        name='languages'
+                        value={languages}
+                        onChange={e => handleChange(e)}
+                      />
+                      <p style={{ color: "#888" }}>
+                        Please use comma separated values (eg.
+                        French,English,Lingala,German)
                       </p>
                     </Form.Field>
                   </Form.Group>
@@ -449,8 +486,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    createOrUpdateProfileAct: (apiUrl, formData, history) => {
-      dispatch(createOrUpdateProfileAct(apiUrl, formData, history));
+    createOrUpdateProfileAct: (apiUrl, formData, history, edit) => {
+      dispatch(createOrUpdateProfileAct(apiUrl, formData, history, edit));
     },
     getCurrentProfileAct: apiUrl => {
       dispatch(getCurrentProfileAct(apiUrl));
