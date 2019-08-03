@@ -15,8 +15,8 @@ import {
   Message
 } from "semantic-ui-react";
 
-const ExperienceDetails = props => {
-  const { apiUrl, experience } = props;
+const EducationDetails = props => {
+  const { apiUrl, education } = props;
 
   useEffect(() => {
     props.getCurrentProfileAct(apiUrl);
@@ -37,10 +37,11 @@ const ExperienceDetails = props => {
                 <Header as='h2'>
                   <Icon name='building' color='blue' />
                   <Header.Content>
-                    {experience.company}
+                    {education.school}
                     <Header.Subheader>
-                      I {experience.current === true ? " work " : " worked "}
-                      for {experience.company} as {experience.title}
+                      {education.current === true
+                        ? `I study in ${education.school}`
+                        : `I got my {education.degree} in {education.school}`}
                     </Header.Subheader>
                   </Header.Content>
                 </Header>
@@ -58,20 +59,20 @@ const ExperienceDetails = props => {
                     <Header.Content>What I Did</Header.Content>
                   </Header>
                   <Fragment>
-                    {experience.description === "" ? (
+                    {education.description === "" ? (
                       <Fragment>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Message
                           warning
                           header='Warning'
                           content='You did
-                      not add any description'
+                      not add any description of education'
                         />
                       </Fragment>
                     ) : (
                       <p>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {experience.description}
+                        {education.description}
                       </p>
                     )}
                   </Fragment>
@@ -89,11 +90,11 @@ const ExperienceDetails = props => {
                   </Header>
                   <Header as='h5'>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <strong>Country:</strong>&nbsp;&nbsp;{experience.country}
+                    <strong>Country:</strong>&nbsp;&nbsp;{education.country}
                     <br />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <strong>Located in:</strong>&nbsp;&nbsp;
-                    {experience.location}
+                    {education.location}
                   </Header>
                 </Container>
               </Grid.Column>
@@ -107,13 +108,13 @@ const ExperienceDetails = props => {
                   </Header>
                   <Header as='h5'>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;From&nbsp;:&nbsp;&nbsp;&nbsp;
-                    <Moment format='YYYY/MM/DD'>{experience.from}</Moment>
+                    <Moment format='YYYY/MM/DD'>{education.from}</Moment>
                     <br />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;:&nbsp;&nbsp;&nbsp;
-                    {experience.to === null ? (
+                    {education.to === null ? (
                       " Now"
                     ) : (
-                      <Moment format='YYYY/MM/DD'>{experience.to}</Moment>
+                      <Moment format='YYYY/MM/DD'>{education.to}</Moment>
                     )}
                   </Header>
                 </Container>
@@ -143,17 +144,17 @@ const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.id;
   // console.log(id);
 
-  const experiences = state.profile.experiences;
-  // console.log("experiences", experiences);
+  const educations = state.profile.educations;
+  // console.log("educations", educations);
 
-  const experience = experiences ? experiences[id] : null;
+  const education = educations ? educations[id] : null;
   // console.log(experience);
 
   return {
     apiUrl: state.apiUrl.apiUrl,
     auth: state.auth,
     profile: state.profile,
-    experience: experience
+    education: education
   };
 };
 
@@ -168,4 +169,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ExperienceDetails);
+)(EducationDetails);

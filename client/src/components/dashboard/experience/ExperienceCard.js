@@ -1,14 +1,8 @@
 import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import Experience from "./Experience";
-import { connect } from "react-redux";
-import Moment from "react-moment";
 import {
   Container,
   Card,
-  Segment,
   Header,
-  Icon,
   Grid,
   Divider,
   Button
@@ -17,7 +11,7 @@ import "semantic-ui-css/semantic.min.css";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import TextTruncate from "react-text-truncate";
 
-const ExperienceList = ({ profile }) => {
+const ExperienceCard = ({ profile }) => {
   return (
     <Fragment>
       <Grid>
@@ -40,7 +34,7 @@ const ExperienceList = ({ profile }) => {
             {profile &&
               profile.experience.map((exp, id) => {
                 return (
-                  <Card key={exp._id}>
+                  <Card key={exp._id} color='blue'>
                     <Card.Content>
                       <Card.Header>{exp.company}</Card.Header>
                       <Card.Meta>{exp.title}</Card.Meta>
@@ -73,11 +67,9 @@ const ExperienceList = ({ profile }) => {
               })}
           </Card.Group>
         </Fragment>
-      </Container>{" "}
+      </Container>
     </Fragment>
   );
 };
 
-ExperienceList.propTypes = {};
-
-export default ExperienceList;
+export default ExperienceCard;

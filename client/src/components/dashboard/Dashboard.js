@@ -16,7 +16,8 @@ import {
 import "semantic-ui-css/semantic.min.css";
 
 import DashboardActions from "./DashboardActions";
-import ExperienceList from "./experience/ExperienceList";
+import ExperienceCard from "./experience/ExperienceCard";
+import EducationCard from "./education/EducationCard";
 
 const Dashboard = props => {
   const { apiUrl, auth, profile } = props;
@@ -59,7 +60,29 @@ const Dashboard = props => {
           <Fragment>
             {profile.hasProfile !== null ? (
               <Fragment>
-                {profile.hasProfile === true && <DashboardActions />}
+                <Fragment>
+                  {profile.hasProfile === true && <DashboardActions />}
+                </Fragment>
+                <Divider hidden />
+                <Divider hidden />
+                <Divider />
+                <Divider hidden />
+                <Divider hidden />
+                <Fragment>
+                  <Segment raised>
+                    <ExperienceCard profile={props.profile.profile} />
+                  </Segment>
+                </Fragment>
+                <Divider hidden />
+                <Divider hidden />
+                <Divider />
+                <Divider hidden />
+                <Divider hidden />
+                <Fragment>
+                  <Segment raised>
+                    <EducationCard profile={props.profile.profile} />
+                  </Segment>
+                </Fragment>
               </Fragment>
             ) : (
               <Fragment>
@@ -87,16 +110,6 @@ const Dashboard = props => {
                 </Grid>
               </Fragment>
             )}
-          </Fragment>
-          <Divider hidden />
-          <Divider hidden />
-          <Divider />
-
-          <Divider hidden />
-          <Fragment>
-            <Segment raised>
-              <ExperienceList profile={props.profile.profile} />
-            </Segment>
           </Fragment>
         </Segment>
       </Container>
