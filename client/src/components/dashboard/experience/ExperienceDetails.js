@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { getCurrentProfileAct } from "../../../actions/profileAct";
+import { deleteExperienceAct } from "../../../actions/profileAct";
 import { LoadingProfile } from "../../../utils/Loader";
 import Moment from "react-moment";
 import {
@@ -17,10 +18,16 @@ import {
 
 const ExperienceDetails = props => {
   const { apiUrl, experience } = props;
+  const detailPage = true;
 
   useEffect(() => {
     props.getCurrentProfileAct(apiUrl);
   }, []);
+
+  const handleDelete = (e, id, company) => {
+    // console.log("Delete button", id, company);
+    props.deleteExperienceAct(apiUrl, id, company, props.history, detailPage);
+  };
 
   return props.profile.loading && props.profile.profile === null ? (
     <LoadingProfile />
@@ -127,6 +134,21 @@ const ExperienceDetails = props => {
                     <Icon name='left arrow' />
                   </Button>
                 </Link>
+                <Divider hidden />
+                <Divider hidden />
+                <Divider hidden />
+                <Button
+                  icon
+                  labelPosition='left'
+                  floated='right'
+                  color='red'
+                  onClick={e =>
+                    handleDelete(e, experience._id, experience.company)
+                  }
+                >
+                  Delete
+                  <Icon name='remove circle' />
+                </Button>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -151,6 +173,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     apiUrl: state.apiUrl.apiUrl,
+    alerts: state.alert,
     auth: state.auth,
     profile: state.profile,
     experience: experience
@@ -161,6 +184,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getCurrentProfileAct: apiUrl => {
       dispatch(getCurrentProfileAct(apiUrl));
+    },
+    deleteExperienceAct: (apiUrl, id, company, history, detailPage) => {
+      dispatch(deleteExperienceAct(apiUrl, id, company, history, detailPage));
     }
   };
 };
@@ -168,4 +194,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ExperienceDetails);
+)(withRouter(ExperienceDetails));

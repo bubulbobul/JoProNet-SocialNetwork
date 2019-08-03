@@ -35,13 +35,13 @@ const EducationDetails = props => {
             <Grid.Row>
               <Grid.Column floated='left'>
                 <Header as='h2'>
-                  <Icon name='building' color='blue' />
+                  <Icon name='book' color='blue' />
                   <Header.Content>
                     {education.school}
                     <Header.Subheader>
                       {education.current === true
                         ? `I study in ${education.school}`
-                        : `I got my {education.degree} in {education.school}`}
+                        : `I got my ${education.degree} in ${education.school}`}
                     </Header.Subheader>
                   </Header.Content>
                 </Header>
@@ -55,7 +55,7 @@ const EducationDetails = props => {
                   <Divider hidden />
                   <Divider />
                   <Header as='h2'>
-                    <Icon name='hand paper outline' color='blue' />
+                    <Icon name='pencil alternate' color='blue' />
                     <Header.Content>What I Did</Header.Content>
                   </Header>
                   <Fragment>
@@ -85,16 +85,12 @@ const EducationDetails = props => {
                   <Divider hidden />
                   <Divider />
                   <Header as='h2'>
-                    <Icon name='map' color='blue' />
+                    <Icon name='map marker alternate' color='blue' />
                     <Header.Content>Where ?</Header.Content>
                   </Header>
                   <Header as='h5'>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <strong>Country:</strong>&nbsp;&nbsp;{education.country}
-                    <br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <strong>Located in:</strong>&nbsp;&nbsp;
-                    {education.location}
                   </Header>
                 </Container>
               </Grid.Column>

@@ -5,13 +5,27 @@ import {
   Header,
   Grid,
   Divider,
-  Button
+  Button,
+  Icon,
+  Message
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import TextTruncate from "react-text-truncate";
+import { deleteExperienceAct } from "../../../actions/profileAct";
+import { connect } from "react-redux";
 
-const ExperienceCard = ({ profile }) => {
+const ExperienceCard = props => {
+  const { profile, apiUrl, alerts } = props;
+  // console.log("apiUrl", apiUrl);
+  const detailPage = false;
+
+  const handleDelete = (e, id, company) => {
+    // console.log("Delete button", id, company);
+    props.deleteExperienceAct(apiUrl, id, company, detailPage);
+  };
+
+  console.log(profile.experience);
   return (
     <Fragment>
       <Grid>
@@ -30,46 +44,104 @@ const ExperienceCard = ({ profile }) => {
       <Divider hidden />
       <Container>
         <Fragment>
-          <Card.Group itemsPerRow={4} centered>
-            {profile &&
-              profile.experience.map((exp, id) => {
-                return (
-                  <Card key={exp._id} color='blue'>
-                    <Card.Content>
-                      <Card.Header>{exp.company}</Card.Header>
-                      <Card.Meta>{exp.title}</Card.Meta>
-                    </Card.Content>
-                    <Card.Content>
-                      <Card.Description>
-                        <Fragment>
-                          <TextTruncate
-                            line={3}
-                            element='span'
-                            truncateText='…'
-                            text={
-                              exp.description === ""
-                                ? `No description`
-                                : exp.description
-                            }
-                          />
-                        </Fragment>
-                      </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                      <Link to={`/experience/${id}`}>
-                        <Button floated='right' primary>
-                          More
+          {profile.experience.length === 0 ? (
+            <Message
+              warning
+              header='Warning'
+              content="You don't have experience"
+            />
+          ) : (
+            <Card.Group itemsPerRow={4} centered>
+              {profile &&
+                profile.experience.map((exp, id) => {
+                  return (
+                    <Card
+                      key={exp._id}
+                      color='blue'
+                      // style={{ background: "blue" }}
+                    >
+                      <Card.Content>
+                        <Card.Header>{exp.company}</Card.Header>
+                        <Card.Meta>{exp.title}</Card.Meta>
+                      </Card.Content>
+                      <Card.Content>
+                        <Card.Description>
+                          <Fragment>
+                            <TextTruncate
+                              line={3}
+                              element='span'
+                              truncateText='…'
+                              text={
+                                exp.description === ""
+                                  ? `No description`
+                                  : exp.description
+                              }
+                            />
+                          </Fragment>
+                        </Card.Description>
+                      </Card.Content>
+                      <Card.Content extra>
+                        <Link to={`/experience/${id}`}>
+                          <Button animated='vertical' primary floated='right'>
+                            <Button.Content hidden>More</Button.Content>
+                            <Button.Content visible>
+                              <Icon name='info circle' />
+                            </Button.Content>
+                          </Button>
+                        </Link>
+                        <Button
+                          animated='vertical'
+                          color='red'
+                          floated='right'
+                          onClick={e => handleDelete(e, exp._id, exp.company)}
+                        >
+                          <Button.Content hidden>Delete</Button.Content>
+                          <Button.Content visible>
+                            <Icon name='remove circle' />
+                          </Button.Content>
                         </Button>
-                      </Link>
-                    </Card.Content>
-                  </Card>
-                );
-              })}
-          </Card.Group>
+                      </Card.Content>
+                    </Card>
+                  );
+                })}
+            </Card.Group>
+          )}
+        </Fragment>
+        <Fragment>
+          {alerts !== null &&
+            alerts.length > 0 &&
+            alerts.map(alert => (
+              <React.Fragment key={alert.id}>
+                {alert.alertType === "success" ? (
+                  <Message positive>
+                    <Message.Header>{alert.msgHeader}</Message.Header>
+                    <p>{alert.msgContent}</p>
+                  </Message>
+                ) : (
+                  <div style={{ display: "none" }} />
+                )}
+              </React.Fragment>
+            ))}
         </Fragment>
       </Container>
     </Fragment>
   );
 };
 
-export default ExperienceCard;
+const mapStateToProps = state => ({
+  alerts: state.alert,
+  apiUrl: state.apiUrl.apiUrl
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteExperienceAct: (apiUrl, id, company, detailPage) => {
+      dispatch(deleteExperienceAct(apiUrl, id, company, detailPage));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ExperienceCard);

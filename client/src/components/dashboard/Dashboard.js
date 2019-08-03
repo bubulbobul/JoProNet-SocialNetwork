@@ -17,7 +17,7 @@ import "semantic-ui-css/semantic.min.css";
 
 import DashboardActions from "./DashboardActions";
 import ExperienceCard from "./experience/ExperienceCard";
-import EducationCard from "./education/EducationCard";
+import EducationList from "./education/EducationList";
 
 const Dashboard = props => {
   const { apiUrl, auth, profile } = props;
@@ -80,7 +80,7 @@ const Dashboard = props => {
                 <Divider hidden />
                 <Fragment>
                   <Segment raised>
-                    <EducationCard profile={props.profile.profile} />
+                    <EducationList profile={props.profile.profile} />
                   </Segment>
                 </Fragment>
               </Fragment>

@@ -13,7 +13,11 @@ import "semantic-ui-css/semantic.min.css";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import TextTruncate from "react-text-truncate";
 
-const EducationCard = ({ profile }) => {
+const EducationList = ({ profile }) => {
+  const handleDelete = (e, id) => {
+    console.log("Delete button", id);
+  };
+
   return (
     <Fragment>
       <Grid>
@@ -40,10 +44,24 @@ const EducationCard = ({ profile }) => {
                     <List.Item>
                       <List.Content>
                         <Link to={`/education/${id}`}>
-                          <Button floated='right' primary>
-                            More
+                          <Button animated='vertical' floated='right' primary>
+                            <Button.Content hidden>More</Button.Content>
+                            <Button.Content visible>
+                              <Icon name='info circle' />
+                            </Button.Content>
                           </Button>
                         </Link>
+                        <Button
+                          animated='vertical'
+                          floated='right'
+                          color='red'
+                          onClick={e => handleDelete(e, edu._id)}
+                        >
+                          <Button.Content hidden>Delete</Button.Content>
+                          <Button.Content visible>
+                            <Icon name='remove circle' />
+                          </Button.Content>
+                        </Button>
                       </List.Content>
                       <Header style={{ marginTop: "1%" }}>
                         <Icon name='graduation cap' />
@@ -79,4 +97,4 @@ const EducationCard = ({ profile }) => {
   );
 };
 
-export default EducationCard;
+export default EducationList;
