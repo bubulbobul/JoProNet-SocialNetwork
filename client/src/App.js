@@ -16,6 +16,7 @@ import CreateProfile from "./components/profile/profile-forms/CreateProfile";
 import EditProfile from "./components/profile/profile-forms/EditProfile";
 import AddExperience from "./components/profile/profile-forms/AddExperience";
 import AddEducation from "./components/profile/profile-forms/AddEducation";
+import ExperienceDetails from "./components/dashboard/experience/ExperienceDetails";
 
 import { Loading } from "./utils/Loader";
 import setAuthToken from "./utils/setAuthToken";
@@ -81,6 +82,11 @@ const App = props => {
                     <PrivateRoute
                       path='/add-education'
                       component={AddEducation}
+                    />
+                    <PrivateRoute
+                      exact
+                      path='/experience/:id'
+                      component={ExperienceDetails}
                     />
                   </Switch>
                 </Fragment>

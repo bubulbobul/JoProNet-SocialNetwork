@@ -16,7 +16,7 @@ import {
 import "semantic-ui-css/semantic.min.css";
 
 import DashboardActions from "./DashboardActions";
-import Experience from "./experience/Experience";
+import ExperienceList from "./experience/ExperienceList";
 
 const Dashboard = props => {
   const { apiUrl, auth, profile } = props;
@@ -32,67 +32,77 @@ const Dashboard = props => {
     <LoadingProfile />
   ) : (
     <Fragment>
-      <Container style={{ marginTop: "50px" }}>
-        <Grid columns='equal'>
-          <Grid.Column>
-            <Header as='h1' color='blue'>
-              Dashboard
-            </Header>
-          </Grid.Column>
-          <Grid.Column width={12} />
-        </Grid>
-        <Grid columns='equal'>
-          <Grid.Column>
-            <Header as='h3'>
-              <Icon name='user' />
-              <Header.Content>
-                Welcome {auth.user && auth.user.name}
-              </Header.Content>
-            </Header>
-          </Grid.Column>
-          <Grid.Column width={10} />
-        </Grid>
-        <Fragment>
-          {profile.hasProfile !== null ? (
-            <Fragment>
-              {profile.hasProfile === true && <DashboardActions />}
-            </Fragment>
-          ) : (
-            <Fragment>
-              <Grid columns='equal'>
-                <Grid.Column>
-                  {" "}
-                  <p>You have not yet setup a profile, please add some info</p>
-                </Grid.Column>
-              </Grid>{" "}
-              <Grid columns='equal'>
-                <Grid.Column>
-                  <Link to='/create-profile'>
-                    <Segment raised>
-                      <Header as='h5' color='grey'>
-                        <Icon name='user plus' color='blue' />
-                        <Header.Content>Create Profile</Header.Content>
-                      </Header>
-                    </Segment>
-                  </Link>
-                </Grid.Column>
-                <Grid.Column />
-                <Grid.Column />
-              </Grid>
-            </Fragment>
-          )}
-        </Fragment>
-        <Divider hidden />
-        <Divider hidden />
-        <Divider />
+      <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
+      <Container>
+        <Segment color='blue'>
+          <Grid columns='equal'>
+            <Grid.Column>
+              <Header as='h1' color='blue'>
+                Dashboard
+              </Header>
+            </Grid.Column>
+            <Grid.Column width={12} />
+          </Grid>
+          <Grid columns='equal'>
+            <Grid.Column>
+              <Header as='h3'>
+                <Icon name='user' />
+                <Header.Content>
+                  Welcome {auth.user && auth.user.name}
+                </Header.Content>
+              </Header>
+            </Grid.Column>
+            <Grid.Column width={10} />
+          </Grid>
+          <Fragment>
+            {profile.hasProfile !== null ? (
+              <Fragment>
+                {profile.hasProfile === true && <DashboardActions />}
+              </Fragment>
+            ) : (
+              <Fragment>
+                <Grid columns='equal'>
+                  <Grid.Column>
+                    {" "}
+                    <p>
+                      You have not yet setup a profile, please add some info
+                    </p>
+                  </Grid.Column>
+                </Grid>{" "}
+                <Grid columns='equal'>
+                  <Grid.Column>
+                    <Link to='/create-profile'>
+                      <Segment raised>
+                        <Header as='h5' color='grey'>
+                          <Icon name='user plus' color='blue' />
+                          <Header.Content>Create Profile</Header.Content>
+                        </Header>
+                      </Segment>
+                    </Link>
+                  </Grid.Column>
+                  <Grid.Column />
+                  <Grid.Column />
+                </Grid>
+              </Fragment>
+            )}
+          </Fragment>
+          <Divider hidden />
+          <Divider hidden />
+          <Divider />
 
-        <Divider hidden />
-        <Fragment>
-          <Segment raised>
-            <Experience />
-          </Segment>
-        </Fragment>
+          <Divider hidden />
+          <Fragment>
+            <Segment raised>
+              <ExperienceList profile={props.profile.profile} />
+            </Segment>
+          </Fragment>
+        </Segment>
       </Container>
+      <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
     </Fragment>
   );
 };

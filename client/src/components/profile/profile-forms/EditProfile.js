@@ -136,7 +136,10 @@ const EditProfile = props => {
 
   return (
     <Fragment>
-      <Container style={{ marginTop: "50px", marginBottom: "50px" }}>
+      <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
+      <Container>
         <Segment color='blue'>
           <Grid columns='equal'>
             <Grid.Column>
@@ -500,6 +503,9 @@ const EditProfile = props => {
           </Fragment>
         </Segment>
       </Container>
+      <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
     </Fragment>
   );
 };

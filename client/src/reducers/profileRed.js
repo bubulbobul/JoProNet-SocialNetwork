@@ -11,11 +11,14 @@ const initialState = {
   repose: [],
   loading: true,
   error: {},
-  hasProfile: null
+  hasProfile: null,
+  experiences: null,
+  educations: null
 };
 
 export default (state = initialState, action) => {
   const { type, payload } = action;
+  console.log("PAYLOAD GET_PROFILE", payload);
   switch (type) {
     case GET_PROFILE:
     case UPDATE_PROFILE:
@@ -23,7 +26,9 @@ export default (state = initialState, action) => {
         ...state,
         profile: payload,
         loading: false,
-        hasProfile: true
+        hasProfile: true,
+        experiences: payload.experience,
+        educations: payload.education
       };
     case PROFILE_ERROR:
       return {
@@ -36,6 +41,9 @@ export default (state = initialState, action) => {
       return {
         ...state,
         profile: null,
+        experience: null,
+        education: null,
+        hasProfile: null,
         repos: [],
         loading: false
       };

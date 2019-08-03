@@ -5,13 +5,13 @@ import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE } from "./types";
 
 // Fct to get the current users profile
 export const getCurrentProfileAct = apiUrl => async dispatch => {
-  console.log(apiUrl);
+  // console.log(apiUrl);
 
   const headers = {
     "Content-Type": "application/json"
   };
 
-  console.log(headers);
+  // console.log(headers);
   try {
     const res = await axios.get(`${apiUrl}/api/profile/me`);
 
