@@ -6,14 +6,16 @@ import { connect } from "react-redux";
 import { Container, Grid, Segment, Header, Icon } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
-const Education = props => {
+const Experience = props => {
   return (
-    <Container>
-      <Header>Education</Header>
-    </Container>
+    <Fragment>
+      <Container>
+        <Header>Experience Credentials</Header>
+      </Container>{" "}
+    </Fragment>
   );
 };
 
-Education.propTypes = {};
+Experience.propTypes = {};
 
-export default Education;
+export default Experience;

@@ -5,10 +5,18 @@ import { getCurrentProfileAct } from "../../actions/profileAct";
 import { LoadingProfile } from "../../utils/Loader";
 import { Link } from "react-router-dom";
 
-import { Container, Grid, Segment, Header, Icon } from "semantic-ui-react";
+import {
+  Container,
+  Grid,
+  Segment,
+  Header,
+  Icon,
+  Divider
+} from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
 import DashboardActions from "./DashboardActions";
+import Experience from "./experience/Experience";
 
 const Dashboard = props => {
   const { apiUrl, auth, profile } = props;
@@ -44,35 +52,46 @@ const Dashboard = props => {
           </Grid.Column>
           <Grid.Column width={10} />
         </Grid>
+        <Fragment>
+          {profile.hasProfile !== null ? (
+            <Fragment>
+              {profile.hasProfile === true && <DashboardActions />}
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Grid columns='equal'>
+                <Grid.Column>
+                  {" "}
+                  <p>You have not yet setup a profile, please add some info</p>
+                </Grid.Column>
+              </Grid>{" "}
+              <Grid columns='equal'>
+                <Grid.Column>
+                  <Link to='/create-profile'>
+                    <Segment raised>
+                      <Header as='h5' color='grey'>
+                        <Icon name='user plus' color='blue' />
+                        <Header.Content>Create Profile</Header.Content>
+                      </Header>
+                    </Segment>
+                  </Link>
+                </Grid.Column>
+                <Grid.Column />
+                <Grid.Column />
+              </Grid>
+            </Fragment>
+          )}
+        </Fragment>
+        <Divider hidden />
+        <Divider hidden />
+        <Divider />
 
-        {profile.hasProfile !== null ? (
-          <Fragment>
-            {profile.hasProfile === true && <DashboardActions />}
-          </Fragment>
-        ) : (
-          <Fragment>
-            <Grid columns='equal'>
-              <Grid.Column>
-                {" "}
-                <p>You have not yet setup a profile, please add some info</p>
-              </Grid.Column>
-            </Grid>{" "}
-            <Grid columns='equal'>
-              <Grid.Column>
-                <Link to='/create-profile'>
-                  <Segment raised>
-                    <Header as='h5' color='grey'>
-                      <Icon name='user plus' color='blue' />
-                      <Header.Content>Create Profile</Header.Content>
-                    </Header>
-                  </Segment>
-                </Link>
-              </Grid.Column>
-              <Grid.Column />
-              <Grid.Column />
-            </Grid>
-          </Fragment>
-        )}
+        <Divider hidden />
+        <Fragment>
+          <Segment raised>
+            <Experience />
+          </Segment>
+        </Fragment>
       </Container>
     </Fragment>
   );
