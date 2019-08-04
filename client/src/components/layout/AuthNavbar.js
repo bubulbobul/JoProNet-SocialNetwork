@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Menu, Button, Icon } from "semantic-ui-react";
+import React, { useState, Fragment } from "react";
+import { Menu, Container, Icon, Image } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
-import { connect } from "react-redux";
-import { logoutAct } from "../../actions/authAct";
 import { NavLink } from "react-router-dom";
+import TopSidebar from "./TopSidebar";
+import Logo from "./logo.jpg";
 
 const AuthNavbar = props => {
   const [active, setActive] = useState({
@@ -13,67 +13,53 @@ const AuthNavbar = props => {
 
   const handleItemClick = (e, { name }) => setActive({ activeItem: name });
 
-  const handleLogout = () => {
-    props.logoutAct();
-  };
   const { activeItem } = active;
   return (
-    <Menu size='huge' stackable>
-      <Menu.Item
-        name='jopronet'
-        active={activeItem === "jopronet"}
-        content='JoProNet'
-        onClick={handleItemClick}
-      />
-      <Menu.Menu position='right'>
-        <Menu.Item
-          as={NavLink}
-          to='/developers'
-          name='developers'
-          active={activeItem === "developers"}
-          onClick={handleItemClick}
-        >
-           <Icon name='address book' />
-           Developers
-        </Menu.Item>
-        <Menu.Item
-          as={NavLink}
-          to='/posts'
-          name='posts'
-          active={activeItem === "posts"}
-          onClick={handleItemClick}
-        >
-          <Icon name='comments' />
-          Posts
-        </Menu.Item>
-        <Menu.Item
-          as={NavLink}
-          to='/dashboard'
-          name='dashboard'
-          active={activeItem === "dashboard"}
-          onClick={handleItemClick}
-        >
-          <Icon name='user' />
-          Dashboard
-        </Menu.Item>
-        <Menu.Item onClick={handleLogout}>
-          <Button color='red' size='medium'>
-            LOG OUT
-          </Button>
-        </Menu.Item>
-      </Menu.Menu>
-    </Menu>
+    <Fragment>
+      <TopSidebar />
+      <Fragment>
+        <Menu size='large' stackable fixed>
+          <Container>
+            <Menu.Item content='JoProNet'>
+              <Image circular src={Logo} size='tiny' />{" "}
+            </Menu.Item>
+            <Menu.Menu position='right'>
+              <Menu.Item
+                as={NavLink}
+                to='/dashboard'
+                name='dashboard'
+                active={activeItem === "dashboard"}
+                onClick={handleItemClick}
+              >
+                <Icon name='user' />
+                DASHBOARD
+              </Menu.Item>
+              <Menu.Item
+                as={NavLink}
+                to='/posts'
+                name='posts'
+                active={activeItem === "posts"}
+                onClick={handleItemClick}
+              >
+                <Icon name='comments' />
+                POSTS
+              </Menu.Item>
+              <Menu.Item
+                as={NavLink}
+                to='/developers'
+                name='developers'
+                active={activeItem === "developers"}
+                onClick={handleItemClick}
+              >
+                <Icon name='address book' />
+                DEVELOPERS
+              </Menu.Item>
+            </Menu.Menu>
+          </Container>
+        </Menu>
+      </Fragment>
+    </Fragment>
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    apiUrl: state.apiUrl.apiUrl,
-    isAuthenticated: state.auth.isAuthenticated
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  { logoutAct }
-)(AuthNavbar);
+export default AuthNavbar;

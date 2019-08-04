@@ -27,7 +27,7 @@ const GuestNavbar = () => {
             to='/developers'
             name='developers'
             active={activeItem === "developers"}
-            content='Developers'
+            content='DEVELOPERS'
             onClick={handleItemClick}
           />
           <Menu.Item
@@ -35,7 +35,7 @@ const GuestNavbar = () => {
             to='/register'
             name='register'
             active={activeItem === "register"}
-            content='Register'
+            content='REGISTER'
             onClick={handleItemClick}
           />
           <Menu.Item
@@ -43,7 +43,7 @@ const GuestNavbar = () => {
             to='/login'
             name='login'
             active={activeItem === "login"}
-            content='Login'
+            content='LOGIN'
             onClick={handleItemClick}
           />
         </Menu.Menu>

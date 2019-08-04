@@ -13,12 +13,13 @@ import {
   Segment,
   Divider,
   Checkbox,
-  Message
+  Message,
+  Dropdown
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
 import { DateInput } from "semantic-ui-calendar-react";
-
+import { countryOptions } from "../../../utils/dropdownData";
 import { connect } from "react-redux";
 import { addExperienceAct } from "../../../actions/profileAct";
 
@@ -141,16 +142,22 @@ const AddExperience = props => {
                   </Form.Group>
                   <Form.Group widths='equal'>
                     <Form.Field>
-                      <Form.Input
-                        label='Country'
-                        placeholder='Country '
-                        name='country'
-                        value={country}
-                        onChange={e => handleChange(e)}
+                      <label htmlFor='country'>Country</label>
+                      <Dropdown
+                        button
+                        className='icon'
+                        fluid
+                        labeled
+                        icon='world'
+                        search
+                        placeholder='From which country are you from'
+                        options={countryOptions}
+                        onChange={(e, { value }) =>
+                          setFormData({ ...formData, country: value })
+                        }
                       />
                       <p style={{ color: "#888" }}>
-                        Country name suggested of the company (eg. USA, France,
-                        India)
+                        You can search for a country
                       </p>
                     </Form.Field>
                     <Form.Field>

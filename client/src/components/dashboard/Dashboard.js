@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfileAct } from "../../actions/profileAct";
+import { deleteAccountAct } from "../../actions/profileAct";
 import { LoadingProfile } from "../../utils/Loader";
 import { Link } from "react-router-dom";
 
@@ -12,7 +13,8 @@ import {
   Header,
   Icon,
   Divider,
-  Message
+  Message,
+  Button
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
@@ -29,6 +31,10 @@ const Dashboard = props => {
       props.getCurrentProfileAct(apiUrl);
     }
   }, []);
+
+  const handeDeleteAccount = e => {
+    props.deleteAccountAct(apiUrl);
+  };
 
   return profile.loading && profile.profile === null ? (
     <LoadingProfile />
@@ -68,7 +74,7 @@ const Dashboard = props => {
               <Header as='h3'>
                 <Icon name='user' />
                 <Header.Content>
-                  Welcome {auth.user && auth.user.name}
+                  Welcome {auth.user && auth.user.name.toUpperCase()}
                 </Header.Content>
               </Header>
             </Grid.Column>
@@ -128,6 +134,26 @@ const Dashboard = props => {
               </Fragment>
             )}
           </Fragment>
+          <Segment>
+            <Grid>
+              <Grid.Row>
+                <Grid.Column>
+                  <Fragment>
+                    <Button
+                      animated='fade'
+                      floated='right'
+                      onClick={handeDeleteAccount}
+                    >
+                      <Button.Content visible>Delete my account</Button.Content>
+                      <Button.Content hidden>
+                        Are you sure ? <Icon name='remove user' />
+                      </Button.Content>
+                    </Button>
+                  </Fragment>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Segment>
         </Segment>
       </Container>
       <Divider hidden />
@@ -154,6 +180,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getCurrentProfileAct: apiUrl => {
       dispatch(getCurrentProfileAct(apiUrl));
+    },
+    deleteAccountAct: apiUrl => {
+      dispatch(deleteAccountAct(apiUrl));
     }
   };
 };

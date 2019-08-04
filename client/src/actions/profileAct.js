@@ -130,6 +130,10 @@ export const addExperienceAct = (
         "success"
       )
     );
+
+    if (res.data) {
+      setTimeout(() => history.push("/dashboard"), 1000);
+    }
   } catch (err) {
     const errors = err.response.data.errors;
     // console.log(errors);
@@ -180,6 +184,9 @@ export const addEducationAct = (
         "success"
       )
     );
+    if (res.data) {
+      setTimeout(() => history.push("/dashboard"), 1000);
+    }
   } catch (err) {
     const errors = err.response.data.errors;
     // console.log(errors);
