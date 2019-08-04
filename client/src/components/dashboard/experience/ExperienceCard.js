@@ -16,7 +16,7 @@ import { deleteExperienceAct } from "../../../actions/profileAct";
 import { connect } from "react-redux";
 
 const ExperienceCard = props => {
-  const { profile, apiUrl, alerts } = props;
+  const { profile, apiUrl } = props;
   // console.log("apiUrl", apiUrl);
   const detailPage = false;
 
@@ -25,7 +25,7 @@ const ExperienceCard = props => {
     props.deleteExperienceAct(apiUrl, id, company, detailPage);
   };
 
-  console.log(profile.experience);
+  // console.log(profile.experience);
   return (
     <Fragment>
       <Grid>
@@ -107,29 +107,12 @@ const ExperienceCard = props => {
             </Card.Group>
           )}
         </Fragment>
-        <Fragment>
-          {alerts !== null &&
-            alerts.length > 0 &&
-            alerts.map(alert => (
-              <React.Fragment key={alert.id}>
-                {alert.alertType === "success" ? (
-                  <Message positive>
-                    <Message.Header>{alert.msgHeader}</Message.Header>
-                    <p>{alert.msgContent}</p>
-                  </Message>
-                ) : (
-                  <div style={{ display: "none" }} />
-                )}
-              </React.Fragment>
-            ))}
-        </Fragment>
       </Container>
     </Fragment>
   );
 };
 
 const mapStateToProps = state => ({
-  alerts: state.alert,
   apiUrl: state.apiUrl.apiUrl
 });
 

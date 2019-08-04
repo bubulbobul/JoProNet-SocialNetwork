@@ -11,7 +11,8 @@ import {
   Segment,
   Header,
   Icon,
-  Divider
+  Divider,
+  Message
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
@@ -20,7 +21,7 @@ import ExperienceCard from "./experience/ExperienceCard";
 import EducationList from "./education/EducationList";
 
 const Dashboard = props => {
-  const { apiUrl, auth, profile } = props;
+  const { apiUrl, auth, profile, alerts } = props;
 
   useEffect(function getCurrentProfil() {
     // 👍 We're not breaking the first rule anymore
@@ -38,6 +39,22 @@ const Dashboard = props => {
       <Divider hidden />
       <Container>
         <Segment color='blue'>
+          <Fragment>
+            {alerts !== null &&
+              alerts.length > 0 &&
+              alerts.map(alert => (
+                <Fragment key={alert.id}>
+                  <Divider />
+                  {alert.alertType === "success" && (
+                    <Message positive>
+                      <Message.Header>{alert.msgHeader}</Message.Header>
+                      <p>{alert.msgContent}</p>
+                    </Message>
+                  )}
+                  <Divider />
+                </Fragment>
+              ))}
+          </Fragment>
           <Grid columns='equal'>
             <Grid.Column>
               <Header as='h1' color='blue'>

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Dimmer, Loader, Segment } from "semantic-ui-react";
+import { Dimmer, Loader } from "semantic-ui-react";
 
 export const Loading = () => (
   <Fragment>

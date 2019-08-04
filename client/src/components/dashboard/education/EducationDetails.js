@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter, Redirect } from "react-router-dom";
 import { getCurrentProfileAct } from "../../../actions/profileAct";
+import { deleteEducationAct } from "../../../actions/profileAct";
 import { LoadingProfile } from "../../../utils/Loader";
 import Moment from "react-moment";
 import {
@@ -22,7 +23,17 @@ const EducationDetails = props => {
     props.getCurrentProfileAct(apiUrl);
   }, []);
 
-  return props.profile.loading && props.profile.profile === null ? (
+  const handleDelete = (e, id, school) => {
+    // console.log("Delete button", id, company);
+    props.deleteEducationAct(apiUrl, id, school, props.history, true);
+  };
+
+  return education === null ||
+    education === undefined ||
+    education.school === null ||
+    education.school === undefined ? (
+    <Redirect to='/dashboard' />
+  ) : props.profile.loading && props.profile.profile === null ? (
     <LoadingProfile />
   ) : (
     <Fragment>
@@ -124,6 +135,21 @@ const EducationDetails = props => {
                     <Icon name='left arrow' />
                   </Button>
                 </Link>
+                <Divider hidden />
+                <Divider hidden />
+                <Divider hidden />
+                <Button
+                  icon
+                  labelPosition='left'
+                  floated='right'
+                  color='red'
+                  onClick={e =>
+                    handleDelete(e, education._id, education.school)
+                  }
+                >
+                  Delete
+                  <Icon name='remove circle' />
+                </Button>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -158,6 +184,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getCurrentProfileAct: apiUrl => {
       dispatch(getCurrentProfileAct(apiUrl));
+    },
+    deleteEducationAct: (apiUrl, id, school, history, detailPage) => {
+      dispatch(deleteEducationAct(apiUrl, id, school, history, detailPage));
     }
   };
 };
@@ -165,4 +194,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(EducationDetails);
+)(withRouter(EducationDetails));

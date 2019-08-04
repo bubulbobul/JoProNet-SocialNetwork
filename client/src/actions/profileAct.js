@@ -13,11 +13,6 @@ import {
 export const getCurrentProfileAct = apiUrl => async dispatch => {
   // console.log(apiUrl);
 
-  const headers = {
-    "Content-Type": "application/json"
-  };
-
-  // console.log(headers);
   try {
     const res = await axios.get(`${apiUrl}/api/profile/me`);
 
@@ -56,10 +51,10 @@ export const createOrUpdateProfileAct = (
       }
     };
 
-    console.log("formData from createProfileAct", formData);
+    // console.log("formData from createProfileAct", formData);
     const res = await axios.post(`${apiUrl}/api/profile`, formData, config);
 
-    console.log("createOrUpdateProfileAct", res.data);
+    // console.log("createOrUpdateProfileAct", res.data);
     dispatch({
       type: GET_PROFILE,
       payload: res.data
@@ -67,15 +62,23 @@ export const createOrUpdateProfileAct = (
 
     if (edit) {
       dispatch(
-        setAlert("Your profile has been updated Successfully", null, "success")
+        setAlert(
+          "Success",
+          "Your profile has been updated successfully",
+          "success"
+        )
       );
     } else {
       dispatch(
-        setAlert("Your profile has been successfully created", null, "success")
+        setAlert(
+          "Success",
+          "Your profile has been created successfully ",
+          "success"
+        )
       );
     }
     if (res.data) {
-      setTimeout(() => history.push("/dashboard"), 7000);
+      setTimeout(() => history.push("/dashboard"), 3000);
     }
   } catch (err) {
     const errors = err.response.data.errors;
@@ -107,7 +110,7 @@ export const addExperienceAct = (
       }
     };
 
-    console.log("formData from addExperienceAct", formData);
+    // console.log("formData from addExperienceAct", formData);
     const res = await axios.put(
       `${apiUrl}/api/profile/experience`,
       formData,
@@ -121,12 +124,12 @@ export const addExperienceAct = (
     });
 
     dispatch(
-      setAlert("Your Experience has been updated Successfully", null, "success")
+      setAlert(
+        "Success",
+        "Your experience has been added successfully",
+        "success"
+      )
     );
-
-    if (res.data) {
-      setTimeout(() => history.push("/dashboard"), 7000);
-    }
   } catch (err) {
     const errors = err.response.data.errors;
     // console.log(errors);
@@ -171,12 +174,12 @@ export const addEducationAct = (
     });
 
     dispatch(
-      setAlert("Your Experience has been updated Successfully", null, "success")
+      setAlert(
+        "Success",
+        "Your education has been added successfully",
+        "success"
+      )
     );
-
-    if (res.data) {
-      setTimeout(() => history.push("/dashboard"), 7000);
-    }
   } catch (err) {
     const errors = err.response.data.errors;
     // console.log(errors);
@@ -204,24 +207,27 @@ export const deleteExperienceAct = (
 ) => async dispatch => {
   try {
     const res = await axios.delete(`${apiUrl}/api/profile/experience/${id}`);
+    console.log(detailPage, company, id, history);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
     });
-
+    console.log(detailPage, company, id, history);
     dispatch(
       setAlert(
         "Experience Deleted",
-        `Your experience with ${company} has been Deleted Successfully`,
+        `Your experience with ${company} has been deleted successfully`,
         "success"
       )
     );
-
+    console.log(detailPage, company, id, history);
     if (detailPage) {
-      history.push("/dashboard");
+      history.push(`/dashboard`);
     }
   } catch (err) {
+    console.log(err.response);
+    console.log(err);
     dispatch({
       type: PROFILE_ERROR,
       payload: {
@@ -233,7 +239,13 @@ export const deleteExperienceAct = (
 };
 
 // To Delete an EDUCATION
-export const deleteEducationAct = (apiUrl, id, school) => async dispatch => {
+export const deleteEducationAct = (
+  apiUrl,
+  id,
+  school,
+  history,
+  detailPage
+) => async dispatch => {
   try {
     const res = await axios.delete(`${apiUrl}/api/profile/education/${id}`);
 
@@ -244,11 +256,14 @@ export const deleteEducationAct = (apiUrl, id, school) => async dispatch => {
 
     dispatch(
       setAlert(
-        "Education Deleted",
-        `Your education in ${school} has been Deleted Successfully`,
+        "Success",
+        `Your education in ${school} has been deleted successfully`,
         "success"
       )
     );
+    if (detailPage) {
+      history.push("/dashboard");
+    }
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
