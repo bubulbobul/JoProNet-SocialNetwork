@@ -6,18 +6,24 @@ import {
   PROFILE_ERROR,
   UPDATE_PROFILE,
   CLEAR_PROFILE,
-  ACCOUNT_DELETED
+  ACCOUNT_DELETED,
+  GET_ALL_PROFILES,
+  GET_REPOS
 } from "./types";
 
 // Fct to get the current users profile
 export const getCurrentProfileAct = apiUrl => async dispatch => {
   // console.log(apiUrl);
 
+  dispatch({
+    type: CLEAR_PROFILE
+  });
+
   try {
     const res = await axios.get(`${apiUrl}/api/profile/me`);
 
     dispatch({
-      type: GET_PROFILE,
+      type: GET_ALL_PROFILES,
       payload: res.data
     });
   } catch (err) {
@@ -27,6 +33,74 @@ export const getCurrentProfileAct = apiUrl => async dispatch => {
       errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
     }
 
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status
+      }
+    });
+  }
+};
+
+// To Get all profiles
+export const getAllProfilesAct = apiUrl => async dispatch => {
+  // console.log(apiUrl);
+
+  try {
+    const res = await axios.get(`${apiUrl}/api/profile`);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status
+      }
+    });
+  }
+};
+
+// To Get a profile by the user id
+export const getProfileByTheUserIdAct = (apiUrl, userId) => async dispatch => {
+  // console.log(apiUrl);
+
+  try {
+    const res = await axios.get(`${apiUrl}/api/profile/user/${userId}`);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: {
+        msg: err.response.statusText,
+        status: err.response.status
+      }
+    });
+  }
+};
+
+// To Get Github repos
+export const getGithubReposAct = (apiUrl, githubUsername) => async dispatch => {
+  // console.log(apiUrl);
+
+  try {
+    const res = await axios.get(
+      `${apiUrl}/api/profile/github/${githubUsername}`
+    );
+
+    dispatch({
+      type: GET_REPOS,
+      payload: res.data
+    });
+  } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
       payload: {
