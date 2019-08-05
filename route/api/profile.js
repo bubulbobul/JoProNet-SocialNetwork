@@ -44,9 +44,6 @@ router.post(
         .isEmpty(),
       check("skills", "Skills is required")
         .not()
-        .isEmpty(),
-      check("number", "Number is required")
-        .not()
         .isEmpty()
     ]
   ],
@@ -79,14 +76,47 @@ router.post(
     // Build profile object
     const profileFields = {};
     profileFields.user = req.user.id;
-    if (company) profileFields.company = company;
-    if (number) profileFields.number = number;
-    if (country) profileFields.country = country;
-    if (website) profileFields.website = website;
-    if (location) profileFields.location = location;
-    if (bio) profileFields.bio = bio;
+
+    if (company === "") {
+      profileFields.company = null;
+    } else {
+      profileFields.company = company;
+    }
+
+    if (number === "") {
+      profileFields.number = null;
+    } else {
+      profileFields.number = number;
+    }
+
+    if (country === "") {
+      profileFields.country = null;
+    } else {
+      profileFields.country = country;
+    }
+
+    if (website === "") {
+      profileFields.website = null;
+    } else {
+      profileFields.website = website;
+    }
+
+    if (location === "") {
+      profileFields.location = null;
+    } else {
+      profileFields.location = location;
+    }
+    if (bio === "") {
+      profileFields.bio = null;
+    } else {
+      profileFields.bio = bio;
+    }
     if (status) profileFields.status = status;
-    if (githubusername) profileFields.githubusername = githubusername;
+    if (githubusername === "") {
+      profileFields.githubusername = null;
+    } else {
+      profileFields.githubusername = githubusername;
+    }
     // Skills - Split into array
     // if (typeof req.body.skills !== "undefined") {
     //   profileFields.skills = req.body.skills.split(",");
@@ -95,7 +125,9 @@ router.post(
     if (skills) {
       profileFields.skills = skills.split(",").map(skill => skill.trim());
     }
-    if (languages) {
+    if (languages === []) {
+      profileFields.languages = [null];
+    } else {
       profileFields.languages = languages
         .split(",")
         .map(language => language.trim());
