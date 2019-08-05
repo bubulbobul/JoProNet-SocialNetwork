@@ -106,11 +106,15 @@ export const loginAct = (apiUrl, email, password) => async dispatch => {
 };
 
 // To LOGOUT a user
-export const logoutAct = () => dispatch => {
+export const logoutAct = (history, tr) => dispatch => {
   dispatch({
     type: CLEAR_PROFILE
   });
   dispatch({
     type: LOGOUT
   });
+  console.log(history, tr);
+  if (tr) {
+    history.push("/");
+  }
 };

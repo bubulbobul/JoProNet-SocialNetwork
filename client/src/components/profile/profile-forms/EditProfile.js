@@ -85,6 +85,7 @@ const EditProfile = props => {
   console.log("apiUrl editProfile", apiUrl);
   console.log("profile.loading", loading);
   console.log("formData", formData);
+
   // console.log("profile.loading", props.profile.loading);
   const icon = "black tie";
   const edit = true;
@@ -103,6 +104,10 @@ const EditProfile = props => {
     youtube,
     instagram
   } = formData;
+
+  console.log("githubusername", githubusername);
+  console.log("formData.githubusername", formData.githubusername);
+  console.log("status", formData.status);
 
   const handleChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

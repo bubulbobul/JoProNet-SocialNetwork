@@ -9,7 +9,7 @@ import {
 
 const initialState = {
   profile: null,
-  profiles: [],
+  allProfiles: [],
   repos: [],
   loading: true,
   error: {},
@@ -20,7 +20,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   const { type, payload } = action;
-  // console.log("PAYLOAD GET_PROFILE", payload);
+  console.log("PAYLOAD GET_PROFILE", payload);
   switch (type) {
     case GET_PROFILE:
     case UPDATE_PROFILE:
@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
     case GET_ALL_PROFILES:
       return {
         ...state,
-        profiles: payload,
+        allProfiles: payload,
         loading: false
       };
     case GET_REPOS:

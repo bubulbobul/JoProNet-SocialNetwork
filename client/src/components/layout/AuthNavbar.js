@@ -18,9 +18,9 @@ const AuthNavbar = props => {
     <Fragment>
       <TopSidebar />
       <Fragment>
-        <Menu size='large' stackable fixed>
+        <Menu size='small' stackable>
           <Container>
-            <Menu.Item content='JoProNet'>
+            <Menu.Item>
               <Image circular src={Logo} size='tiny' />{" "}
             </Menu.Item>
             <Menu.Menu position='right'>
@@ -46,13 +46,13 @@ const AuthNavbar = props => {
               </Menu.Item>
               <Menu.Item
                 as={NavLink}
-                to='/developers'
-                name='developers'
-                active={activeItem === "developers"}
+                to='/profiles'
+                name='profiles'
+                active={activeItem === "profiles"}
                 onClick={handleItemClick}
               >
-                <Icon name='address book' />
-                DEVELOPERS
+                <Icon name='users' />
+                COMMUNITY
               </Menu.Item>
             </Menu.Menu>
           </Container>

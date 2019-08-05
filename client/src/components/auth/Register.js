@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alertAct";
 import { registerAct } from "../../actions/authAct";
@@ -12,7 +12,8 @@ import {
   Header,
   Icon,
   Button,
-  Message
+  Message,
+  Divider
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
@@ -57,92 +58,100 @@ const Register = props => {
 
   console.log(props.apiUrl);
   return (
-    <Grid textAlign='center' style={{ height: "80vh" }} verticalAlign='middle'>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' color='teal' textAlign='center'>
-          <Icon name='signup' /> Get Register & Enjoy
-        </Header>
-        <Form size='large'>
-          <Segment stacked>
-            <Form.Input
-              fluid
-              icon='user'
-              iconPosition='left'
-              placeholder='Name'
-              name='name'
-              value={name}
-              onChange={e => handleChange(e)}
-            />
-            <Form.Input
-              fluid
-              icon='mail'
-              iconPosition='left'
-              placeholder='E-mail address'
-              name='email'
-              value={email}
-              onChange={e => handleChange(e)}
-            />
-            <Form.Input
-              fluid
-              icon='lock'
-              iconPosition='left'
-              placeholder='Password'
-              type='password'
-              name='password'
-              value={password}
-              onChange={e => handleChange(e)}
-            />
-            <Form.Input
-              fluid
-              icon='redo'
-              iconPosition='left'
-              placeholder='Confirm your password'
-              type='password'
-              name='passwordConfirmation'
-              value={passwordConfirmation}
-              onChange={e => handleChange(e)}
-            />
-            <Segment raised color='teal'>
-              <Form.Group>
-                <Button
-                  color='teal'
-                  fluid
-                  size='large'
-                  onClick={e => handleSubmit(e)}
-                >
-                  Register
-                </Button>
-                <Button
-                  color='teal'
-                  fluid
-                  size='large'
-                  onClick={e => handleReset(e)}
-                >
-                  Cancel
-                </Button>
-              </Form.Group>
+    <Fragment>
+      <Divider hidden />
+      <Divider hidden />
+      <Grid
+        textAlign='center'
+        // style={{ height: "80vh" }}
+        verticalAlign='middle'
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as='h2' color='teal' textAlign='center'>
+            <Icon name='signup' /> Get Register & Enjoy
+          </Header>
+          <Form size='large'>
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon='user'
+                iconPosition='left'
+                placeholder='Name'
+                name='name'
+                value={name}
+                onChange={e => handleChange(e)}
+              />
+              <Form.Input
+                fluid
+                icon='mail'
+                iconPosition='left'
+                placeholder='E-mail address'
+                name='email'
+                value={email}
+                onChange={e => handleChange(e)}
+              />
+              <Form.Input
+                fluid
+                icon='lock'
+                iconPosition='left'
+                placeholder='Password'
+                type='password'
+                name='password'
+                value={password}
+                onChange={e => handleChange(e)}
+              />
+              <Form.Input
+                fluid
+                icon='redo'
+                iconPosition='left'
+                placeholder='Confirm your password'
+                type='password'
+                name='passwordConfirmation'
+                value={passwordConfirmation}
+                onChange={e => handleChange(e)}
+              />
+              <Segment raised color='teal'>
+                <Form.Group>
+                  <Button
+                    color='teal'
+                    fluid
+                    size='large'
+                    onClick={e => handleSubmit(e)}
+                  >
+                    Register
+                  </Button>
+                  <Button
+                    color='teal'
+                    fluid
+                    size='large'
+                    onClick={e => handleReset(e)}
+                  >
+                    Cancel
+                  </Button>
+                </Form.Group>
+              </Segment>
             </Segment>
-          </Segment>
-        </Form>
-        {alerts !== null &&
-          alerts.length > 0 &&
-          alerts.map(alert => (
-            <React.Fragment key={alert.id}>
-              {alert.alertType === "error" ? (
-                <Message error>
-                  <Message.Header>{alert.msgHeader}</Message.Header>
-                  <p>{alert.msgContent}</p>
-                </Message>
-              ) : (
-                <div style={{ display: "none" }} />
-              )}
-            </React.Fragment>
-          ))}
-        <Message>
-          Already have an account ? <Link to='/login'>Get Logged-in</Link>
-        </Message>
-      </Grid.Column>
-    </Grid>
+          </Form>
+          {alerts !== null &&
+            alerts.length > 0 &&
+            alerts.map(alert => (
+              <React.Fragment key={alert.id}>
+                {alert.alertType === "error" ? (
+                  <Message error>
+                    <Message.Header>{alert.msgHeader}</Message.Header>
+                    <p>{alert.msgContent}</p>
+                  </Message>
+                ) : (
+                  <div style={{ display: "none" }} />
+                )}
+              </React.Fragment>
+            ))}
+          <Message>
+            Already have an account ? <Link to='/login'>Get Logged-in</Link>
+          </Message>
+        </Grid.Column>
+      </Grid>
+    </Fragment>
   );
 };
 

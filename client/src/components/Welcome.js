@@ -8,7 +8,7 @@ const Welcome = ({ isAuthenticated }) => {
     return <Redirect to='/dashboard' />;
   }
 
-  return <div>Welcome</div>;
+  return <div style={{ marginTop: "100px" }}>Welcome</div>;
 };
 
 Welcome.protoTypes = {

@@ -15,15 +15,11 @@ import {
 export const getCurrentProfileAct = apiUrl => async dispatch => {
   // console.log(apiUrl);
 
-  dispatch({
-    type: CLEAR_PROFILE
-  });
-
   try {
     const res = await axios.get(`${apiUrl}/api/profile/me`);
 
     dispatch({
-      type: GET_ALL_PROFILES,
+      type: GET_PROFILE,
       payload: res.data
     });
   } catch (err) {
@@ -46,12 +42,15 @@ export const getCurrentProfileAct = apiUrl => async dispatch => {
 // To Get all profiles
 export const getAllProfilesAct = apiUrl => async dispatch => {
   // console.log(apiUrl);
+  dispatch({
+    type: CLEAR_PROFILE
+  });
 
   try {
     const res = await axios.get(`${apiUrl}/api/profile`);
 
     dispatch({
-      type: GET_PROFILE,
+      type: GET_ALL_PROFILES,
       payload: res.data
     });
   } catch (err) {
@@ -67,7 +66,7 @@ export const getAllProfilesAct = apiUrl => async dispatch => {
 
 // To Get a profile by the user id
 export const getProfileByTheUserIdAct = (apiUrl, userId) => async dispatch => {
-  // console.log(apiUrl);
+  console.log(apiUrl, userId);
 
   try {
     const res = await axios.get(`${apiUrl}/api/profile/user/${userId}`);
@@ -128,7 +127,7 @@ export const createOrUpdateProfileAct = (
     // console.log("formData from createProfileAct", formData);
     const res = await axios.post(`${apiUrl}/api/profile`, formData, config);
 
-    // console.log("createOrUpdateProfileAct", res.data);
+    console.log("createOrUpdateProfileAct", res.data);
     dispatch({
       type: GET_PROFILE,
       payload: res.data

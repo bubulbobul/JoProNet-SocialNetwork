@@ -16,8 +16,10 @@ import CreateProfile from "./components/profile/profile-forms/CreateProfile";
 import EditProfile from "./components/profile/profile-forms/EditProfile";
 import AddExperience from "./components/profile/profile-forms/AddExperience";
 import AddEducation from "./components/profile/profile-forms/AddEducation";
+import AllProfiles from "./components/profile/AllProfiles";
 import ExperienceDetails from "./components/dashboard/experience/ExperienceDetails";
 import EducationDetails from "./components/dashboard/education/EducationDetails";
+import Profile from "./components/profile/profile/Profile";
 
 import { Loading } from "./utils/Loader";
 import setAuthToken from "./utils/setAuthToken";
@@ -64,9 +66,11 @@ const App = props => {
                 <Fragment>
                   <Switch>
                     <Route exact path='/' component={Welcome} />
-                    <Route path='/developers' component={Developers} />
+                    {/* <Route path='/developers' component={AllProfiles} /> */}
                     <Route path='/login' component={Login} />
                     <Route path='/register' component={Register} />
+                    <Route path='/profiles' component={AllProfiles} />
+                    <Route path='/profile/:id' component={Profile} />
                     <PrivateRoute path='/dashboard' component={Dashboard} />
                     <PrivateRoute
                       path='/create-profile'
