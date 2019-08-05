@@ -44,7 +44,7 @@ const EducationDetails = props => {
         <Segment raised>
           <Grid divided>
             <Grid.Row>
-              <Grid.Column floated='left'>
+              <Grid.Column floated='left' width={8}>
                 <Header as='h2'>
                   <Icon name='book' color='blue' />
                   <Header.Content>
@@ -55,6 +55,11 @@ const EducationDetails = props => {
                         : `I got my ${education.degree} in ${education.school}`}
                     </Header.Subheader>
                   </Header.Content>
+                </Header>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <Header as='h4' floated='right'>
+                  My education with {education.school}
                 </Header>
               </Grid.Column>
             </Grid.Row>

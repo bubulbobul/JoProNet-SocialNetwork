@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 
 import Navbar from "./components/layout/Navbar";
 import Welcome from "./components/Welcome";
-import Developers from "./components/profile/Developers";
+
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Dashboard from "./components/dashboard/Dashboard";

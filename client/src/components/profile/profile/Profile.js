@@ -11,11 +11,15 @@ import {
   Button,
   Segment,
   Icon,
-  Image,
+  Message,
   Divider
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import ProfileTop from "./ProfileTop";
+import ProfileAbout from "./ProfileAbout";
+import ProfileExperience from "./ProfileExperience";
+import ProfileEducation from "./ProfileEducation";
+import ProfileGithub from "./ProfileGithub";
 
 const Profile = props => {
   const { match, apiUrl, profile, auth } = props;
@@ -59,16 +63,91 @@ const Profile = props => {
                         floated='right'
                         secondary
                       >
-                        Edit Profile
-                        <Icon name='edit' />
+                        Edit My Profile <Icon name='edit' />
                       </Button>
                     </Link>
                   )}
                 <Divider hidden />
                 <Divider hidden />
-
                 <Fragment>
                   <ProfileTop profile={profile.profile} />
+                </Fragment>
+                <Fragment>
+                  <ProfileAbout profile={profile.profile} />
+                </Fragment>
+                <Fragment>
+                  <Grid colomn={2}>
+                    <Grid.Column width={8}>
+                      <Segment>
+                        <Header as='h2' color='teal'>
+                          <Icon
+                            name='black tie'
+                            color='teal'
+                            style={{ color: "teal" }}
+                          />
+                          <Header.Content>Experience</Header.Content>
+                        </Header>
+                        {profile.profile.experience.length > 0 ? (
+                          <Fragment>
+                            {profile.profile.experience.map(exp => (
+                              <Segment key={exp._id} raised>
+                                <ProfileExperience experience={exp} />
+                              </Segment>
+                            ))}
+                          </Fragment>
+                        ) : (
+                          <Segment>
+                            <Message warning>
+                              <Message.Header>
+                                No experience credentials
+                              </Message.Header>
+                            </Message>
+                          </Segment>
+                        )}
+                      </Segment>
+                    </Grid.Column>
+                    <Grid.Column width={8}>
+                      <Segment>
+                        <Header as='h2' color='teal'>
+                          <Icon name='graduation cap' />
+                          <Header.Content>Education</Header.Content>
+                        </Header>
+                        {profile.profile.education.length > 0 ? (
+                          <Fragment>
+                            {profile.profile.education.map(edu => (
+                              <Segment key={edu._id} raised>
+                                <ProfileEducation education={edu} />
+                              </Segment>
+                            ))}
+                          </Fragment>
+                        ) : (
+                          <Segment>
+                            <Message warning>
+                              <Message.Header>
+                                No education credentials
+                              </Message.Header>
+                            </Message>
+                          </Segment>
+                        )}
+                      </Segment>
+                    </Grid.Column>
+                  </Grid>
+                </Fragment>
+                <Fragment>
+                  {profile.profile.githubusername && (
+                    <Segment>
+                      <Fragment>
+                        <Header as='h2' color='teal'>
+                          <Icon name='github' />
+                          <Header.Content>Github Repos</Header.Content>
+                        </Header>
+
+                        <ProfileGithub
+                          username={profile.profile.githubusername}
+                        />
+                      </Fragment>
+                    </Segment>
+                  )}
                 </Fragment>
               </Fragment>
             </Segment>

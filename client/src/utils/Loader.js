@@ -14,3 +14,5 @@ export const LoadingProfile = () => (
     <Loader size='massive'>Loading ...</Loader>
   </Dimmer>
 );
+
+export const LoaderInlineCentered = () => <Loader active inline='centered' />;

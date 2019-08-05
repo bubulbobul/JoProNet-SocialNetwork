@@ -1,11 +1,7 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
 import {
   Container,
-  List,
   Header,
-  Grid,
-  Button,
   Segment,
   Icon,
   Image,

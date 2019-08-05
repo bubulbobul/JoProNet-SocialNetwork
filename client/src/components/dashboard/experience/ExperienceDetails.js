@@ -46,9 +46,9 @@ const ExperienceDetails = props => {
           <Redirect to='/dashboard' />
         ) : (
           <Segment raised>
-            <Grid divided>
+            <Grid>
               <Grid.Row>
-                <Grid.Column floated='left'>
+                <Grid.Column floated='left' width={8}>
                   <Header as='h2'>
                     <Icon name='building' color='blue' />
                     <Header.Content>
@@ -58,6 +58,11 @@ const ExperienceDetails = props => {
                         for {experience.company} as {experience.title}
                       </Header.Subheader>
                     </Header.Content>
+                  </Header>
+                </Grid.Column>
+                <Grid.Column width={8}>
+                  <Header as='h4' floated='right'>
+                    My experience with {experience.company}
                   </Header>
                 </Grid.Column>
               </Grid.Row>
