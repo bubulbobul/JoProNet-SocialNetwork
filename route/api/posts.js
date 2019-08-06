@@ -17,6 +17,9 @@ router.post(
     auth,
     check("text", "Text is required")
       .not()
+      .isEmpty(),
+    check("title", "Title is required")
+      .not()
       .isEmpty()
   ],
   async (req, res) => {
@@ -29,6 +32,7 @@ router.post(
       const user = await User.findById(req.user.id).select("-password");
 
       const newPost = new Post({
+        title: req.body.title,
         text: req.body.text,
         name: user.name,
         avatar: user.avatar,

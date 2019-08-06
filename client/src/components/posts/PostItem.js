@@ -12,16 +12,15 @@ import {
   Label
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import { deletePost } from "../../actions/postAct";
 
 const PostItem = ({
   // isAlreadyLiked,
   removeLikeAct,
   addLikeAct,
-  deletePost,
+  deletePostAct,
   apiUrl,
   auth,
-  post: { _id, text, name, avatar, user, likes, comments, date }
+  post: { _id, title, text, name, avatar, user, likes, comments, date }
 }) => {
   const [likeDisabled, toggleLikeDisabled] = useState(false);
 
@@ -38,6 +37,8 @@ const PostItem = ({
         </Grid.Column>
         <Grid.Column width={12} style={{ paddingTop: "3%" }}>
           <Container textAlign='justified'>
+            {title && <Header>{title}</Header>}
+
             <p>{text}</p>
           </Container>
         </Grid.Column>
@@ -109,7 +110,7 @@ const PostItem = ({
                 icon
                 color='red'
                 floated='right'
-                onClick={e => deletePost(apiUrl, _id)}
+                onClick={e => deletePostAct(apiUrl, _id)}
               >
                 <Icon name='remove' />
               </Button>
