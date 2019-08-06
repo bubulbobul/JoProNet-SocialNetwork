@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import {
@@ -13,21 +12,28 @@ import {
   Label
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import { deletePost } from "../../actions/postAct";
 
 const PostItem = ({
+  // isAlreadyLiked,
   removeLikeAct,
   addLikeAct,
+  deletePost,
   apiUrl,
   auth,
   post: { _id, text, name, avatar, user, likes, comments, date }
 }) => {
-  console.log("dddddddddd", likes);
+  const [likeDisabled, toggleLikeDisabled] = useState(false);
+
+  // console.log(likes.user);
+  // console.log(likes);
+
   return (
     <Segment raised>
-      <Grid>
+      <Grid stackable>
         <Grid.Column width={3}>
-          <Container textAlign='center'>
-            <Image src={avatar} circular size='small' />
+          <Container>
+            <Image src={avatar} circular size='small' centered />
           </Container>
         </Grid.Column>
         <Grid.Column width={12} style={{ paddingTop: "3%" }}>
@@ -53,7 +59,11 @@ const PostItem = ({
             <Button
               as='div'
               labelPosition='right'
-              onClick={e => addLikeAct(apiUrl, _id)}
+              onClick={e => {
+                addLikeAct(apiUrl, _id);
+                toggleLikeDisabled(!likeDisabled);
+              }}
+              disabled={likeDisabled ? true : false}
             >
               <Button icon>
                 <Icon name='heart' />
@@ -66,7 +76,11 @@ const PostItem = ({
             <Button
               as='div'
               labelPosition='right'
-              onClick={e => removeLikeAct(apiUrl, _id)}
+              disabled={likeDisabled ? false : true}
+              onClick={e => {
+                removeLikeAct(apiUrl, _id);
+                toggleLikeDisabled(!likeDisabled);
+              }}
             >
               <Button icon>
                 <Icon name='heartbeat' />
@@ -76,7 +90,7 @@ const PostItem = ({
               </Label>
             </Button>
             <Link to='/post'>
-              <Button as='div' labelPosition='right'>
+              <Button as='div' labelPosition='right' primary>
                 <Button icon>
                   <Icon name='comments outline' />
                   Comment
@@ -91,7 +105,12 @@ const PostItem = ({
               Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>{" "}
             </Header>
             {!auth.loading && user === auth.user._id && (
-              <Button icon color='red' floated='right'>
+              <Button
+                icon
+                color='red'
+                floated='right'
+                onClick={e => deletePost(apiUrl, _id)}
+              >
                 <Icon name='remove' />
               </Button>
             )}
@@ -101,10 +120,5 @@ const PostItem = ({
     </Segment>
   );
 };
-
-// PostItem.propTypes = {
-//   post: PropTypes.object.isRequired,
-//   auth: PropTypes.object.isRequired
-// };
 
 export default PostItem;

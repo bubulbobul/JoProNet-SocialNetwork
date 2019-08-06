@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { getPostsAct } from "../../actions/postAct";
 import { addLikeAct, removeLikeAct } from "../../actions/postAct";
+import { deletePost } from "../../actions/postAct";
 
 import { LoadingProfile } from "../../utils/Loader";
 import PropTypes from "prop-types";
@@ -19,15 +20,29 @@ import PostItem from "./PostItem";
 const Posts = ({
   auth,
   removeLikeAct,
+  deletePost,
   addLikeAct,
   apiUrl,
   getPostsAct,
   post: { posts, loading }
 }) => {
   useEffect(() => {
-    console.log("use effeeeeeeeeeeeeeeeeeeeeect");
     getPostsAct(apiUrl);
   }, []);
+
+  // const isAlreadyLiked = () => {
+  //   if (
+  //     posts.map(post => post.likes.map(like => like.user === auth.user._id))
+  //   ) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
+
+  // const isAlreadyLiked = false;
+
+  console.log("posts", posts);
 
   return loading ? (
     <LoadingProfile />
@@ -66,6 +81,8 @@ const Posts = ({
                   addLikeAct={addLikeAct}
                   auth={auth}
                   apiUrl={apiUrl}
+                  deletePost={deletePost}
+                  // isAlreadyLiked={isAlreadyLiked}
                 />
               ))}
             </Fragment>
@@ -97,6 +114,9 @@ const mapDispatchToProps = dispatch => {
     },
     removeLikeAct: (apiUrl, postId) => {
       dispatch(removeLikeAct(apiUrl, postId));
+    },
+    deletePost: (apiUrl, postId) => {
+      dispatch(deletePost(apiUrl, postId));
     }
   };
 };
