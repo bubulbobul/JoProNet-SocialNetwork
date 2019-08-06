@@ -2,7 +2,8 @@ import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { getPostsAct } from "../../actions/postAct";
 import { addLikeAct, removeLikeAct } from "../../actions/postAct";
-import { deletePost } from "../../actions/postAct";
+import { deletePostAct } from "../../actions/postAct";
+import { addPostAct } from "../../actions/postAct";
 
 import { LoadingProfile } from "../../utils/Loader";
 import PropTypes from "prop-types";
@@ -12,16 +13,20 @@ import {
   Grid,
   Segment,
   Icon,
-  Divider
+  Divider,
+  Message
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import PostItem from "./PostItem";
+import PostForm from "./PostForm";
 
 const Posts = ({
   auth,
-  removeLikeAct,
-  deletePost,
+  alerts,
+  addPostAct,
+  deletePostAct,
   addLikeAct,
+  removeLikeAct,
   apiUrl,
   getPostsAct,
   post: { posts, loading }
@@ -52,7 +57,36 @@ const Posts = ({
         <Divider hidden />
         <Divider hidden />
         <Divider hidden />
+
         <Segment>
+          <Fragment>
+            {alerts !== null &&
+              alerts.length > 0 &&
+              alerts.map(alert => (
+                <Fragment key={alert.id}>
+                  {alert.alertType === "success" && (
+                    <Message positive>
+                      <Message.Header>{alert.msgHeader}</Message.Header>
+                      <p>{alert.msgContent}</p>
+                    </Message>
+                  )}
+                </Fragment>
+              ))}
+          </Fragment>
+          <Fragment>
+            {alerts !== null &&
+              alerts.length > 0 &&
+              alerts.map(alert => (
+                <Fragment key={alert.id}>
+                  {alert.alertType === "error" && (
+                    <Message error>
+                      <Message.Header>{alert.msgHeader}</Message.Header>
+                      <p>{alert.msgContent}</p>
+                    </Message>
+                  )}
+                </Fragment>
+              ))}
+          </Fragment>
           <Fragment>
             <Grid columns='equal'>
               <Grid.Column>
@@ -73,6 +107,9 @@ const Posts = ({
           <Divider hidden />
           <Segment>
             <Fragment>
+              <PostForm apiUrl={apiUrl} addPostAct={addPostAct} />
+            </Fragment>
+            <Fragment>
               {posts.map(post => (
                 <PostItem
                   key={post._id}
@@ -81,7 +118,7 @@ const Posts = ({
                   addLikeAct={addLikeAct}
                   auth={auth}
                   apiUrl={apiUrl}
-                  deletePost={deletePost}
+                  deletePostAct={deletePostAct}
                   // isAlreadyLiked={isAlreadyLiked}
                 />
               ))}
@@ -100,6 +137,7 @@ Posts.propTypes = {
 
 const mapStateToProps = state => ({
   apiUrl: state.apiUrl.apiUrl,
+  alerts: state.alert,
   post: state.post,
   auth: state.auth
 });
@@ -115,8 +153,11 @@ const mapDispatchToProps = dispatch => {
     removeLikeAct: (apiUrl, postId) => {
       dispatch(removeLikeAct(apiUrl, postId));
     },
-    deletePost: (apiUrl, postId) => {
-      dispatch(deletePost(apiUrl, postId));
+    deletePostAct: (apiUrl, postId, postName) => {
+      dispatch(deletePostAct(apiUrl, postId, postName));
+    },
+    addPostAct: (apiUrl, formData) => {
+      dispatch(addPostAct(apiUrl, formData));
     }
   };
 };

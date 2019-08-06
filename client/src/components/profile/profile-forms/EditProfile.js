@@ -55,7 +55,7 @@ const EditProfile = props => {
 
   useEffect(
     () => {
-      console.log("useEffect editprofile");
+      // console.log("useEffect editprofile");
       props.getCurrentProfileAct(apiUrl);
       setFormData({
         company: loading || !profile.company ? "" : profile.company,
@@ -82,9 +82,9 @@ const EditProfile = props => {
     // []
   );
 
-  console.log("apiUrl editProfile", apiUrl);
-  console.log("profile.loading", loading);
-  console.log("formData", formData);
+  // console.log("apiUrl editProfile", apiUrl);
+  // console.log("profile.loading", loading);
+  // console.log("formData", formData);
 
   // console.log("profile.loading", props.profile.loading);
   const icon = "black tie";
@@ -105,15 +105,15 @@ const EditProfile = props => {
     instagram
   } = formData;
 
-  console.log("githubusername", githubusername);
-  console.log("formData.githubusername", formData.githubusername);
-  console.log("status", formData.status);
+  // console.log("githubusername", githubusername);
+  // console.log("formData.githubusername", formData.githubusername);
+  // console.log("status", formData.status);
 
   const handleChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = e => {
-    console.log(formData);
+    // console.log(formData);
     e.preventDefault();
     props.createOrUpdateProfileAct(apiUrl, formData, props.history, edit);
     handleReset();

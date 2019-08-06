@@ -31,8 +31,15 @@ const PostItem = ({
     <Segment raised>
       <Grid stackable>
         <Grid.Column width={3}>
-          <Container>
-            <Image src={avatar} circular size='small' centered />
+          <Container textAlign='center'>
+            <Image
+              as={Link}
+              to={`/profile/${user}`}
+              src={avatar}
+              circular
+              size='small'
+              centered
+            />
           </Container>
         </Grid.Column>
         <Grid.Column width={12} style={{ paddingTop: "3%" }}>
@@ -48,7 +55,9 @@ const PostItem = ({
           verticalAlign='middle'
         >
           <Container textAlign='center'>
-            <Header>{name}</Header>
+            <Link to={`/profile/${user}`}>
+              <Header>{name}</Header>
+            </Link>
           </Container>
         </Grid.Column>
         <Grid.Column
@@ -110,7 +119,7 @@ const PostItem = ({
                 icon
                 color='red'
                 floated='right'
-                onClick={e => deletePostAct(apiUrl, _id)}
+                onClick={e => deletePostAct(apiUrl, _id, title)}
               >
                 <Icon name='remove' />
               </Button>
