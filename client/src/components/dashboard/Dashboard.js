@@ -44,7 +44,7 @@ const Dashboard = props => {
       <Divider hidden />
       <Divider hidden />
       <Container>
-        <Segment color='blue'>
+        <Segment raised>
           <Fragment>
             {alerts !== null &&
               alerts.length > 0 &&

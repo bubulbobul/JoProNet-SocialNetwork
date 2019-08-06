@@ -24,7 +24,9 @@ export const getCurrentProfileAct = apiUrl => async dispatch => {
     });
   } catch (err) {
     const errors = err.response.data.errors;
-    console.log(errors);
+    console.error(err);
+
+    // console.log(errors);
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
     }
@@ -54,6 +56,8 @@ export const getAllProfilesAct = apiUrl => async dispatch => {
       payload: res.data
     });
   } catch (err) {
+    console.error(err);
+
     dispatch({
       type: PROFILE_ERROR,
       payload: {
@@ -66,7 +70,7 @@ export const getAllProfilesAct = apiUrl => async dispatch => {
 
 // To Get a profile by the user id
 export const getProfileByTheUserIdAct = (apiUrl, userId) => async dispatch => {
-  console.log(apiUrl, userId);
+  // console.log(apiUrl, userId);
 
   try {
     const res = await axios.get(`${apiUrl}/api/profile/user/${userId}`);
@@ -76,6 +80,8 @@ export const getProfileByTheUserIdAct = (apiUrl, userId) => async dispatch => {
       payload: res.data
     });
   } catch (err) {
+    console.error(err);
+
     dispatch({
       type: PROFILE_ERROR,
       payload: {
@@ -100,6 +106,8 @@ export const getGithubReposAct = (apiUrl, githubUsername) => async dispatch => {
       payload: res.data
     });
   } catch (err) {
+    console.error(err);
+
     dispatch({
       type: PROFILE_ERROR,
       payload: {
@@ -151,9 +159,11 @@ export const createOrUpdateProfileAct = (
       );
     }
     if (res.data) {
-      setTimeout(() => history.push("/dashboard"), 3000);
+      setTimeout(() => history.push("/dashboard"), 1000);
     }
   } catch (err) {
+    console.error(err);
+
     const errors = err.response.data.errors;
     // console.log(errors);
     if (errors) {
@@ -190,7 +200,7 @@ export const addExperienceAct = (
       config
     );
 
-    console.log("res.data from addExperienceAct", res.data);
+    // console.log("res.data from addExperienceAct", res.data);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
@@ -208,6 +218,8 @@ export const addExperienceAct = (
       setTimeout(() => history.push("/dashboard"), 1000);
     }
   } catch (err) {
+    console.error(err);
+
     const errors = err.response.data.errors;
     // console.log(errors);
     if (errors) {
@@ -237,7 +249,7 @@ export const addEducationAct = (
       }
     };
 
-    console.log("formData from addEducationAct", formData);
+    // console.log("formData from addEducationAct", formData);
     const res = await axios.put(
       `${apiUrl}/api/profile/education`,
       formData,
@@ -261,6 +273,8 @@ export const addEducationAct = (
       setTimeout(() => history.push("/dashboard"), 1000);
     }
   } catch (err) {
+    console.error(err);
+
     const errors = err.response.data.errors;
     // console.log(errors);
     if (errors) {
@@ -293,7 +307,7 @@ export const deleteExperienceAct = (
       type: UPDATE_PROFILE,
       payload: res.data
     });
-    console.log(detailPage, company, id, history);
+    // console.log(detailPage, company, id, history);
     dispatch(
       setAlert(
         "Experience Deleted",
@@ -301,13 +315,15 @@ export const deleteExperienceAct = (
         "success"
       )
     );
-    console.log(detailPage, company, id, history);
+    // console.log(detailPage, company, id, history);
     if (detailPage) {
       history.push(`/dashboard`);
     }
   } catch (err) {
-    console.log(err.response);
-    console.log(err);
+    console.error(err);
+
+    // console.log(err.response);
+    // console.log(err);
     dispatch({
       type: PROFILE_ERROR,
       payload: {
@@ -372,6 +388,8 @@ export const deleteAccountAct = apiUrl => async dispatch => {
         )
       );
     } catch (err) {
+      console.error(err);
+
       dispatch({
         type: PROFILE_ERROR,
         payload: {

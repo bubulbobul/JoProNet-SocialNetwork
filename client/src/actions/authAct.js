@@ -58,11 +58,11 @@ export const loadUser = apiUrl => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
-  console.log("loadUSer", apiUrl);
+  // console.log("loadUSer", apiUrl);
   try {
     const res = await axios.get(`${apiUrl}/api/auth`);
 
-    console.log("loadUser", res.data);
+    // console.log("loadUser", res.data);
     dispatch({
       type: USER_LOADED,
       payload: res.data
@@ -81,7 +81,7 @@ export const loginAct = (apiUrl, email, password) => async dispatch => {
       "Content-Type": "application/json"
     }
   };
-  console.log("loginAct", apiUrl, email, password);
+  // console.log("loginAct", apiUrl, email, password);
   const body = JSON.stringify({ email, password });
 
   try {
@@ -94,8 +94,9 @@ export const loginAct = (apiUrl, email, password) => async dispatch => {
 
     dispatch(loadUser(apiUrl));
   } catch (err) {
+    console.error(err);
     const errors = err.response.data.errors;
-    console.log(errors);
+    // console.log(errors);
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
     }
@@ -113,7 +114,7 @@ export const logoutAct = (history, tr) => dispatch => {
   dispatch({
     type: LOGOUT
   });
-  console.log(history, tr);
+  // console.log(history, tr);
   if (tr) {
     history.push("/");
   }

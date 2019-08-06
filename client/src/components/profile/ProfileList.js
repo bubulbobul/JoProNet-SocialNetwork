@@ -21,8 +21,8 @@ const ProfileList = props => {
       {profile && (
         <Segment raised style={{ backgroundColor: "#f4f4f4" }}>
           <Grid>
-            <Grid.Column width={4}>
-              <Image src={profile.user.avatar} size='large' circular />
+            <Grid.Column width={3} textAlign='right'>
+              <Image src={profile.user.avatar} size='small' circular />
             </Grid.Column>
             <Grid.Column width={7}>
               <Container>

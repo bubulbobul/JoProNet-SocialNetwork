@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Dimmer, Loader } from "semantic-ui-react";
+import { Dimmer, Loader, Segment } from "semantic-ui-react";
 
 export const Loading = () => (
   <Fragment>
@@ -15,4 +15,14 @@ export const LoadingProfile = () => (
   </Dimmer>
 );
 
-export const LoaderInlineCentered = () => <Loader active inline='centered' />;
+export const LoaderInlineCentered = () => (
+  <Fragment>
+    <Segment>
+      <Dimmer active>
+        <Loader active inline='centered'>
+          Loading ...
+        </Loader>
+      </Dimmer>
+    </Segment>
+  </Fragment>
+);

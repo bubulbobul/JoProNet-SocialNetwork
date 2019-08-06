@@ -22,7 +22,7 @@ const TopSidebar = props => {
 
   useEffect(function getCurrentProfil() {
     // 👍 We're not breaking the first rule anymore
-    console.log("useEffect");
+    // console.log("useEffect");
     if (apiUrl) {
       props.getCurrentProfileAct(apiUrl);
     }
@@ -32,8 +32,8 @@ const TopSidebar = props => {
     props.logoutAct(props.history, true);
   };
 
-  console.log(auth);
-  console.log(auth.user);
+  // console.log(auth);
+  // console.log(auth.user);
   // console.log(auth.user.name);
 
   return auth.user === null ||

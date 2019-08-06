@@ -5,7 +5,6 @@ import { LoadingProfile } from "../../../utils/Loader";
 import { getProfileByTheUserIdAct } from "../../../actions/profileAct";
 import {
   Container,
-  List,
   Header,
   Grid,
   Button,
@@ -23,18 +22,10 @@ import ProfileGithub from "./ProfileGithub";
 
 const Profile = props => {
   const { match, apiUrl, profile, auth } = props;
-  // console.log(apiUrl, match);
 
   useEffect(() => {
-    console.log("useEffect");
     props.getProfileByTheUserIdAct(apiUrl, match.params.id);
   }, []);
-  console.log(profile);
-  console.log(profile.loading);
-  // console.log(singleProfile.user);
-  console.log(auth);
-  console.log(auth.isAuthenticated);
-  console.log(auth.loading);
 
   return (
     <Fragment>
