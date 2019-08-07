@@ -21,6 +21,7 @@ import ExperienceDetails from "./components/dashboard/experience/ExperienceDetai
 import EducationDetails from "./components/dashboard/education/EducationDetails";
 import Profile from "./components/profile/profile/Profile";
 import Posts from "./components/posts/Posts";
+import SinglePost from "./components/post/SinglePost";
 
 import { Loading } from "./utils/Loader";
 import setAuthToken from "./utils/setAuthToken";
@@ -100,6 +101,7 @@ const App = props => {
                       component={EducationDetails}
                     />
                     <PrivateRoute path='/posts' component={Posts} />
+                    <PrivateRoute path='/post/:id' component={SinglePost} />
                   </Switch>
                 </Fragment>
               </Fragment>

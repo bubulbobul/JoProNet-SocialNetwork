@@ -12,6 +12,7 @@ import {
   Label
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import TextTruncate from "react-text-truncate";
 
 const PostItem = ({
   // isAlreadyLiked,
@@ -45,8 +46,12 @@ const PostItem = ({
         <Grid.Column width={12} style={{ paddingTop: "3%" }}>
           <Container textAlign='justified'>
             {title && <Header>{title}</Header>}
-
-            <p>{text}</p>
+            <TextTruncate
+              line={3}
+              element='span'
+              truncateText='…'
+              text={text}
+            />
           </Container>
         </Grid.Column>
         <Grid.Column
@@ -99,7 +104,7 @@ const PostItem = ({
                 Dislike
               </Label>
             </Button>
-            <Link to='/post'>
+            <Link to={`/post/${_id}`}>
               <Button as='div' labelPosition='right' primary>
                 <Button icon>
                   <Icon name='comments outline' />

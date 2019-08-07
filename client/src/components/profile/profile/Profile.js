@@ -41,7 +41,7 @@ const Profile = props => {
               <Fragment>
                 <Link to='/profiles'>
                   <Button icon labelPosition='left' floated='left'>
-                    Go Back
+                    Go Back Pofiles
                     <Icon name='left arrow' />
                   </Button>
                 </Link>

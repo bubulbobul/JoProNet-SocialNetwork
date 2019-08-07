@@ -4,7 +4,6 @@ import { getPostsAct } from "../../actions/postAct";
 import { addLikeAct, removeLikeAct } from "../../actions/postAct";
 import { deletePostAct } from "../../actions/postAct";
 import { addPostAct } from "../../actions/postAct";
-
 import { LoadingProfile } from "../../utils/Loader";
 import PropTypes from "prop-types";
 import {
@@ -47,7 +46,7 @@ const Posts = ({
 
   // const isAlreadyLiked = false;
 
-  console.log("posts", posts);
+  // console.log("posts", posts);
 
   return loading ? (
     <LoadingProfile />
