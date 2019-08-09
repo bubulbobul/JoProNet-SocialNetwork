@@ -58,6 +58,7 @@ export default (state = initialState, action) => {
         experience: null,
         education: null,
         hasProfile: null,
+        // allProfiles: [],
         repos: [],
         loading: false
       };

@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
-import { getPostsAct } from "../../actions/postAct";
+import { getAllPostsAct } from "../../actions/postAct";
 import { addLikeAct, removeLikeAct } from "../../actions/postAct";
 import { deletePostAct } from "../../actions/postAct";
 import { addPostAct } from "../../actions/postAct";
-import { LoadingProfile } from "../../utils/Loader";
+import { MainLoader } from "../../utils/Loader";
 import PropTypes from "prop-types";
 import {
   Container,
@@ -27,11 +27,11 @@ const Posts = ({
   addLikeAct,
   removeLikeAct,
   apiUrl,
-  getPostsAct,
+  getAllPostsAct,
   post: { posts, loading }
 }) => {
   useEffect(() => {
-    getPostsAct(apiUrl);
+    getAllPostsAct(apiUrl);
   }, []);
 
   // const isAlreadyLiked = () => {
@@ -47,9 +47,9 @@ const Posts = ({
   // const isAlreadyLiked = false;
 
   // console.log("posts", posts);
-
-  return loading ? (
-    <LoadingProfile />
+  console.log(apiUrl);
+  return loading && posts.length === 0 ? (
+    <MainLoader />
   ) : (
     <Fragment>
       <Container>
@@ -130,7 +130,7 @@ const Posts = ({
 };
 
 Posts.propTypes = {
-  getPostsAct: PropTypes.func.isRequired,
+  getAllPostsAct: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired
 };
 
@@ -143,8 +143,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    getPostsAct: apiUrl => {
-      dispatch(getPostsAct(apiUrl));
+    getAllPostsAct: apiUrl => {
+      dispatch(getAllPostsAct(apiUrl));
     },
     addLikeAct: (apiUrl, postId) => {
       dispatch(addLikeAct(apiUrl, postId));

@@ -1,9 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { LoadingProfile } from "../../utils/Loader";
+import { LoaderPost } from "../../utils/Loader";
 import { getPostAct } from "../../actions/postAct";
-import PropTypes from "prop-types";
 import {
   Container,
   Header,
@@ -28,22 +27,19 @@ const SinglePost = ({
   getPostAct,
   addCommentAct,
   deleteCommentAct,
-  post: { post, loading },
+  post,
   match
 }) => {
   useEffect(() => {
     getPostAct(apiUrl, match.params.id);
   }, []);
 
-  return loading || post == null ? (
-    <LoadingProfile />
-  ) : (
+  return (
     <Fragment>
       <Container>
         <Divider hidden />
         <Divider hidden />
         <Divider hidden />
-
         <Segment>
           <Fragment>
             {alerts !== null &&
@@ -73,66 +69,85 @@ const SinglePost = ({
                 </Fragment>
               ))}
           </Fragment>
-          <Fragment>
-            <Link to='/posts'>
-              <Button icon labelPosition='left' floated='left'>
-                Go Back Posts
-                <Icon name='left arrow' />
-              </Button>
-            </Link>
-          </Fragment>
-          <Divider hidden />
-          <Divider hidden />
-          <Segment raised>
+          {post == null || post.loading === null || post.post === null ? (
             <Fragment>
+              <Divider hidden />
+              <Divider hidden />
+              <Divider hidden />
+              <LoaderPost />
+              <Divider hidden />
+              <Divider hidden />
+              <Divider hidden />
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Fragment>
+                <Link to='/posts'>
+                  <Button icon labelPosition='left' floated='left'>
+                    Go Back Posts
+                    <Icon name='left arrow' />
+                  </Button>
+                </Link>
+              </Fragment>
+              <Divider hidden />
+              <Divider hidden />
               <Segment raised>
-                <Grid stackable>
-                  <Grid.Column width={3}>
-                    <Container textAlign='center'>
-                      <Image
-                        as={Link}
-                        to={`/profile/${post.user}`}
-                        src={post.avatar}
-                        circular
-                        size='small'
-                        centered
-                      />
-                      <Divider hidden style={{ margin: "5% 0" }} />
-                      <Link to={`/profile/${post.user}`}>
-                        <Header>{post.name}</Header>
-                      </Link>
-                    </Container>
-                  </Grid.Column>
-                  <Grid.Column width={12} style={{ paddingTop: "3%" }}>
-                    <Container textAlign='justified'>
-                      {post.title && <Header>{post.title}</Header>}
-                      <p>{post.text}</p>
-                    </Container>
-                  </Grid.Column>
-                </Grid>
+                <Fragment>
+                  <Segment raised>
+                    <Grid stackable>
+                      <Grid.Column width={3}>
+                        <Container textAlign='center'>
+                          <Image
+                            as={Link}
+                            to={`/profile/${post.post.user}`}
+                            src={post.post.avatar}
+                            circular
+                            size='small'
+                            centered
+                          />
+                          <Divider hidden style={{ margin: "5% 0" }} />
+                          <Link to={`/profile/${post.post.user}`}>
+                            <Header>{post.post.name}</Header>
+                          </Link>
+                        </Container>
+                      </Grid.Column>
+                      <Grid.Column width={12} style={{ paddingTop: "3%" }}>
+                        <Container textAlign='justified'>
+                          {post.post.title && (
+                            <Header>{post.post.title}</Header>
+                          )}
+                          <p>{post.post.text}</p>
+                        </Container>
+                      </Grid.Column>
+                    </Grid>
+                  </Segment>
+                </Fragment>
+                <Fragment>
+                  <CommentForm
+                    apiUrl={apiUrl}
+                    addCommentAct={addCommentAct}
+                    postId={post.post._id}
+                  />
+                </Fragment>
+                <Fragment>
+                  {post.post.comments.map(comment => (
+                    <CommentItem
+                      key={comment._id}
+                      comment={comment}
+                      postId={post.post._id}
+                      deleteCommentAct={deleteCommentAct}
+                      auth={auth}
+                      apiUrl={apiUrl}
+                    />
+                  ))}
+                </Fragment>
               </Segment>
             </Fragment>
-            <Fragment>
-              <CommentForm
-                apiUrl={apiUrl}
-                addCommentAct={addCommentAct}
-                postId={post._id}
-              />
-            </Fragment>
-            <Fragment>
-              {post.comments.map(comment => (
-                <CommentItem
-                  key={comment._id}
-                  comment={comment}
-                  postId={post._id}
-                  deleteCommentAct={deleteCommentAct}
-                  auth={auth}
-                  apiUrl={apiUrl}
-                />
-              ))}
-            </Fragment>
-          </Segment>
+          )}
         </Segment>
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
       </Container>
     </Fragment>
   );

@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { LoadingProfile } from "../../../utils/Loader";
+import { LoaderProfile } from "../../../utils/Loader";
 import { getProfileByTheUserIdAct } from "../../../actions/profileAct";
 import {
   Container,
@@ -29,15 +29,23 @@ const Profile = props => {
 
   return (
     <Fragment>
-      {profile === null || profile.loading || profile.profile === null ? (
-        <LoadingProfile />
-      ) : (
-        <Fragment>
-          <Container>
-            <Divider hidden />
-            <Divider hidden />
-            <Divider hidden />
-            <Segment>
+      <Fragment>
+        <Container>
+          <Divider hidden />
+          <Divider hidden />
+          <Divider hidden />
+          <Segment>
+            {profile === null || profile.loading || profile.profile === null ? (
+              <Fragment>
+                <Divider hidden />
+                <Divider hidden />
+                <Divider hidden />
+                <LoaderProfile />
+                <Divider hidden />
+                <Divider hidden />
+                <Divider hidden />
+              </Fragment>
+            ) : (
               <Fragment>
                 <Link to='/profiles'>
                   <Button icon labelPosition='left' floated='left'>
@@ -141,13 +149,13 @@ const Profile = props => {
                   )}
                 </Fragment>
               </Fragment>
-            </Segment>
-            <Divider hidden />
-            <Divider hidden />
-            <Divider hidden />
-          </Container>
-        </Fragment>
-      )}
+            )}
+          </Segment>
+          <Divider hidden />
+          <Divider hidden />
+          <Divider hidden />
+        </Container>
+      </Fragment>
     </Fragment>
   );
 };
@@ -170,3 +178,18 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Profile);
+
+// <Segment loading>
+//               <Divider hidden />
+//               <Divider hidden />
+//               <Divider hidden />
+//               <Divider hidden />
+//               <Divider hidden />
+//               <Divider hidden />
+//               <Divider hidden />
+//               <Divider hidden />
+//               <Divider hidden />
+//               <Divider hidden />
+//               <Divider hidden />
+//               <Divider hidden />
+//             </Segment>

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, withRouter, Redirect } from "react-router-dom";
 import { getCurrentProfileAct } from "../../../actions/profileAct";
 import { deleteExperienceAct } from "../../../actions/profileAct";
-import { LoadingProfile } from "../../../utils/Loader";
+import { MainLoader } from "../../../utils/Loader";
 import Moment from "react-moment";
 import {
   Segment,
@@ -35,7 +35,7 @@ const ExperienceDetails = props => {
     experience.company === undefined ? (
     <Redirect to='/dashboard' />
   ) : props.profile.loading && props.profile.profile === null ? (
-    <LoadingProfile />
+    <MainLoader />
   ) : (
     <Fragment>
       <Divider hidden />

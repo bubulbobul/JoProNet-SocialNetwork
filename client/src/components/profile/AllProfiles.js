@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { LoadingProfile } from "../../utils/Loader";
+import { MainLoader } from "../../utils/Loader";
 import { getAllProfilesAct } from "../../actions/profileAct";
 import {
   Container,
@@ -24,7 +24,7 @@ const AllProfiles = props => {
   return (
     <Fragment>
       {profile.loading || profile.allProfiles.length === 0 ? (
-        <LoadingProfile />
+        <MainLoader />
       ) : (
         <Fragment>
           <Container>

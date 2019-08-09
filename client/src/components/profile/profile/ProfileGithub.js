@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { getGithubReposAct } from "../../../actions/profileAct";
-import { LoaderInlineCentered } from "../../../utils/Loader";
+// import { LoaderInlineCentered } from "../../../utils/Loader";
 import { Segment, Header, Grid, Icon, Divider } from "semantic-ui-react";
 // @ import a loader
 
@@ -13,7 +13,8 @@ const ProfileGithub = ({ username, apiUrl, getGithubReposAct, repos }) => {
   return (
     <Fragment>
       {repos === null ? (
-        <LoaderInlineCentered />
+        // <LoaderInlineCentered />
+        <p>Loading</p>
       ) : (
         <Fragment>
           {repos.map(repo => {

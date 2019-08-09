@@ -43,14 +43,23 @@ const GuestNavbar = () => {
               active={activeItem === "profiles"}
               onClick={handleItemClick}
             >
-              <Icon name='users' />
-              COMMNITY
+              <Button
+                animated='fade'
+                floated='right'
+                onClick={handleItemClick}
+                color='teal'
+              >
+                <Button.Content visible>COMMUNITY</Button.Content>
+                <Button.Content hidden>
+                  <Icon name='users' />
+                </Button.Content>
+              </Button>
             </Menu.Item>
             <Menu.Item
               as={NavLink}
-              to='/register'
-              name='register'
-              active={activeItem === "register"}
+              to='/join-us'
+              name='join us'
+              active={activeItem === "join us"}
               onClick={handleItemClick}
             >
               <Button
@@ -59,27 +68,9 @@ const GuestNavbar = () => {
                 onClick={handleItemClick}
                 color='teal'
               >
-                <Button.Content visible>SIGN UP</Button.Content>
+                <Button.Content visible>JOIN US</Button.Content>
                 <Button.Content hidden>
-                  <Icon name='signup' />
-                </Button.Content>
-              </Button>
-            </Menu.Item>
-            <Menu.Item
-              as={NavLink}
-              to='/login'
-              name='login'
-              active={activeItem === "login"}
-            >
-              <Button
-                animated='fade'
-                floated='right'
-                onClick={handleItemClick}
-                color='teal'
-              >
-                <Button.Content visible>LOGIN</Button.Content>
-                <Button.Content hidden>
-                  <Icon name='sign-in' />
+                  <Icon name='lock' />
                 </Button.Content>
               </Button>
             </Menu.Item>

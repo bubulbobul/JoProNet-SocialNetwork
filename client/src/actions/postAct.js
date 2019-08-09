@@ -9,7 +9,8 @@ import {
   ADD_POST,
   GET_POST,
   ADD_COMMENT,
-  REMOVE_COMMENT
+  REMOVE_COMMENT,
+  CLEAR_POST
 } from "./types";
 
 // Get posts
@@ -32,6 +33,9 @@ export const getPostsError = error => {
 
 export const getPostsAct = apiUrl => {
   return dispatch => {
+    dispatch({
+      type: CLEAR_POST
+    });
     return axios
       .get(`${apiUrl}/api/posts`)
       .then(response => {
@@ -45,6 +49,30 @@ export const getPostsAct = apiUrl => {
         throw error;
       });
   };
+};
+
+// Get all posts
+export const getAllPostsAct = apiUrl => async dispatch => {
+  dispatch({
+    type: CLEAR_POST
+  });
+
+  try {
+    const res = await axios.get(`${apiUrl}/api/posts`);
+
+    dispatch({
+      type: GET_POSTS,
+      payload: res.data
+    });
+  } catch (error) {
+    dispatch({
+      type: POST_ERROR,
+      payload: {
+        msg: error.response.statusText,
+        status: error.response.status
+      }
+    });
+  }
 };
 
 // ADD LIKE

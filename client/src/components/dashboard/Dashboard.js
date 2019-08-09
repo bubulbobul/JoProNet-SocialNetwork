@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getCurrentProfileAct } from "../../actions/profileAct";
 import { deleteAccountAct } from "../../actions/profileAct";
-import { LoadingProfile } from "../../utils/Loader";
+import { MainLoader } from "../../utils/Loader";
 import { Link } from "react-router-dom";
 
 import {
@@ -37,7 +37,7 @@ const Dashboard = props => {
   };
 
   return profile.loading && profile.profile === null ? (
-    <LoadingProfile />
+    <MainLoader />
   ) : (
     <Fragment>
       <Divider hidden />

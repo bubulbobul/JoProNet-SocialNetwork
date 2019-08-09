@@ -9,8 +9,7 @@ import { connect } from "react-redux";
 import Navbar from "./components/layout/Navbar";
 import Welcome from "./components/Welcome";
 
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
+import JoinUs from "./components/auth/JoinUs";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreateProfile from "./components/profile/profile-forms/CreateProfile";
 import EditProfile from "./components/profile/profile-forms/EditProfile";
@@ -23,7 +22,7 @@ import Profile from "./components/profile/profile/Profile";
 import Posts from "./components/posts/Posts";
 import SinglePost from "./components/post/SinglePost";
 
-import { Loading } from "./utils/Loader";
+import { WelcomeLoader } from "./utils/Loader";
 import setAuthToken from "./utils/setAuthToken";
 
 // const api = `http://localhost:5000`;
@@ -33,31 +32,31 @@ if (localStorage.token) {
   // console.log("localStorage.token", localStorage.token);
 }
 
-const App = props => {
+const App = ({ getAPIAct, apiUrl }) => {
   const [run, setRun] = useState({
     runApp: false
   });
 
   useEffect(() => {
     // console.log(`useEffect`);
-    props.getAPIAct();
+    getAPIAct();
     setRun({
       runApp: true
     });
   }, []);
 
   const { runApp } = run;
-  const { apiUrl } = props;
+  // const { apiUrl } = props;
   // console.log("localStorage.token", localStorage.token);
-  console.log("apiUrl", props.apiUrl);
+  console.log("apiUrl", apiUrl);
   // console.log("run", run.runApp);
   // console.log("props.isAuthenticated", props.isAuthenticated);
-  console.log("App.js");
+  // console.log("App.js");
   return (
     <Fragment>
       {runApp === false ? (
         <Fragment>
-          <Loading />
+          <WelcomeLoader />
         </Fragment>
       ) : (
         <Fragment>
@@ -68,9 +67,7 @@ const App = props => {
                 <Fragment>
                   <Switch>
                     <Route exact path='/' component={Welcome} />
-                    {/* <Route path='/developers' component={AllProfiles} /> */}
-                    <Route path='/login' component={Login} />
-                    <Route path='/register' component={Register} />
+                    <Route path='/join-us' component={JoinUs} />
                     <Route path='/profiles' component={AllProfiles} />
                     <Route path='/profile/:id' component={Profile} />
                     <PrivateRoute path='/dashboard' component={Dashboard} />

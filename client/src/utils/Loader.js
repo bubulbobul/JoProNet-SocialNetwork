@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
-import { Dimmer, Loader, Segment } from "semantic-ui-react";
+import { Dimmer, Loader } from "semantic-ui-react";
 
-export const Loading = () => (
+export const WelcomeLoader = () => (
   <Fragment>
     <Dimmer active>
       <Loader size='massive'>Loading ...</Loader>
@@ -9,20 +9,28 @@ export const Loading = () => (
   </Fragment>
 );
 
-export const LoadingProfile = () => (
+export const MainLoader = () => (
   <Dimmer active inverted>
     <Loader size='massive'>Loading ...</Loader>
   </Dimmer>
 );
 
-export const LoaderInlineCentered = () => (
+export const LoaderProfile = () => (
   <Fragment>
-    <Segment>
-      <Dimmer active>
-        <Loader active inline='centered'>
-          Loading ...
-        </Loader>
-      </Dimmer>
-    </Segment>
+    <Dimmer active>
+      <Loader active inline='centered' size='huge'>
+        The profile is loading ...
+      </Loader>
+    </Dimmer>
+  </Fragment>
+);
+
+export const LoaderPost = () => (
+  <Fragment>
+    <Dimmer active>
+      <Loader active inline='centered' size='huge'>
+        The post is loading...
+      </Loader>
+    </Dimmer>
   </Fragment>
 );

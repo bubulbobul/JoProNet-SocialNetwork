@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { getCurrentProfileAct } from "../../actions/profileAct";
-import { Link, withRouter, Redirect } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import {
   Sidebar,
   Segment,
@@ -15,7 +15,7 @@ import {
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { logoutAct } from "../../actions/authAct";
-import { LoadingProfile } from "../../utils/Loader";
+import { MainLoader } from "../../utils/Loader";
 
 const TopSidebar = props => {
   const { apiUrl, auth } = props;
@@ -39,7 +39,7 @@ const TopSidebar = props => {
   return auth.user === null ||
     auth.user.email === null ||
     auth.user.avatar === null ? (
-    <LoadingProfile />
+    <MainLoader />
   ) : (
     <Fragment>
       <Fragment>
@@ -48,12 +48,19 @@ const TopSidebar = props => {
             <Grid>
               <Grid.Row columns={3}>
                 <Grid.Column width={14}>
-                  <Header as='h5' inverted>
-                    <Image circular src={auth.user.avatar} avatar />{" "}
-                    {auth.user.name.toUpperCase()}
+                  <Header as='h4' inverted>
+                    <Header
+                      as={Link}
+                      to={`/profile/${auth.user._id}`}
+                      size='tiny'
+                      inverted
+                    >
+                      <Image circular src={auth.user.avatar} avatar />{" "}
+                      {auth.user.name.toUpperCase()}
+                    </Header>
                   </Header>
                 </Grid.Column>
-                <Grid.Column width={2}>
+                <Grid.Column width={2} floated='right'>
                   <Button
                     animated='fade'
                     floated='right'
