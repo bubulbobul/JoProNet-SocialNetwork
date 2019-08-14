@@ -4,7 +4,7 @@ import "semantic-ui-css/semantic.min.css";
 
 import { NavLink } from "react-router-dom";
 import TopSidebar from "./TopSidebar";
-import Logo from "./logo.jpg";
+import Logo from "../../assets/images/logo.jpg";
 
 const AuthNavbar = props => {
   const [active, setActive] = useState({

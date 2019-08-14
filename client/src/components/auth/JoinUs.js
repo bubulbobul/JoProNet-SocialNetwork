@@ -48,39 +48,39 @@ const JoinUs = ({
         <Divider hidden />
         <Divider hidden />
         <Divider hidden />
-        <Segment placeholder>
-          <Fragment>
-            {alerts !== null &&
-              alerts.length > 0 &&
-              alerts.map(alert => (
-                <Fragment key={alert.id}>
-                  {alert.alertType === "success" && (
-                    <Message positive>
-                      <Message.Header>{alert.msgHeader}</Message.Header>
-                      <p>{alert.msgContent}</p>
-                    </Message>
-                  )}
-                </Fragment>
-              ))}
-          </Fragment>
-          <Fragment>
-            {alerts !== null &&
-              alerts.length > 0 &&
-              alerts.map(alert => (
-                <Fragment key={alert.id}>
-                  {alert.alertType === "error" && (
-                    <Message error>
-                      <Message.Header>{alert.msgHeader}</Message.Header>
-                      <p>{alert.msgContent}</p>
-                    </Message>
-                  )}
-                </Fragment>
-              ))}
-          </Fragment>
-          <Grid columns={2} relaxed='very' stackable>
-            <Grid.Row>
-              <Grid.Column>
-                <Fragment>
+        <Fragment>
+          {alerts !== null &&
+            alerts.length > 0 &&
+            alerts.map(alert => (
+              <Fragment key={alert.id}>
+                {alert.alertType === "success" && (
+                  <Message positive>
+                    <Message.Header>{alert.msgHeader}</Message.Header>
+                    <p>{alert.msgContent}</p>
+                  </Message>
+                )}
+              </Fragment>
+            ))}
+        </Fragment>
+        <Fragment>
+          {alerts !== null &&
+            alerts.length > 0 &&
+            alerts.map(alert => (
+              <Fragment key={alert.id}>
+                {alert.alertType === "error" && (
+                  <Message error>
+                    <Message.Header>{alert.msgHeader}</Message.Header>
+                    <p>{alert.msgContent}</p>
+                  </Message>
+                )}
+              </Fragment>
+            ))}
+        </Fragment>
+        <Grid columns={2} relaxed='very' stackable>
+          <Grid.Row>
+            <Grid.Column>
+              <Fragment>
+                <Segment raised>
                   <Divider
                     horizontal
                     onClick={() =>
@@ -96,10 +96,12 @@ const JoinUs = ({
                       <Header.Content>Login</Header.Content>
                     </Header>
                   </Divider>
-                </Fragment>
-              </Grid.Column>
-              <Grid.Column>
-                <Fragment>
+                </Segment>
+              </Fragment>
+            </Grid.Column>
+            <Grid.Column>
+              <Fragment>
+                <Segment raised>
                   <Divider
                     horizontal
                     onClick={() =>
@@ -115,11 +117,13 @@ const JoinUs = ({
                       <Header.Content>Register</Header.Content>
                     </Header>
                   </Divider>
-                </Fragment>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column textAlign='center'>
+                </Segment>
+              </Fragment>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column textAlign='center'>
+              <Segment raised>
                 <Transition
                   unmountOnHide={true}
                   visible={login}
@@ -135,6 +139,7 @@ const JoinUs = ({
                     />
                   </Fragment>
                 </Transition>
+
                 <Fragment>
                   {register && (
                     <Image
@@ -150,9 +155,10 @@ const JoinUs = ({
                     />
                   )}
                 </Fragment>
-              </Grid.Column>
-
-              <Grid.Column verticalAlign='middle'>
+              </Segment>
+            </Grid.Column>
+            <Grid.Column verticalAlign='top'>
+              <Segment raised>
                 <Transition
                   unmountOnHide={true}
                   visible={register}
@@ -183,10 +189,13 @@ const JoinUs = ({
                     />
                   )}
                 </Fragment>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Segment>
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
       </Container>
     </Fragment>
   );

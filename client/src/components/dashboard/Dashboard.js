@@ -36,7 +36,7 @@ const Dashboard = props => {
     props.deleteAccountAct(apiUrl);
   };
 
-  return profile.loading && profile.profile === null ? (
+  return profile.profile === null ? (
     <MainLoader />
   ) : (
     <Fragment>

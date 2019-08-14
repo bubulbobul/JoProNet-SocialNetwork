@@ -15,7 +15,6 @@ import "semantic-ui-css/semantic.min.css";
 import TextTruncate from "react-text-truncate";
 
 const PostItem = ({
-  // isAlreadyLiked,
   removeLikeAct,
   addLikeAct,
   deletePostAct,
@@ -24,9 +23,6 @@ const PostItem = ({
   post: { _id, title, text, name, avatar, user, likes, comments, date }
 }) => {
   const [likeDisabled, toggleLikeDisabled] = useState(false);
-
-  // console.log(likes.user);
-  // console.log(likes);
 
   return (
     <Segment raised>

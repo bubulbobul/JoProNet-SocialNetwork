@@ -28,8 +28,11 @@ const AllProfiles = props => {
       ) : (
         <Fragment>
           <Container>
-            <Segment color='blue'>
-              <Fragment>
+            <Divider hidden />
+            <Divider hidden />
+            <Divider hidden />
+            <Fragment>
+              <Segment>
                 <Grid columns='equal'>
                   <Grid.Column>
                     <Header as='h1' color='blue'>
@@ -47,20 +50,21 @@ const AllProfiles = props => {
                     </Header>
                   </Grid.Column>
                 </Grid>
-              </Fragment>
-              <Divider hidden />
-              <Segment>
-                <Fragment>
-                  {profile.allProfiles.length > 0 ? (
-                    profile.allProfiles.map(profile => (
-                      <ProfileList key={profile._id} profile={profile} />
-                    ))
-                  ) : (
-                    <Header size='huge'>No profiles found...</Header>
-                  )}
-                </Fragment>
               </Segment>
-            </Segment>
+            </Fragment>
+            <Divider hidden />
+            <Fragment>
+              {profile.allProfiles.length > 0 ? (
+                profile.allProfiles.map(profile => (
+                  <ProfileList key={profile._id} profile={profile} />
+                ))
+              ) : (
+                <Header size='huge'>No profiles found...</Header>
+              )}
+            </Fragment>
+            <Divider hidden />
+            <Divider hidden />
+            <Divider hidden />
           </Container>
         </Fragment>
       )}

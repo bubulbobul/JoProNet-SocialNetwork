@@ -51,7 +51,7 @@ const ExperienceCard = props => {
               content="You don't have experience"
             />
           ) : (
-            <Card.Group itemsPerRow={4} centered>
+            <Card.Group itemsPerRow={4}>
               {profile &&
                 profile.experience.map((exp, id) => {
                   return (

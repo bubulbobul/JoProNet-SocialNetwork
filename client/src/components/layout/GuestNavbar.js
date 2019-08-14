@@ -7,10 +7,11 @@ import {
   Image,
   Segment,
   Button,
-  Container
+  Container,
+  Header
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import Logo from "./logo.jpg";
+import Logo from "../../assets/images/logo.jpg";
 
 const GuestNavbar = () => {
   const [active, setActive] = useState({
@@ -22,7 +23,13 @@ const GuestNavbar = () => {
   const { activeItem } = active;
   return (
     <React.Fragment>
-      <Menu inverted size='small' stackable>
+      <Menu
+        size='small'
+        // color='violet'
+        stackable
+        // inverted
+        // style={{ background: "#4c3c4c" }}
+      >
         <Container>
           <Menu.Item
             as={NavLink}
@@ -32,7 +39,7 @@ const GuestNavbar = () => {
             onClick={handleItemClick}
           >
             <Segment style={{ background: "white", padding: "0" }} size='mini'>
-              <Image circular src={Logo} size='tiny' />{" "}
+              <Image circular src={Logo} size='tiny' />
             </Segment>
           </Menu.Item>
           <Menu.Menu position='right'>
@@ -43,17 +50,8 @@ const GuestNavbar = () => {
               active={activeItem === "profiles"}
               onClick={handleItemClick}
             >
-              <Button
-                animated='fade'
-                floated='right'
-                onClick={handleItemClick}
-                color='teal'
-              >
-                <Button.Content visible>COMMUNITY</Button.Content>
-                <Button.Content hidden>
-                  <Icon name='users' />
-                </Button.Content>
-              </Button>
+              COMMUNITY
+              {/* <Header style={{ color: "white" }}>COMMUNITY</Header> */}
             </Menu.Item>
             <Menu.Item
               as={NavLink}
@@ -62,17 +60,8 @@ const GuestNavbar = () => {
               active={activeItem === "join us"}
               onClick={handleItemClick}
             >
-              <Button
-                animated='fade'
-                floated='right'
-                onClick={handleItemClick}
-                color='teal'
-              >
-                <Button.Content visible>JOIN US</Button.Content>
-                <Button.Content hidden>
-                  <Icon name='lock' />
-                </Button.Content>
-              </Button>
+              JOIN US
+              {/* <Header style={{ color: "white" }}>JOIN US</Header> */}
             </Menu.Item>
           </Menu.Menu>
         </Container>

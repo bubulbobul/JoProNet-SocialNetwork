@@ -34,20 +34,6 @@ const Posts = ({
     getAllPostsAct(apiUrl);
   }, []);
 
-  // const isAlreadyLiked = () => {
-  //   if (
-  //     posts.map(post => post.likes.map(like => like.user === auth.user._id))
-  //   ) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
-
-  // const isAlreadyLiked = false;
-
-  // console.log("posts", posts);
-  console.log(apiUrl);
   return loading && posts.length === 0 ? (
     <MainLoader />
   ) : (
@@ -56,37 +42,36 @@ const Posts = ({
         <Divider hidden />
         <Divider hidden />
         <Divider hidden />
-
-        <Segment>
-          <Fragment>
-            {alerts !== null &&
-              alerts.length > 0 &&
-              alerts.map(alert => (
-                <Fragment key={alert.id}>
-                  {alert.alertType === "success" && (
-                    <Message positive>
-                      <Message.Header>{alert.msgHeader}</Message.Header>
-                      <p>{alert.msgContent}</p>
-                    </Message>
-                  )}
-                </Fragment>
-              ))}
-          </Fragment>
-          <Fragment>
-            {alerts !== null &&
-              alerts.length > 0 &&
-              alerts.map(alert => (
-                <Fragment key={alert.id}>
-                  {alert.alertType === "error" && (
-                    <Message error>
-                      <Message.Header>{alert.msgHeader}</Message.Header>
-                      <p>{alert.msgContent}</p>
-                    </Message>
-                  )}
-                </Fragment>
-              ))}
-          </Fragment>
-          <Fragment>
+        <Fragment>
+          {alerts !== null &&
+            alerts.length > 0 &&
+            alerts.map(alert => (
+              <Fragment key={alert.id}>
+                {alert.alertType === "success" && (
+                  <Message positive>
+                    <Message.Header>{alert.msgHeader}</Message.Header>
+                    <p>{alert.msgContent}</p>
+                  </Message>
+                )}
+              </Fragment>
+            ))}
+        </Fragment>
+        <Fragment>
+          {alerts !== null &&
+            alerts.length > 0 &&
+            alerts.map(alert => (
+              <Fragment key={alert.id}>
+                {alert.alertType === "error" && (
+                  <Message error>
+                    <Message.Header>{alert.msgHeader}</Message.Header>
+                    <p>{alert.msgContent}</p>
+                  </Message>
+                )}
+              </Fragment>
+            ))}
+        </Fragment>
+        <Fragment>
+          <Segment>
             <Grid columns='equal'>
               <Grid.Column>
                 <Header as='h1' color='blue'>
@@ -102,28 +87,31 @@ const Posts = ({
                 </Header>
               </Grid.Column>
             </Grid>
-          </Fragment>
-          <Divider hidden />
-          <Segment>
-            <Fragment>
-              <PostForm apiUrl={apiUrl} addPostAct={addPostAct} />
-            </Fragment>
-            <Fragment>
-              {posts.map(post => (
-                <PostItem
-                  key={post._id}
-                  post={post}
-                  removeLikeAct={removeLikeAct}
-                  addLikeAct={addLikeAct}
-                  auth={auth}
-                  apiUrl={apiUrl}
-                  deletePostAct={deletePostAct}
-                  // isAlreadyLiked={isAlreadyLiked}
-                />
-              ))}
-            </Fragment>
           </Segment>
+        </Fragment>
+        <Divider hidden />
+        <Segment>
+          <Fragment>
+            <PostForm apiUrl={apiUrl} addPostAct={addPostAct} />
+          </Fragment>
+          <Fragment>
+            {posts.map(post => (
+              <PostItem
+                key={post._id}
+                post={post}
+                removeLikeAct={removeLikeAct}
+                addLikeAct={addLikeAct}
+                auth={auth}
+                apiUrl={apiUrl}
+                deletePostAct={deletePostAct}
+                // isAlreadyLiked={isAlreadyLiked}
+              />
+            ))}
+          </Fragment>
         </Segment>
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
       </Container>
     </Fragment>
   );

@@ -11,23 +11,29 @@ const initialState = {
   profile: null,
   allProfiles: [],
   repos: [],
-  loading: true,
+  profileLoading: true,
+  profileLoading1: true,
   error: {},
   hasProfile: null,
   experiences: null,
   educations: null
 };
 
+console.log("initialState", initialState);
+
 export default (state = initialState, action) => {
   const { type, payload } = action;
   // console.log("PAYLOAD GET_PROFILE", payload);
+  console.log("dddddddddddddddddd", state);
+  console.log(type);
   switch (type) {
     case GET_PROFILE:
     case UPDATE_PROFILE:
+      console.log("TYPE", type);
       return {
         ...state,
         profile: payload,
-        loading: false,
+        profileLoading: false,
         hasProfile: true,
         experiences: payload.experience,
         educations: payload.education
