@@ -15,7 +15,6 @@ import {
   Checkbox,
   Dropdown
 } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
 
 import { DateInput } from "semantic-ui-calendar-react";
 import { countryOptions } from "../../../utils/dropdownData";

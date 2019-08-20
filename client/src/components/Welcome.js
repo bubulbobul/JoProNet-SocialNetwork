@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 
-// import Carousel from "semantic-ui-carousel-react";
 import Carousel from "nuka-carousel";
 
 import {

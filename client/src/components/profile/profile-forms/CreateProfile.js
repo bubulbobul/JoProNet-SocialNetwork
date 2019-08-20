@@ -17,7 +17,6 @@ import {
   Label,
   Dropdown
 } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
 import { statusOptions } from "../../../utils/dropdownData";
 import { countryOptions } from "../../../utils/dropdownData";
 

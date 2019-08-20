@@ -13,7 +13,6 @@ import {
   Button,
   Icon
 } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
 import { addCommentAct } from "../../actions/postAct";
 import { deleteCommentAct } from "../../actions/postAct";
 import CommentForm from "./CommentForm";

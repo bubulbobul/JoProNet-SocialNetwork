@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import { Form, Button } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
 
 const Register = ({ apiUrl, registerAct, setAlert }) => {
   const [formData, setFormData] = useState({

@@ -11,7 +11,6 @@ import {
   Grid,
   Icon
 } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
 import ProfileList from "./ProfileList";
 
 const AllProfiles = props => {

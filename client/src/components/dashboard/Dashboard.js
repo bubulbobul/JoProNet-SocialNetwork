@@ -14,7 +14,6 @@ import {
   Icon,
   Divider
 } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
 
 import DashboardActions from "./DashboardActions";
 import ExperienceCard from "./experience/ExperienceCard";

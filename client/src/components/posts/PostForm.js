@@ -10,7 +10,6 @@ import {
   Divider,
   Label
 } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
 
 const PostForm = ({ apiUrl, addPostAct }) => {
   const [formData, setFormData] = useState({

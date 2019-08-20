@@ -6,8 +6,7 @@ import {
   Header,
   Grid,
   Image,
-  Container,
-  Modal
+  Container
 } from "semantic-ui-react";
 import Logo from "../assets/images/logo.jpg";
 
@@ -33,6 +32,7 @@ const TopSidebar = () => {
                   as='a'
                   href='https://github.com/bubulbobul'
                   target='_blank'
+                  rel='noopener noreferrer'
                 >
                   About Us
                 </List.Item>
@@ -54,6 +54,7 @@ const TopSidebar = () => {
                   as='a'
                   href='https://seyfertsoft.com/'
                   target='_blank'
+                  rel='noopener noreferrer'
                 >
                   Seyfert Soft
                 </List.Item>

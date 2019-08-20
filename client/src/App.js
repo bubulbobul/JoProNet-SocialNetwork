@@ -6,6 +6,8 @@ import { getAPIAct } from "./actions/getApiAct";
 // Redux
 import { connect } from "react-redux";
 
+import "semantic-ui-css/semantic.min.css";
+
 import Navbar from "./components/layout/Navbar";
 import Welcome from "./components/Welcome";
 import Footer from "./components/Footer";
@@ -52,54 +54,54 @@ const App = ({ getAPIAct, apiUrl }) => {
           <WelcomeLoader />
         </Fragment>
       ) : (
-        <Fragment>
-          {apiUrl !== (null || undefined) && (
-            <BrowserRouter>
-              <Fragment>
-                <Navbar />
+          <Fragment>
+            {apiUrl !== (null || undefined) && (
+              <BrowserRouter>
                 <Fragment>
-                  <Switch>
-                    <Route exact path='/' component={Welcome} />
-                    <Route path='/join-us' component={JoinUs} />
-                    <Route path='/profiles' component={AllProfiles} />
-                    <Route path='/profile/:id' component={Profile} />
-                    <PrivateRoute path='/dashboard' component={Dashboard} />
-                    <PrivateRoute
-                      path='/create-profile'
-                      component={CreateProfile}
-                    />
-                    <PrivateRoute
-                      path='/edit-profile'
-                      component={EditProfile}
-                    />
-                    <PrivateRoute
-                      path='/add-experience'
-                      component={AddExperience}
-                    />
-                    <PrivateRoute
-                      path='/add-education'
-                      component={AddEducation}
-                    />
-                    <PrivateRoute
-                      exact
-                      path='/experience/:id'
-                      component={ExperienceDetails}
-                    />
-                    <PrivateRoute
-                      exact
-                      path='/education/:id'
-                      component={EducationDetails}
-                    />
-                    <PrivateRoute path='/posts' component={Posts} />
-                    <PrivateRoute path='/post/:id' component={SinglePost} />
-                  </Switch>
+                  <Navbar />
+                  <Fragment>
+                    <Switch>
+                      <Route exact path='/' component={Welcome} />
+                      <Route path='/join-us' component={JoinUs} />
+                      <Route path='/profiles' component={AllProfiles} />
+                      <Route path='/profile/:id' component={Profile} />
+                      <PrivateRoute path='/dashboard' component={Dashboard} />
+                      <PrivateRoute
+                        path='/create-profile'
+                        component={CreateProfile}
+                      />
+                      <PrivateRoute
+                        path='/edit-profile'
+                        component={EditProfile}
+                      />
+                      <PrivateRoute
+                        path='/add-experience'
+                        component={AddExperience}
+                      />
+                      <PrivateRoute
+                        path='/add-education'
+                        component={AddEducation}
+                      />
+                      <PrivateRoute
+                        exact
+                        path='/experience/:id'
+                        component={ExperienceDetails}
+                      />
+                      <PrivateRoute
+                        exact
+                        path='/education/:id'
+                        component={EducationDetails}
+                      />
+                      <PrivateRoute path='/posts' component={Posts} />
+                      <PrivateRoute path='/post/:id' component={SinglePost} />
+                    </Switch>
+                  </Fragment>
+                  <Footer />
                 </Fragment>
-                <Footer />
-              </Fragment>
-            </BrowserRouter>
-          )}
-        </Fragment>
-      )}
+              </BrowserRouter>
+            )}
+          </Fragment>
+        )}
     </Fragment>
   );
 };

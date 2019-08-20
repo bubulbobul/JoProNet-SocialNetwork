@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { Menu, Image, Segment, Container } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
 import Logo from "../../assets/images/logo.jpg";
 
 const GuestNavbar = () => {

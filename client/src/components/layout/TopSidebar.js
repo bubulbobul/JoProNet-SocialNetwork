@@ -13,7 +13,6 @@ import {
   Icon,
   Container
 } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
 import { logoutAct } from "../../actions/authAct";
 import { MainLoader } from "../../utils/Loader";
 
