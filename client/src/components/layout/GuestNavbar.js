@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import {
-  Menu,
-  Icon,
-  Image,
-  Segment,
-  Button,
-  Container,
-  Header
-} from "semantic-ui-react";
+import { Menu, Image, Segment, Container } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import Logo from "../../assets/images/logo.jpg";
 
@@ -23,13 +15,7 @@ const GuestNavbar = () => {
   const { activeItem } = active;
   return (
     <React.Fragment>
-      <Menu
-        size='small'
-        // color='violet'
-        stackable
-        // inverted
-        // style={{ background: "#4c3c4c" }}
-      >
+      <Menu size='small' fixed='top' stackable>
         <Container>
           <Menu.Item
             as={NavLink}
@@ -51,7 +37,6 @@ const GuestNavbar = () => {
               onClick={handleItemClick}
             >
               COMMUNITY
-              {/* <Header style={{ color: "white" }}>COMMUNITY</Header> */}
             </Menu.Item>
             <Menu.Item
               as={NavLink}
@@ -61,7 +46,6 @@ const GuestNavbar = () => {
               onClick={handleItemClick}
             >
               JOIN US
-              {/* <Header style={{ color: "white" }}>JOIN US</Header> */}
             </Menu.Item>
           </Menu.Menu>
         </Container>

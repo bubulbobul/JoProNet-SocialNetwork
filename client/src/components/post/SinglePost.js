@@ -10,7 +10,6 @@ import {
   Segment,
   Image,
   Divider,
-  Message,
   Button,
   Icon
 } from "semantic-ui-react";
@@ -23,7 +22,6 @@ import CommentItem from "./CommentItem";
 const SinglePost = ({
   auth,
   apiUrl,
-  alerts,
   getPostAct,
   addCommentAct,
   deleteCommentAct,
@@ -40,35 +38,13 @@ const SinglePost = ({
         <Divider hidden />
         <Divider hidden />
         <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
         <Segment>
-          <Fragment>
-            {alerts !== null &&
-              alerts.length > 0 &&
-              alerts.map(alert => (
-                <Fragment key={alert.id}>
-                  {alert.alertType === "success" && (
-                    <Message positive>
-                      <Message.Header>{alert.msgHeader}</Message.Header>
-                      <p>{alert.msgContent}</p>
-                    </Message>
-                  )}
-                </Fragment>
-              ))}
-          </Fragment>
-          <Fragment>
-            {alerts !== null &&
-              alerts.length > 0 &&
-              alerts.map(alert => (
-                <Fragment key={alert.id}>
-                  {alert.alertType === "error" && (
-                    <Message error>
-                      <Message.Header>{alert.msgHeader}</Message.Header>
-                      <p>{alert.msgContent}</p>
-                    </Message>
-                  )}
-                </Fragment>
-              ))}
-          </Fragment>
           {post == null || post.loading === null || post.post === null ? (
             <Fragment>
               <Divider hidden />
@@ -91,57 +67,53 @@ const SinglePost = ({
               </Fragment>
               <Divider hidden />
               <Divider hidden />
-              <Segment raised>
-                <Fragment>
-                  <Segment raised>
-                    <Grid stackable>
-                      <Grid.Column width={3}>
-                        <Container textAlign='center'>
-                          <Image
-                            as={Link}
-                            to={`/profile/${post.post.user}`}
-                            src={post.post.avatar}
-                            circular
-                            size='small'
-                            centered
-                          />
-                          <Divider hidden style={{ margin: "5% 0" }} />
-                          <Link to={`/profile/${post.post.user}`}>
-                            <Header>{post.post.name}</Header>
-                          </Link>
-                        </Container>
-                      </Grid.Column>
-                      <Grid.Column width={12} style={{ paddingTop: "3%" }}>
-                        <Container textAlign='justified'>
-                          {post.post.title && (
-                            <Header>{post.post.title}</Header>
-                          )}
-                          <p>{post.post.text}</p>
-                        </Container>
-                      </Grid.Column>
-                    </Grid>
-                  </Segment>
-                </Fragment>
-                <Fragment>
-                  <CommentForm
-                    apiUrl={apiUrl}
-                    addCommentAct={addCommentAct}
+              <Fragment>
+                <Segment raised>
+                  <Grid stackable>
+                    <Grid.Column width={3}>
+                      <Container textAlign='center'>
+                        <Image
+                          as={Link}
+                          to={`/profile/${post.post.user}`}
+                          src={post.post.avatar}
+                          circular
+                          size='small'
+                          centered
+                        />
+                        <Divider hidden style={{ margin: "5% 0" }} />
+                        <Link to={`/profile/${post.post.user}`}>
+                          <Header>{post.post.name}</Header>
+                        </Link>
+                      </Container>
+                    </Grid.Column>
+                    <Grid.Column width={12} style={{ paddingTop: "3%" }}>
+                      <Container textAlign='justified'>
+                        {post.post.title && <Header>{post.post.title}</Header>}
+                        <p>{post.post.text}</p>
+                      </Container>
+                    </Grid.Column>
+                  </Grid>
+                </Segment>
+              </Fragment>
+              <Fragment>
+                <CommentForm
+                  apiUrl={apiUrl}
+                  addCommentAct={addCommentAct}
+                  postId={post.post._id}
+                />
+              </Fragment>
+              <Fragment>
+                {post.post.comments.map(comment => (
+                  <CommentItem
+                    key={comment._id}
+                    comment={comment}
                     postId={post.post._id}
+                    deleteCommentAct={deleteCommentAct}
+                    auth={auth}
+                    apiUrl={apiUrl}
                   />
-                </Fragment>
-                <Fragment>
-                  {post.post.comments.map(comment => (
-                    <CommentItem
-                      key={comment._id}
-                      comment={comment}
-                      postId={post.post._id}
-                      deleteCommentAct={deleteCommentAct}
-                      auth={auth}
-                      apiUrl={apiUrl}
-                    />
-                  ))}
-                </Fragment>
-              </Segment>
+                ))}
+              </Fragment>
             </Fragment>
           )}
         </Segment>
@@ -156,7 +128,6 @@ const SinglePost = ({
 const mapStateToProps = state => ({
   apiUrl: state.apiUrl.apiUrl,
   auth: state.auth,
-  alerts: state.alert,
   post: state.post
 });
 

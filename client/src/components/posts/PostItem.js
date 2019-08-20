@@ -41,7 +41,12 @@ const PostItem = ({
         </Grid.Column>
         <Grid.Column width={12} style={{ paddingTop: "3%" }}>
           <Container textAlign='justified'>
-            {title && <Header>{title}</Header>}
+            {title && (
+              <Header as={Link} to={`/post/${_id}`}>
+                {title}
+              </Header>
+            )}
+            <br />
             <TextTruncate
               line={3}
               element='span'
@@ -72,9 +77,9 @@ const PostItem = ({
               labelPosition='right'
               onClick={e => {
                 addLikeAct(apiUrl, _id);
-                toggleLikeDisabled(!likeDisabled);
+                // toggleLikeDisabled(!likeDisabled);
               }}
-              disabled={likeDisabled ? true : false}
+              // disabled={likeDisabled ? true : false}
             >
               <Button icon>
                 <Icon name='heart' />
@@ -87,10 +92,10 @@ const PostItem = ({
             <Button
               as='div'
               labelPosition='right'
-              disabled={likeDisabled ? false : true}
+              // disabled={likeDisabled ? false : true}
               onClick={e => {
                 removeLikeAct(apiUrl, _id);
-                toggleLikeDisabled(!likeDisabled);
+                // toggleLikeDisabled(!likeDisabled);
               }}
             >
               <Button icon>
@@ -102,11 +107,10 @@ const PostItem = ({
             </Button>
             <Link to={`/post/${_id}`}>
               <Button as='div' labelPosition='right' primary>
-                <Button icon>
-                  <Icon name='comments outline' />
-                  Comment
-                </Button>{" "}
-                <Label basic pointing='left'>
+                <Button icon color='blue'>
+                  <Icon name='comments outline' /> Comment
+                </Button>
+                <Label basic pointing='left' color='blue'>
                   {comments.length}
                 </Label>
               </Button>

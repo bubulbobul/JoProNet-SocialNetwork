@@ -15,8 +15,7 @@ import {
   Segment,
   Divider,
   Label,
-  Dropdown,
-  Message
+  Dropdown
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { statusOptions } from "../../../utils/dropdownData";
@@ -43,7 +42,7 @@ const CreateProfile = props => {
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
-  const { apiUrl, auth, alerts } = props;
+  const { apiUrl, auth } = props;
   const icon = "black tie";
   const edit = false;
 
@@ -413,38 +412,6 @@ const CreateProfile = props => {
               </Button>
             </Link>
           </Form>
-          <Fragment>
-            {alerts !== null &&
-              alerts.length > 0 &&
-              alerts.map(alert => (
-                <React.Fragment key={alert.id}>
-                  {alert.alertType === "error" ? (
-                    <Message error>
-                      <Message.Header>{alert.msgHeader}</Message.Header>
-                      <p>{alert.msgContent}</p>
-                    </Message>
-                  ) : (
-                    <div style={{ display: "none" }} />
-                  )}
-                </React.Fragment>
-              ))}
-          </Fragment>
-          <Fragment>
-            {alerts !== null &&
-              alerts.length > 0 &&
-              alerts.map(alert => (
-                <React.Fragment key={alert.id}>
-                  {alert.alertType === "success" ? (
-                    <Message positive>
-                      <Message.Header>{alert.msgHeader}</Message.Header>
-                      <p>{alert.msgContent}</p>
-                    </Message>
-                  ) : (
-                    <div style={{ display: "none" }} />
-                  )}
-                </React.Fragment>
-              ))}
-          </Fragment>
         </Segment>
       </Container>
     </Fragment>
@@ -456,7 +423,6 @@ CreateProfile.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  alerts: state.alert,
   apiUrl: state.apiUrl.apiUrl,
   auth: state.auth
 });

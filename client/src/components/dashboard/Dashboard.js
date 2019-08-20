@@ -13,7 +13,6 @@ import {
   Header,
   Icon,
   Divider,
-  Message,
   Button
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
@@ -23,7 +22,7 @@ import ExperienceCard from "./experience/ExperienceCard";
 import EducationList from "./education/EducationList";
 
 const Dashboard = props => {
-  const { apiUrl, auth, profile, alerts } = props;
+  const { apiUrl, auth, profile } = props;
 
   useEffect(function getCurrentProfil() {
     // 👍 We're not breaking the first rule anymore
@@ -43,24 +42,14 @@ const Dashboard = props => {
       <Divider hidden />
       <Divider hidden />
       <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
       <Container>
         <Segment raised>
-          <Fragment>
-            {alerts !== null &&
-              alerts.length > 0 &&
-              alerts.map(alert => (
-                <Fragment key={alert.id}>
-                  <Divider />
-                  {alert.alertType === "success" && (
-                    <Message positive>
-                      <Message.Header>{alert.msgHeader}</Message.Header>
-                      <p>{alert.msgContent}</p>
-                    </Message>
-                  )}
-                  <Divider />
-                </Fragment>
-              ))}
-          </Fragment>
           <Grid columns='equal'>
             <Grid.Column>
               <Header as='h1' color='blue'>
@@ -134,26 +123,33 @@ const Dashboard = props => {
               </Fragment>
             )}
           </Fragment>
-          <Segment>
-            <Grid>
-              <Grid.Row>
-                <Grid.Column>
-                  <Fragment>
-                    <Button
-                      animated='fade'
-                      floated='right'
-                      onClick={handeDeleteAccount}
-                    >
-                      <Button.Content visible>Delete my account</Button.Content>
-                      <Button.Content hidden>
-                        Are you sure ? <Icon name='remove user' />
-                      </Button.Content>
-                    </Button>
-                  </Fragment>
-                </Grid.Column>
-              </Grid.Row>
+          <Divider hidden />
+          <Divider hidden />
+          <Fragment>
+            <Grid columns='equal'>
+              <Grid.Column />
+              <Grid.Column />
+              <Grid.Column textAlign='right'>
+                <Fragment>
+                  <Segment
+                    as={Link}
+                    to='/'
+                    onClick={handeDeleteAccount}
+                    color='red'
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      background: "#db2828"
+                    }}
+                  >
+                    Delete my account
+                  </Segment>
+                </Fragment>
+              </Grid.Column>
             </Grid>
-          </Segment>
+          </Fragment>
+          <Divider hidden />
+          <Divider hidden />
         </Segment>
       </Container>
       <Divider hidden />
@@ -171,7 +167,6 @@ Dashboard.propTypes = {
 
 const mapStateToProps = state => ({
   apiUrl: state.apiUrl.apiUrl,
-  alerts: state.alert,
   auth: state.auth,
   profile: state.profile
 });

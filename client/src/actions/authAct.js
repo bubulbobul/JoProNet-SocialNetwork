@@ -94,7 +94,7 @@ export const loginAct = (apiUrl, email, password) => async dispatch => {
 
     dispatch(loadUser(apiUrl));
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     const errors = err.response.data.errors;
     // console.log(errors);
     if (errors) {

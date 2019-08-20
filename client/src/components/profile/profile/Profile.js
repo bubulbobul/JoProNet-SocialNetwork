@@ -34,6 +34,12 @@ const Profile = props => {
           <Divider hidden />
           <Divider hidden />
           <Divider hidden />
+          <Divider hidden />
+          <Divider hidden />
+          <Divider hidden />
+          <Divider hidden />
+          <Divider hidden />
+          <Divider hidden />
           <Segment>
             {profile === null || profile.loading || profile.profile === null ? (
               <Fragment>

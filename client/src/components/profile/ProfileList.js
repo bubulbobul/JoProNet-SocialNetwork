@@ -39,7 +39,7 @@ const ProfileList = props => {
             </Grid.Column>
             <Grid.Column width={5}>
               <List>
-                {profile.skills.slice(0, 6).map((skill, id) => (
+                {profile.skills.slice(0, 4).map((skill, id) => (
                   <List.Item key={id}>
                     <p style={{ color: "#333", fontSize: "1.3rem" }}>
                       <Icon name='checkmark' />

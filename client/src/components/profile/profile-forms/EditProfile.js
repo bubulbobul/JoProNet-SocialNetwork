@@ -18,8 +18,7 @@ import {
   Segment,
   Divider,
   Label,
-  Dropdown,
-  Message
+  Dropdown
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
@@ -49,13 +48,11 @@ const EditProfile = props => {
   const {
     apiUrl,
     auth,
-    profile: { profile, loading },
-    alerts
+    profile: { profile, loading }
   } = props;
 
   useEffect(
     () => {
-      // console.log("useEffect editprofile");
       props.getCurrentProfileAct(apiUrl);
       setFormData({
         company: loading || !profile.company ? "" : profile.company,
@@ -79,14 +76,7 @@ const EditProfile = props => {
     },
     // The conditon is when it's loading it will run
     [loading]
-    // []
   );
-
-  // console.log("apiUrl editProfile", apiUrl);
-  // console.log("profile.loading", loading);
-  // console.log("formData", formData);
-
-  // console.log("profile.loading", props.profile.loading);
   const icon = "black tie";
   const edit = true;
   const {
@@ -104,10 +94,6 @@ const EditProfile = props => {
     youtube,
     instagram
   } = formData;
-
-  // console.log("githubusername", githubusername);
-  // console.log("formData.githubusername", formData.githubusername);
-  // console.log("status", formData.status);
 
   const handleChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -474,38 +460,6 @@ const EditProfile = props => {
               </Button>
             </Link>
           </Form>
-          <Fragment>
-            {alerts !== null &&
-              alerts.length > 0 &&
-              alerts.map(alert => (
-                <React.Fragment key={alert.id}>
-                  {alert.alertType === "error" ? (
-                    <Message error>
-                      <Message.Header>{alert.msgHeader}</Message.Header>
-                      <p>{alert.msgContent}</p>
-                    </Message>
-                  ) : (
-                    <div style={{ display: "none" }} />
-                  )}
-                </React.Fragment>
-              ))}
-          </Fragment>
-          <Fragment>
-            {alerts !== null &&
-              alerts.length > 0 &&
-              alerts.map(alert => (
-                <React.Fragment key={alert.id}>
-                  {alert.alertType === "success" ? (
-                    <Message positive>
-                      <Message.Header>{alert.msgHeader}</Message.Header>
-                      <p>{alert.msgContent}</p>
-                    </Message>
-                  ) : (
-                    <div style={{ display: "none" }} />
-                  )}
-                </React.Fragment>
-              ))}
-          </Fragment>
         </Segment>
       </Container>
       <Divider hidden />
@@ -522,7 +476,6 @@ EditProfile.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  alerts: state.alert,
   apiUrl: state.apiUrl.apiUrl,
   auth: state.auth,
   profile: state.profile

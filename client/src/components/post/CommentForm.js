@@ -31,7 +31,7 @@ const CommentForm = ({ apiUrl, postId, addCommentAct }) => {
   };
 
   return (
-    <Segment>
+    <Segment raised style={{ backgroundColor: "#f4f4f4" }}>
       <Fragment>
         <Divider
           horizontal

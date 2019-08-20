@@ -48,6 +48,12 @@ const JoinUs = ({
         <Divider hidden />
         <Divider hidden />
         <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
         <Fragment>
           {alerts !== null &&
             alerts.length > 0 &&

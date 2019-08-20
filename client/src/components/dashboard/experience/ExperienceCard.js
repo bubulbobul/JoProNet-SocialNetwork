@@ -83,8 +83,8 @@ const ExperienceCard = props => {
                       <Card.Content extra>
                         <Link to={`/experience/${id}`}>
                           <Button animated='vertical' primary floated='right'>
-                            <Button.Content hidden>More</Button.Content>
-                            <Button.Content visible>
+                            <Button.Content visible>More</Button.Content>
+                            <Button.Content hidden>
                               <Icon name='info circle' />
                             </Button.Content>
                           </Button>
@@ -95,8 +95,8 @@ const ExperienceCard = props => {
                           floated='right'
                           onClick={e => handleDelete(e, exp._id, exp.company)}
                         >
-                          <Button.Content hidden>Delete</Button.Content>
-                          <Button.Content visible>
+                          <Button.Content visible>Delete</Button.Content>
+                          <Button.Content hidden>
                             <Icon name='remove circle' />
                           </Button.Content>
                         </Button>

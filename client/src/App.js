@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 
 import Navbar from "./components/layout/Navbar";
 import Welcome from "./components/Welcome";
+import Footer from "./components/Footer";
 
 import JoinUs from "./components/auth/JoinUs";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -106,6 +107,7 @@ const App = ({ getAPIAct, apiUrl }) => {
           )}
         </Fragment>
       )}
+      <Footer />
     </Fragment>
   );
 };

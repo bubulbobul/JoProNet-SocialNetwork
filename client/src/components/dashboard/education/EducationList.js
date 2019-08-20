@@ -59,8 +59,8 @@ const EducationList = props => {
                         <List.Content>
                           <Link to={`/education/${id}`}>
                             <Button animated='vertical' floated='right' primary>
-                              <Button.Content hidden>More</Button.Content>
-                              <Button.Content visible>
+                              <Button.Content visible>More</Button.Content>
+                              <Button.Content hidden>
                                 <Icon name='info circle' />
                               </Button.Content>
                             </Button>
@@ -71,8 +71,8 @@ const EducationList = props => {
                             color='red'
                             onClick={e => handleDelete(e, edu._id, edu.school)}
                           >
-                            <Button.Content hidden>Delete</Button.Content>
-                            <Button.Content visible>
+                            <Button.Content visible>Delete</Button.Content>
+                            <Button.Content hidden>
                               <Icon name='remove circle' />
                             </Button.Content>
                           </Button>

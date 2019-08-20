@@ -13,7 +13,6 @@ import {
   Segment,
   Divider,
   Checkbox,
-  Message,
   Dropdown
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
@@ -37,7 +36,7 @@ const AddEducation = props => {
 
   const [toDateDisabled, toggleDisabled] = useState(false);
 
-  const { apiUrl, auth, alerts } = props;
+  const { apiUrl, auth } = props;
 
   const {
     school,
@@ -89,7 +88,16 @@ const AddEducation = props => {
 
   return (
     <Fragment>
-      <Container style={{ marginTop: "50px", marginBottom: "50px" }}>
+      <Container>
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
         <Segment color='blue'>
           <Grid columns='equal'>
             <Grid.Column>
@@ -258,39 +266,10 @@ const AddEducation = props => {
               </Button>
             </Link>
           </Form>
-          <Fragment>
-            {alerts !== null &&
-              alerts.length > 0 &&
-              alerts.map(alert => (
-                <React.Fragment key={alert.id}>
-                  {alert.alertType === "error" ? (
-                    <Message error>
-                      <Message.Header>{alert.msgHeader}</Message.Header>
-                      <p>{alert.msgContent}</p>
-                    </Message>
-                  ) : (
-                    <div style={{ display: "none" }} />
-                  )}
-                </React.Fragment>
-              ))}
-          </Fragment>
-          <Fragment>
-            {alerts !== null &&
-              alerts.length > 0 &&
-              alerts.map(alert => (
-                <React.Fragment key={alert.id}>
-                  {alert.alertType === "success" ? (
-                    <Message positive>
-                      <Message.Header>{alert.msgHeader}</Message.Header>
-                      <p>{alert.msgContent}</p>
-                    </Message>
-                  ) : (
-                    <div style={{ display: "none" }} />
-                  )}
-                </React.Fragment>
-              ))}
-          </Fragment>
         </Segment>
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
       </Container>
     </Fragment>
   );
@@ -301,7 +280,6 @@ AddEducation.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  alerts: state.alert,
   apiUrl: state.apiUrl.apiUrl,
   auth: state.auth
 });

@@ -37,7 +37,7 @@ const PostForm = ({ apiUrl, addPostAct }) => {
   };
 
   return (
-    <Segment>
+    <Segment raised style={{ backgroundColor: "#f4f4f4" }}>
       <Fragment>
         <Divider horizontal onClick={() => togglePostForm(!displayPostForm)}>
           <Header as='h3'>

@@ -12,8 +12,7 @@ import {
   Grid,
   Segment,
   Icon,
-  Divider,
-  Message
+  Divider
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import PostItem from "./PostItem";
@@ -21,7 +20,6 @@ import PostForm from "./PostForm";
 
 const Posts = ({
   auth,
-  alerts,
   addPostAct,
   deletePostAct,
   addLikeAct,
@@ -42,36 +40,14 @@ const Posts = ({
         <Divider hidden />
         <Divider hidden />
         <Divider hidden />
-        <Fragment>
-          {alerts !== null &&
-            alerts.length > 0 &&
-            alerts.map(alert => (
-              <Fragment key={alert.id}>
-                {alert.alertType === "success" && (
-                  <Message positive>
-                    <Message.Header>{alert.msgHeader}</Message.Header>
-                    <p>{alert.msgContent}</p>
-                  </Message>
-                )}
-              </Fragment>
-            ))}
-        </Fragment>
-        <Fragment>
-          {alerts !== null &&
-            alerts.length > 0 &&
-            alerts.map(alert => (
-              <Fragment key={alert.id}>
-                {alert.alertType === "error" && (
-                  <Message error>
-                    <Message.Header>{alert.msgHeader}</Message.Header>
-                    <p>{alert.msgContent}</p>
-                  </Message>
-                )}
-              </Fragment>
-            ))}
-        </Fragment>
-        <Fragment>
-          <Segment>
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Segment>
+          <Fragment>
             <Grid columns='equal'>
               <Grid.Column>
                 <Header as='h1' color='blue'>
@@ -87,10 +63,8 @@ const Posts = ({
                 </Header>
               </Grid.Column>
             </Grid>
-          </Segment>
-        </Fragment>
-        <Divider hidden />
-        <Segment>
+          </Fragment>
+          <Divider hidden />
           <Fragment>
             <PostForm apiUrl={apiUrl} addPostAct={addPostAct} />
           </Fragment>
@@ -104,14 +78,13 @@ const Posts = ({
                 auth={auth}
                 apiUrl={apiUrl}
                 deletePostAct={deletePostAct}
-                // isAlreadyLiked={isAlreadyLiked}
               />
             ))}
           </Fragment>
+          <Divider hidden />
+          <Divider hidden />
+          <Divider hidden />
         </Segment>
-        <Divider hidden />
-        <Divider hidden />
-        <Divider hidden />
       </Container>
     </Fragment>
   );
@@ -124,7 +97,6 @@ Posts.propTypes = {
 
 const mapStateToProps = state => ({
   apiUrl: state.apiUrl.apiUrl,
-  alerts: state.alert,
   post: state.post,
   auth: state.auth
 });

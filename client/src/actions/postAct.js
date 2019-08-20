@@ -65,13 +65,14 @@ export const getAllPostsAct = apiUrl => async dispatch => {
       payload: res.data
     });
   } catch (error) {
-    dispatch({
-      type: POST_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status
-      }
-    });
+    // dispatch({
+    //   type: POST_ERROR,
+    //   payload: {
+    //     msg: error.response.statusText,
+    //     status: error.response.status
+    //   }
+    // });
+    throw error;
   }
 };
 
@@ -101,14 +102,17 @@ export const addLikeAct = (apiUrl, postId) => {
     return axios
       .put(`${apiUrl}/api/posts/like/${postId}`)
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         dispatch(upDateLikeAct(response.data, postId));
       })
-      .catch(error => {
-        // console.error(error);
-        // console.error(error.response);
-        // dispatch(upDateLikeActError(error.response));
-        throw error;
+      .catch(err => {
+        const error = err.response.data;
+        // console.log(err);
+        // console.log(err.response);
+        // console.log(err.response.data);
+        if (err) {
+          dispatch(setAlert(error.msg, null, "error"));
+        }
       });
   };
 };
