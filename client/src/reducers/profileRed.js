@@ -19,17 +19,15 @@ const initialState = {
   educations: null
 };
 
-console.log("initialState", initialState);
+// console.log("initialState", initialState);
 
 export default (state = initialState, action) => {
   const { type, payload } = action;
   // console.log("PAYLOAD GET_PROFILE", payload);
-  console.log("dddddddddddddddddd", state);
-  console.log(type);
   switch (type) {
     case GET_PROFILE:
     case UPDATE_PROFILE:
-      console.log("TYPE", type);
+      // console.log("TYPE", type);
       return {
         ...state,
         profile: payload,

@@ -21,7 +21,6 @@ const EducationList = props => {
   const detailPage = false;
 
   const handleDelete = (e, id, school) => {
-    // console.log("Delete button", id);
     props.deleteEducationAct(apiUrl, id, school, detailPage);
   };
 
@@ -50,62 +49,62 @@ const EducationList = props => {
               content='You did not add education'
             />
           ) : (
-            <List>
-              {profile &&
-                profile.education.map((edu, id) => {
-                  return (
-                    <Segment key={edu._id}>
-                      <List.Item>
-                        <List.Content>
-                          <Link to={`/education/${id}`}>
-                            <Button animated='vertical' floated='right' primary>
-                              <Button.Content visible>More</Button.Content>
+              <List>
+                {profile &&
+                  profile.education.map((edu, id) => {
+                    return (
+                      <Segment key={edu._id}>
+                        <List.Item>
+                          <List.Content>
+                            <Link to={`/education/${id}`}>
+                              <Button animated='vertical' floated='right' primary>
+                                <Button.Content visible>More</Button.Content>
+                                <Button.Content hidden>
+                                  <Icon name='info circle' />
+                                </Button.Content>
+                              </Button>
+                            </Link>
+                            <Button
+                              animated='vertical'
+                              floated='right'
+                              color='red'
+                              onClick={e => handleDelete(e, edu._id, edu.school)}
+                            >
+                              <Button.Content visible>Delete</Button.Content>
                               <Button.Content hidden>
-                                <Icon name='info circle' />
+                                <Icon name='remove circle' />
                               </Button.Content>
                             </Button>
-                          </Link>
-                          <Button
-                            animated='vertical'
-                            floated='right'
-                            color='red'
-                            onClick={e => handleDelete(e, edu._id, edu.school)}
-                          >
-                            <Button.Content visible>Delete</Button.Content>
-                            <Button.Content hidden>
-                              <Icon name='remove circle' />
-                            </Button.Content>
-                          </Button>
-                        </List.Content>
-                        <Header style={{ marginTop: "1%" }}>
-                          <Icon name='graduation cap' />
-                          <Header.Content>
-                            {edu.fieldofstudy}
-                            <Header.Subheader>{edu.degree}</Header.Subheader>
-                          </Header.Content>
-                        </Header>
-                        <List.Content>
-                          <List.Description>
-                            <Fragment>
-                              <TextTruncate
-                                line={3}
-                                element='span'
-                                truncateText='…'
-                                text={
-                                  edu.description === ""
-                                    ? `No description`
-                                    : edu.description
-                                }
-                              />
-                            </Fragment>
-                          </List.Description>
-                        </List.Content>
-                      </List.Item>
-                    </Segment>
-                  );
-                })}
-            </List>
-          )}
+                          </List.Content>
+                          <Header style={{ marginTop: "1%" }}>
+                            <Icon name='graduation cap' />
+                            <Header.Content>
+                              {edu.fieldofstudy}
+                              <Header.Subheader>{edu.degree}</Header.Subheader>
+                            </Header.Content>
+                          </Header>
+                          <List.Content>
+                            <List.Description>
+                              <Fragment>
+                                <TextTruncate
+                                  line={3}
+                                  element='span'
+                                  truncateText='…'
+                                  text={
+                                    edu.description === ""
+                                      ? `No description`
+                                      : edu.description
+                                  }
+                                />
+                              </Fragment>
+                            </List.Description>
+                          </List.Content>
+                        </List.Item>
+                      </Segment>
+                    );
+                  })}
+              </List>
+            )}
         </Fragment>
       </Container>
     </Fragment>

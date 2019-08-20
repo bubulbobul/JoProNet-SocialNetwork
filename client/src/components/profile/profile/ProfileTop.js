@@ -46,7 +46,7 @@ const ProfileTop = ({
           <Divider hidden />
           <Container textAlign='center'>
             {website && (
-              <a href={website} target='_blank'>
+              <a href={website} target='_blank' rel='noopener noreferrer'>
                 <Icon
                   inverted
                   style={{ color: "white" }}
@@ -56,7 +56,11 @@ const ProfileTop = ({
               </a>
             )}
             {social && social.twitter && (
-              <a href={social.twitter} target='_blank'>
+              <a
+                href={social.twitter}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <Icon
                   inverted
                   style={{ color: "white" }}
@@ -66,7 +70,11 @@ const ProfileTop = ({
               </a>
             )}
             {social && social.facebook && (
-              <a href={social.facebook} target='_blank'>
+              <a
+                href={social.facebook}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <Icon
                   inverted
                   style={{ color: "white" }}
@@ -76,7 +84,11 @@ const ProfileTop = ({
               </a>
             )}
             {social && social.youtube && (
-              <a href={social.youtube} target='_blank'>
+              <a
+                href={social.youtube}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <Icon
                   inverted
                   style={{ color: "white" }}
@@ -86,7 +98,11 @@ const ProfileTop = ({
               </a>
             )}
             {social && social.linkedin && (
-              <a href={social.linkedin} target='_blank'>
+              <a
+                href={social.linkedin}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <Icon
                   inverted
                   style={{ color: "white" }}
@@ -96,7 +112,11 @@ const ProfileTop = ({
               </a>
             )}
             {social && social.instagram && (
-              <a href={social.instagram} target='_blank'>
+              <a
+                href={social.instagram}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
                 <Icon
                   inverted
                   style={{ color: "white" }}

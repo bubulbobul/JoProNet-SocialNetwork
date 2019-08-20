@@ -49,13 +49,10 @@ const AddEducation = props => {
   } = formData;
 
   const handleChange = e => {
-    // console.log(e.target.name);
-    // console.log(e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = e => {
-    console.log(formData);
     e.preventDefault();
     props.addEducationAct(apiUrl, formData, props.history);
     handleReset();

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { setAlert } from "../../actions/alertAct";
 import { loginAct, registerAct } from "../../actions/authAct";
 import PropTypes from "prop-types";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import LoginImg from "../../assets/images/login-logo.png";
 import RegisterImg from "../../assets/images/register-logo.png";
@@ -14,7 +14,6 @@ import {
   Image,
   Header,
   Icon,
-  Button,
   Message,
   Divider,
   Container,

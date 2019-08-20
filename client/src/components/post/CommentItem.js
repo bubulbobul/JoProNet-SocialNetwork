@@ -10,7 +10,6 @@ import {
   Icon,
   Button
 } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
 
 const CommentItem = ({
   comment: { _id, text, name, avatar, user, date },
@@ -19,7 +18,7 @@ const CommentItem = ({
   apiUrl,
   auth
 }) => {
-  console.log(apiUrl);
+  // console.log(apiUrl);
   return (
     <Segment raised>
       <Grid stackable>

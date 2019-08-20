@@ -2,7 +2,10 @@ import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
-import Carousel from "semantic-ui-carousel-react";
+
+// import Carousel from "semantic-ui-carousel-react";
+import Carousel from "nuka-carousel";
+
 import {
   Image,
   Container,
@@ -29,50 +32,8 @@ const Welcome = ({ isAuthenticated }) => {
     return <Redirect to='/dashboard' />;
   }
 
-  let elements = [
-    {
-      render: () => {
-        return <Image src={MernLogo} />;
-      }
-    },
-    {
-      render: () => {
-        return <Image src={Coding1} />;
-      }
-    },
-    {
-      render: () => {
-        return <Image src={CodingCoffee} />;
-      }
-    },
-    {
-      render: () => {
-        return <Image src={BumpCollaboration} />;
-      }
-    },
-    {
-      render: () => {
-        return <Image src={Office} />;
-      }
-    },
-    {
-      render: () => {
-        return <Image src={HtmlCss} />;
-      }
-    },
-    {
-      render: () => {
-        return <Image src={AnimalMonkey} />;
-      }
-    }
-  ];
-
   return (
     <Fragment>
-      <Divider hidden />
-      <Divider hidden />
-      <Divider hidden />
-      <Divider hidden />
       <Divider hidden />
       <Divider hidden />
       <Divider hidden />
@@ -81,13 +42,25 @@ const Welcome = ({ isAuthenticated }) => {
       <Container>
         <Fragment>
           <Container textAlign='center'>
-            <Carousel
-              elements={elements}
-              duration={3000}
-              animation='fade'
-              showNextPrev={true}
-              showIndicators={true}
-            />
+            <Segment>
+              <Carousel
+                cellAlign='center'
+                autoGenerateStyleTag={true}
+                autoplay={true}
+                pauseOnHover={true}
+                width='100%'
+                height='40vw'
+                wrapAround={true}
+              >
+                <Image src={MernLogo} />
+                <Image src={Coding1} />
+                <Image src={CodingCoffee} />
+                <Image src={BumpCollaboration} />
+                <Image src={Office} />
+                <Image src={HtmlCss} />
+                <Image src={AnimalMonkey} />
+              </Carousel>
+            </Segment>
           </Container>
         </Fragment>
         <Segment>
@@ -188,51 +161,13 @@ const Welcome = ({ isAuthenticated }) => {
                     it allows us to reuse component React can be used as a base
                     in the development of single-page or mobile applications.
                   </p>
-                  <br />
+
                   <p style={{ color: "#333", fontSize: "1.3rem" }}>
                     And Node.js is an open source server environment it allows
                     to run JavaScript in the system
                   </p>
                 </Container>
-              </Segment>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-        <Grid columns={2}>
-          <Grid.Row>
-            <Grid.Column>
-              <Segment raised>
-                <Header>This apps is a MERN stack application in</Header>
-                <Header>
-                  <Image circular src={MongodbIcon} centered /> Mongodb
-                </Header>
-                <Header>
-                  <Image circular src={ExpressJsLogo} centered /> Express Js
-                  Server
-                </Header>
-                <Header>
-                  <Image circular src={ReactLogo} centered /> React JS
-                </Header>
-                <Header>
-                  <Image circular src={NodeJsLogo} centered /> Node JS
-                </Header>
-              </Segment>
-            </Grid.Column>
-            <Grid.Column>
-              <Segment raised>
-                <Container textAlign='justified'>
-                  <p style={{ color: "#333", fontSize: "1.3rem" }}>
-                    JoProNet stands for Job Professional Network is a Social
-                    Media Network for developers who intend to share their
-                    knowledge and experience with each other and allow the users
-                    to show their aptitute to each other especially for
-                    employers.
-                  </p>
-                  <p style={{ color: "#333", fontSize: "1.3rem" }}>
-                    A community is present and exchange about the new upcoming
-                    technologies which will raised the programmers facilities
-                  </p>
-                </Container>
+                <Divider hidden />
               </Segment>
             </Grid.Column>
           </Grid.Row>

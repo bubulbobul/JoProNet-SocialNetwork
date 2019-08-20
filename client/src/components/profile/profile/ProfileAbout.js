@@ -16,7 +16,6 @@ const ProfileAbout = ({
     user: { name }
   }
 }) => {
-  console.log("biographyyyyyyyyyyyyyyyyyy", bio);
   return (
     <Fragment>
       <Segment style={{ background: "#f4f4f4" }}>

@@ -66,7 +66,6 @@ const CreateProfile = props => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = e => {
-    // console.log(formData);
     e.preventDefault();
     props.createOrUpdateProfileAct(apiUrl, formData, props.history, edit);
     handleReset();

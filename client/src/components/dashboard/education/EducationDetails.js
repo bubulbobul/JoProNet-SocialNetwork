@@ -24,7 +24,6 @@ const EducationDetails = props => {
   }, []);
 
   const handleDelete = (e, id, school) => {
-    // console.log("Delete button", id, company);
     props.deleteEducationAct(apiUrl, id, school, props.history, true);
   };
 

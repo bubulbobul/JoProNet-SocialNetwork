@@ -29,7 +29,13 @@ const AuthNavbar = ({ alerts }) => {
           }}
         >
           <Container>
-            <Menu.Item>
+            <Menu.Item
+              as={NavLink}
+              to='/dashboard'
+              name='dashboard'
+              active={activeItem === "dashboard"}
+              onClick={handleItemClick}
+            >
               <Image circular src={Logo} size='tiny' />{" "}
             </Menu.Item>
             <Fragment>

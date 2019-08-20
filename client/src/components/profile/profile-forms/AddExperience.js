@@ -47,7 +47,6 @@ const AddExperience = props => {
   };
 
   const handleSubmit = e => {
-    console.log(formData);
     e.preventDefault();
     props.addExperienceAct(apiUrl, formData, props.history);
     handleReset();
@@ -68,12 +67,12 @@ const AddExperience = props => {
 
   const onDateChange = (e, name) => {
     if (name.name === "from") {
-      console.log(name.value);
+      // console.log(name.value);
       setFormData({ ...formData, from: name.value });
     }
 
     if (name.name === "to") {
-      console.log(name.value);
+      // console.log(name.value);
       setFormData({ ...formData, to: name.value });
     }
   };

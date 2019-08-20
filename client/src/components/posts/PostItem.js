@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import {
@@ -22,8 +22,6 @@ const PostItem = ({
   auth,
   post: { _id, title, text, name, avatar, user, likes, comments, date }
 }) => {
-  const [likeDisabled, toggleLikeDisabled] = useState(false);
-
   return (
     <Segment raised>
       <Grid stackable>
@@ -77,9 +75,7 @@ const PostItem = ({
               labelPosition='right'
               onClick={e => {
                 addLikeAct(apiUrl, _id);
-                // toggleLikeDisabled(!likeDisabled);
               }}
-              // disabled={likeDisabled ? true : false}
             >
               <Button icon>
                 <Icon name='heart' />
@@ -92,10 +88,8 @@ const PostItem = ({
             <Button
               as='div'
               labelPosition='right'
-              // disabled={likeDisabled ? false : true}
               onClick={e => {
                 removeLikeAct(apiUrl, _id);
-                // toggleLikeDisabled(!likeDisabled);
               }}
             >
               <Button icon>

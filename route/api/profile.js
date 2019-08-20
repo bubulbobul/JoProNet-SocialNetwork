@@ -133,8 +133,8 @@ router.post(
         .map(language => language.trim());
     }
 
-    console.log(profileFields.skills);
-    console.log(profileFields.languages);
+    // console.log(profileFields.skills);
+    // console.log(profileFields.languages);
 
     // Build social object
     profileFields.social = {};
@@ -410,9 +410,9 @@ router.get("/github/:username", (req, res) => {
     const options = {
       uri: `https://api.github.com/users/${
         req.params.username
-      }/repos?per_page=5&sort=created:asc&client_id=${config.get(
-        "githubClientId"
-      )}&client_secret=${config.get("githubSecret")}`,
+        }/repos?per_page=5&sort=created:asc&client_id=${config.get(
+          "githubClientId"
+        )}&client_secret=${config.get("githubSecret")}`,
       method: "GET",
       headers: { "user-agent": "node.js" }
     };

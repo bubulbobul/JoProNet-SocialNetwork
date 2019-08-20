@@ -24,11 +24,9 @@ const ExperienceDetails = props => {
   }, []);
 
   const handleDelete = (e, id, company) => {
-    // console.log("Delete button", id, company);
     props.deleteExperienceAct(apiUrl, id, company, props.history, true);
   };
 
-  // console.log("exp", experience.company);
   return experience === null ||
     experience === undefined ||
     experience.company === null ||

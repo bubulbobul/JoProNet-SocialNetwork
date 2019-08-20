@@ -1,5 +1,4 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment, useState } from "react";
 import {
   List,
   Segment,
@@ -7,11 +6,17 @@ import {
   Header,
   Grid,
   Image,
-  Container
+  Container,
+  Modal
 } from "semantic-ui-react";
 import Logo from "../assets/images/logo.jpg";
 
+import PrivacyPolicy from "./PrivacyPolicy";
+import TermsConditions from "./TermsConditions";
+
 const TopSidebar = () => {
+  const [privacyPolicy, togglePrivacyPlicy] = useState(false);
+  const [termsConditions, toggleTermsConditions] = useState(false);
   return (
     <Fragment>
       <Segment
@@ -71,11 +76,17 @@ const TopSidebar = () => {
             style={{ background: "white", borderRadius: "10px" }}
           />
           <List horizontal inverted divided link size='small'>
-            <List.Item as='a' href='#'>
+            <List.Item as='a'
+              onClick={() => toggleTermsConditions(!termsConditions)}>
               Terms and Conditions
+              <TermsConditions termsConditions={termsConditions} />
             </List.Item>
-            <List.Item as='a' href='#'>
+            <List.Item
+              as='a'
+              onClick={() => togglePrivacyPlicy(!privacyPolicy)}
+            >
               Privacy Policy
+              <PrivacyPolicy privacyPolicy={privacyPolicy} />
             </List.Item>
           </List>
           <br />

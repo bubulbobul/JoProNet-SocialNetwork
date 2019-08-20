@@ -3,16 +3,12 @@ import React, { Fragment, useState } from "react";
 import {
   Button,
   Form,
-  Container,
-  Grid,
   Header,
   Icon,
   TextArea,
   Segment,
   Divider,
-  Label,
-  Message,
-  Dropdown
+  Label
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 

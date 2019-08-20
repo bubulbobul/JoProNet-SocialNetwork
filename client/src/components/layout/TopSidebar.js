@@ -22,7 +22,6 @@ const TopSidebar = props => {
 
   useEffect(function getCurrentProfil() {
     // 👍 We're not breaking the first rule anymore
-    // console.log("useEffect");
     if (apiUrl) {
       props.getCurrentProfileAct(apiUrl);
     }
@@ -32,57 +31,53 @@ const TopSidebar = props => {
     props.logoutAct(props.history, true);
   };
 
-  // console.log(auth);
-  // console.log(auth.user);
-  // console.log(auth.user.name);
-
   return auth.user === null ||
     auth.user.email === null ||
     auth.user.avatar === null ? (
-    <MainLoader />
-  ) : (
-    <Fragment>
+      <MainLoader />
+    ) : (
       <Fragment>
-        <Sidebar as={Segment} inverted direction='top' width='wide' visible>
-          <Container>
-            <Grid>
-              <Grid.Row columns={3}>
-                <Grid.Column width={14}>
-                  <Header as='h4' inverted>
-                    <Header
-                      as={Link}
-                      to={`/profile/${auth.user._id}`}
-                      size='tiny'
-                      inverted
-                    >
-                      <Image circular src={auth.user.avatar} avatar />{" "}
-                      {auth.user.name.toUpperCase()}
+        <Fragment>
+          <Sidebar as={Segment} inverted direction='top' width='wide' visible>
+            <Container>
+              <Grid>
+                <Grid.Row columns={3}>
+                  <Grid.Column width={14}>
+                    <Header as='h4' inverted>
+                      <Header
+                        as={Link}
+                        to={`/profile/${auth.user._id}`}
+                        size='tiny'
+                        inverted
+                      >
+                        <Image circular src={auth.user.avatar} avatar />{" "}
+                        {auth.user.name.toUpperCase()}
+                      </Header>
                     </Header>
-                  </Header>
-                </Grid.Column>
-                <Grid.Column width={2} floated='right'>
-                  <Button
-                    animated='fade'
-                    floated='right'
-                    onClick={handleLogout}
-                    color='red'
-                  >
-                    <Button.Content hidden>LOGOUT</Button.Content>
-                    <Button.Content visible>
-                      <Icon name='sign-out' />
-                    </Button.Content>
-                  </Button>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Container>
-        </Sidebar>
+                  </Grid.Column>
+                  <Grid.Column width={2} floated='right'>
+                    <Button
+                      animated='fade'
+                      floated='right'
+                      onClick={handleLogout}
+                      color='red'
+                    >
+                      <Button.Content hidden>LOGOUT</Button.Content>
+                      <Button.Content visible>
+                        <Icon name='sign-out' />
+                      </Button.Content>
+                    </Button>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </Container>
+          </Sidebar>
+        </Fragment>
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
       </Fragment>
-      <Divider hidden />
-      <Divider hidden />
-      <Divider hidden />
-    </Fragment>
-  );
+    );
 };
 
 const mapStateToProps = state => ({

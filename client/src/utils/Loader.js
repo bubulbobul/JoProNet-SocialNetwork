@@ -34,3 +34,13 @@ export const LoaderPost = () => (
     </Dimmer>
   </Fragment>
 );
+
+export const LoaderEditProfile = () => (
+  <Fragment>
+    <Dimmer active>
+      <Loader active inline='centered' size='huge'>
+        Your profile data is loading...
+      </Loader>
+    </Dimmer>
+  </Fragment>
+);

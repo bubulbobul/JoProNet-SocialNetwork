@@ -30,7 +30,6 @@ import setAuthToken from "./utils/setAuthToken";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
-  // console.log("localStorage.token", localStorage.token);
 }
 
 const App = ({ getAPIAct, apiUrl }) => {
@@ -39,7 +38,6 @@ const App = ({ getAPIAct, apiUrl }) => {
   });
 
   useEffect(() => {
-    // console.log(`useEffect`);
     getAPIAct();
     setRun({
       runApp: true
@@ -47,12 +45,6 @@ const App = ({ getAPIAct, apiUrl }) => {
   }, []);
 
   const { runApp } = run;
-  // const { apiUrl } = props;
-  // console.log("localStorage.token", localStorage.token);
-  console.log("apiUrl", apiUrl);
-  // console.log("run", run.runApp);
-  // console.log("props.isAuthenticated", props.isAuthenticated);
-  // console.log("App.js");
   return (
     <Fragment>
       {runApp === false ? (
@@ -102,12 +94,12 @@ const App = ({ getAPIAct, apiUrl }) => {
                     <PrivateRoute path='/post/:id' component={SinglePost} />
                   </Switch>
                 </Fragment>
+                <Footer />
               </Fragment>
             </BrowserRouter>
           )}
         </Fragment>
       )}
-      <Footer />
     </Fragment>
   );
 };

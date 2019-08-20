@@ -21,13 +21,9 @@ export const getPostsRed = posts => {
   };
 };
 
-export const getPostsError = error => {
+export const getPostsError = () => {
   return {
-    type: POST_ERROR,
-    payload: {
-      msg: error.response.statusText,
-      status: error.response.status
-    }
+    type: POST_ERROR
   };
 };
 
@@ -39,13 +35,10 @@ export const getPostsAct = apiUrl => {
     return axios
       .get(`${apiUrl}/api/posts`)
       .then(response => {
-        // console.log(response.data);
         dispatch(getPostsRed(response.data));
       })
       .catch(error => {
-        console.error(error);
-        console.error(error.response);
-        dispatch(getPostsError(error.response));
+        dispatch(getPostsError());
         throw error;
       });
   };
@@ -65,13 +58,9 @@ export const getAllPostsAct = apiUrl => async dispatch => {
       payload: res.data
     });
   } catch (error) {
-    // dispatch({
-    //   type: POST_ERROR,
-    //   payload: {
-    //     msg: error.response.statusText,
-    //     status: error.response.status
-    //   }
-    // });
+    dispatch({
+      type: POST_ERROR
+    });
     throw error;
   }
 };
@@ -87,13 +76,9 @@ export const upDateLikeAct = (likes, postId) => {
   };
 };
 
-export const upDateLikeActError = error => {
+export const upDateLikeActError = () => {
   return {
-    type: POST_ERROR,
-    payload: {
-      msg: error.response.statusText,
-      status: error.response.status
-    }
+    type: POST_ERROR
   };
 };
 
@@ -102,23 +87,19 @@ export const addLikeAct = (apiUrl, postId) => {
     return axios
       .put(`${apiUrl}/api/posts/like/${postId}`)
       .then(response => {
-        // console.log(response.data);
         dispatch(upDateLikeAct(response.data, postId));
       })
       .catch(err => {
         const error = err.response.data;
-        // console.log(err);
-        // console.log(err.response);
-        // console.log(err.response.data);
         if (err) {
           dispatch(setAlert(error.msg, null, "error"));
         }
+        dispatch(upDateLikeActError());
       });
   };
 };
 
 // REMOVE LIKE
-
 export const rmLike = (likes, postId) => {
   return {
     type: UPDATE_LIKES,
@@ -129,29 +110,21 @@ export const rmLike = (likes, postId) => {
   };
 };
 
-export const removeLikeError = error => {
+export const removeLikeError = () => {
   return {
-    type: POST_ERROR,
-    payload: {
-      msg: error.response.statusText,
-      status: error.response.status
-    }
+    type: POST_ERROR
   };
 };
 
 export const removeLikeAct = (apiUrl, postId) => {
-  console.log("removeLikeAct", apiUrl, postId);
   return dispatch => {
     return axios
       .put(`${apiUrl}/api/posts/unlike/${postId}`)
       .then(response => {
-        console.log(response.data);
         dispatch(rmLike(response.data, postId));
       })
       .catch(error => {
-        // console.error(error);
-        // console.error(error.response);
-        dispatch(removeLikeError(error.response));
+        dispatch(removeLikeError());
         throw error;
       });
   };
@@ -176,11 +149,7 @@ export const deletePostAct = (apiUrl, postId, postName) => async dispatch => {
     );
   } catch (error) {
     dispatch({
-      type: POST_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status
-      }
+      type: POST_ERROR
     });
   }
 };
@@ -208,18 +177,12 @@ export const addPostAct = (apiUrl, formData) => async dispatch => {
       )
     );
   } catch (error) {
-    console.error(error);
     const errors = error.response.data.errors;
-    // console.log(errors);
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
     }
     dispatch({
-      type: POST_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status
-      }
+      type: POST_ERROR
     });
   }
 };
@@ -232,13 +195,9 @@ export const getPostRed = post => {
   };
 };
 
-export const getPostError = error => {
+export const getPostError = () => {
   return {
-    type: POST_ERROR,
-    payload: {
-      msg: error.response.statusText,
-      status: error.response.status
-    }
+    type: POST_ERROR
   };
 };
 
@@ -247,13 +206,10 @@ export const getPostAct = (apiUrl, postId) => {
     return axios
       .get(`${apiUrl}/api/posts/${postId}`)
       .then(response => {
-        // console.log(response.data);
         dispatch(getPostRed(response.data));
       })
       .catch(error => {
-        console.error(error);
-        console.error(error.response);
-        dispatch(getPostsError(error.response));
+        dispatch(getPostsError());
         throw error;
       });
   };
@@ -267,7 +223,6 @@ export const addCommentAct = (apiUrl, postId, formData) => async dispatch => {
     }
   };
   try {
-    console.log(apiUrl, postId, formData);
     const res = await axios.post(
       `${apiUrl}/api/posts/comment/${postId}`,
       formData,
@@ -287,17 +242,12 @@ export const addCommentAct = (apiUrl, postId, formData) => async dispatch => {
       )
     );
   } catch (error) {
-    console.error(error);
     const errors = error.response.data.errors;
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
     }
     dispatch({
-      type: POST_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status
-      }
+      type: POST_ERROR
     });
   }
 };
@@ -308,7 +258,6 @@ export const deleteCommentAct = (
   postId,
   commentId
 ) => async dispatch => {
-  console.log(apiUrl, postId, commentId);
   try {
     await axios.delete(`${apiUrl}/api/posts/comment/${postId}/${commentId}`);
 
@@ -325,17 +274,12 @@ export const deleteCommentAct = (
       )
     );
   } catch (error) {
-    console.error(error);
     const errors = error.response.data.errors;
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
     }
     dispatch({
-      type: POST_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status
-      }
+      type: POST_ERROR
     });
   }
 };

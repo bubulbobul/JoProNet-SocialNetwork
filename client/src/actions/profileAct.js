@@ -13,7 +13,6 @@ import {
 
 // Fct to get the current users profile
 export const getCurrentProfileAct = apiUrl => async dispatch => {
-  // console.log(apiUrl);
 
   try {
     const res = await axios.get(`${apiUrl}/api/profile/me`);
@@ -24,9 +23,6 @@ export const getCurrentProfileAct = apiUrl => async dispatch => {
     });
   } catch (err) {
     const errors = err.response.data.errors;
-    console.error(err);
-
-    // console.log(errors);
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
     }
@@ -43,7 +39,6 @@ export const getCurrentProfileAct = apiUrl => async dispatch => {
 
 // To Get all profiles
 export const getAllProfilesAct = apiUrl => async dispatch => {
-  // console.log(apiUrl);
   dispatch({
     type: CLEAR_PROFILE
   });
@@ -56,21 +51,15 @@ export const getAllProfilesAct = apiUrl => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    console.error(err);
-
     dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: err.response.statusText,
-        status: err.response.status
-      }
+      type: PROFILE_ERROR
     });
+    throw err
   }
 };
 
 // To Get a profile by the user id
 export const getProfileByTheUserIdAct = (apiUrl, userId) => async dispatch => {
-  // console.log(apiUrl, userId);
 
   try {
     const res = await axios.get(`${apiUrl}/api/profile/user/${userId}`);
@@ -80,21 +69,15 @@ export const getProfileByTheUserIdAct = (apiUrl, userId) => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    console.error(err);
-
     dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: err.response.statusText,
-        status: err.response.status
-      }
+      type: PROFILE_ERROR
     });
+    throw err
   }
 };
 
 // To Get Github repos
 export const getGithubReposAct = (apiUrl, githubUsername) => async dispatch => {
-  // console.log(apiUrl);
 
   try {
     const res = await axios.get(
@@ -106,15 +89,10 @@ export const getGithubReposAct = (apiUrl, githubUsername) => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    console.error(err);
-
     dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: err.response.statusText,
-        status: err.response.status
-      }
+      type: PROFILE_ERROR
     });
+    throw err
   }
 };
 
@@ -132,10 +110,7 @@ export const createOrUpdateProfileAct = (
       }
     };
 
-    // console.log("formData from createProfileAct", formData);
     const res = await axios.post(`${apiUrl}/api/profile`, formData, config);
-
-    console.log("createOrUpdateProfileAct", res.data);
     dispatch({
       type: GET_PROFILE,
       payload: res.data
@@ -162,20 +137,14 @@ export const createOrUpdateProfileAct = (
       setTimeout(() => history.push("/dashboard"), 1000);
     }
   } catch (err) {
-    console.error(err);
 
     const errors = err.response.data.errors;
-    // console.log(errors);
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
     }
 
     dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: err.response.statusText,
-        status: err.response.status
-      }
+      type: PROFILE_ERROR
     });
   }
 };
@@ -193,14 +162,12 @@ export const addExperienceAct = (
       }
     };
 
-    // console.log("formData from addExperienceAct", formData);
     const res = await axios.put(
       `${apiUrl}/api/profile/experience`,
       formData,
       config
     );
 
-    // console.log("res.data from addExperienceAct", res.data);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
@@ -221,17 +188,12 @@ export const addExperienceAct = (
     console.error(err);
 
     const errors = err.response.data.errors;
-    // console.log(errors);
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
     }
 
     dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: err.response.statusText,
-        status: err.response.status
-      }
+      type: PROFILE_ERROR
     });
   }
 };
@@ -249,14 +211,12 @@ export const addEducationAct = (
       }
     };
 
-    // console.log("formData from addEducationAct", formData);
     const res = await axios.put(
       `${apiUrl}/api/profile/education`,
       formData,
       config
     );
 
-    console.log("res.data from addEducationAct", res.data);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
@@ -273,20 +233,14 @@ export const addEducationAct = (
       setTimeout(() => history.push("/dashboard"), 1000);
     }
   } catch (err) {
-    console.error(err);
 
     const errors = err.response.data.errors;
-    // console.log(errors);
     if (errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
     }
 
     dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: err.response.statusText,
-        status: err.response.status
-      }
+      type: PROFILE_ERROR
     });
   }
 };
@@ -301,13 +255,11 @@ export const deleteExperienceAct = (
 ) => async dispatch => {
   try {
     const res = await axios.delete(`${apiUrl}/api/profile/experience/${id}`);
-    console.log(detailPage, company, id, history);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data
     });
-    // console.log(detailPage, company, id, history);
     dispatch(
       setAlert(
         "Experience Deleted",
@@ -315,22 +267,14 @@ export const deleteExperienceAct = (
         "success"
       )
     );
-    // console.log(detailPage, company, id, history);
     if (detailPage) {
       history.push(`/dashboard`);
     }
   } catch (err) {
-    console.error(err);
-
-    // console.log(err.response);
-    // console.log(err);
     dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: err.response.statusText,
-        status: err.response.status
-      }
+      type: PROFILE_ERROR
     });
+    throw err
   }
 };
 
@@ -362,12 +306,9 @@ export const deleteEducationAct = (
     }
   } catch (err) {
     dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: err.response.statusText,
-        status: err.response.status
-      }
+      type: PROFILE_ERROR
     });
+    throw err
   }
 };
 
@@ -375,7 +316,7 @@ export const deleteEducationAct = (
 export const deleteAccountAct = apiUrl => async dispatch => {
   if (window.confirm("Are you sure? This can NOT be undone!")) {
     try {
-      const res = await axios.delete(`${apiUrl}/api/profile`);
+      await axios.delete(`${apiUrl}/api/profile`);
 
       dispatch({ type: CLEAR_PROFILE });
       dispatch({ type: ACCOUNT_DELETED });
@@ -388,15 +329,11 @@ export const deleteAccountAct = apiUrl => async dispatch => {
         )
       );
     } catch (err) {
-      console.error(err);
 
       dispatch({
-        type: PROFILE_ERROR,
-        payload: {
-          msg: err.response.statusText,
-          status: err.response.status
-        }
+        type: PROFILE_ERROR
       });
+      throw err
     }
   }
 };

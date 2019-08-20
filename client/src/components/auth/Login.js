@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from "react";
-import { Form, Button, Header, Segment, Divider } from "semantic-ui-react";
+import { Form, Button, Header, Divider } from "semantic-ui-react";
 
 const Login = ({ apiUrl, loginAct, setAlert }) => {
   const [formData, setFormData] = useState({

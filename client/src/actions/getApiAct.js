@@ -10,7 +10,7 @@ if (localStorage.token) {
 
 const apiUrl = `${window.location.protocol}//${
   window.location.host
-}/config/config.json`;
+  }/config/config.json`;
 
 export const getAPIActData = apiUrl => {
   return {
@@ -24,7 +24,6 @@ export const getAPIAct = () => {
     return axios
       .get(apiUrl)
       .then(response => {
-        // console.log(response.data);
         dispatch(getAPIActData(response.data));
         dispatch(loadUser(response.data.apiUrl));
       })
