@@ -13,14 +13,18 @@ const ProfileSchema = new mongoose.Schema({
     type: Number
   },
   workingemail: {
-    type: String,
-    required: true
+    type: String
   },
-  shownumberandworkingemail: {
-    type: Boolean,
-    required: true
+  shownumber: {
+    type: Boolean
+  },
+  showworkingemail: {
+    type: Boolean
   },
   country: {
+    type: String
+  },
+  area: {
     type: String
   },
   languages: {

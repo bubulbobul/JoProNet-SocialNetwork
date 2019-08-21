@@ -14,6 +14,7 @@ const Post = require("../../models/Post");
 // @desc    To get profile of the current connected user
 // @access  Private
 router.get("/me", auth, async (req, res) => {
+  console.log(req.user)
   try {
     const profile = await Profile.findOne({ user: req.user.id }).populate(
       "user",
@@ -62,8 +63,10 @@ router.post(
       company,
       number,
       workingemail,
-      shownumberandworkingemail,
+      shownumber,
+      showworkingemail,
       country,
+      area,
       languages,
       website,
       location,
@@ -100,16 +103,28 @@ router.post(
       profileFields.workingemail = workingemail;
     }
 
-    if (shownumberandworkingemail === "") {
-      profileFields.shownumberandworkingemail = null;
+    if (shownumber === "") {
+      profileFields.shownumber = null;
     } else {
-      profileFields.shownumberandworkingemail = shownumberandworkingemail;
+      profileFields.shownumber = shownumber;
+    }
+
+    if (showworkingemail === "") {
+      profileFields.showworkingemail = null;
+    } else {
+      profileFields.showworkingemail = showworkingemail;
     }
 
     if (country === "") {
       profileFields.country = null;
     } else {
       profileFields.country = country;
+    }
+
+    if (area === "") {
+      profileFields.area = null;
+    } else {
+      profileFields.area = area;
     }
 
     if (website === "") {
@@ -305,6 +320,74 @@ router.put(
   }
 );
 
+/************************** */
+// @route   GET api/profile/experience/:exp_id
+// @desc    Get an experience by its Id
+// @access  Private
+router.get("/experience/:exp_id", auth, async (req, res) => {
+  try {
+    // Get profile by user id
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    expId = req.params.exp_id;
+    const experiences = profile.experience
+    const experience = experiences.find(exp => exp._id = expId)
+
+    const experienceId = experience._id.toString()
+
+    // console.log("expId", expId)
+    // console.log("experience", experience)
+    // console.log("experience._id", experience._id)
+    // console.log("experience._id.toString()", experience._id.toString())
+    // console.log("experienceId", experienceId)
+
+    if (experienceId === expId) {
+      return res.json(experience);
+    } else {
+      return res.status(400).json({ msg: "Experience not found" });
+    }
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+/************************ */
+
+/************************** */
+// @route   GET api/profile/education/:edu_id
+// @desc    Get an education its Id
+// @access  Private
+router.get("/education/:edu_id", auth, async (req, res) => {
+  try {
+    // Get profile by user id
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    eduId = req.params.edu_id;
+    const educations = profile.education
+    const education = educations.find(edu => edu._id = eduId)
+
+    const educationId = education._id.toString()
+
+    // console.log("eduId", eduId)
+    // console.log("education", education)
+    // console.log("education._id", education._id)
+    // console.log("education._id.toString()", education._id.toString())
+    // console.log("educationId", educationId)
+
+    if (educationId === eduId) {
+      return res.json(education);
+    } else {
+      return res.status(400).json({ msg: "Education not found" });
+    }
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+/************************ */
+
 // @route   DELETE api/profile/experience/:exp_id
 // @desc    delete experience from profile
 // @access  Private
@@ -318,9 +401,9 @@ router.delete("/experience/:exp_id", auth, async (req, res) => {
       .map(item => item.id)
       .indexOf(req.params.exp_id);
 
-    profile.experience.splice(removeIndex, 1);
-
-    await profile.save();
+    const exp = profile.experience.splice(removeIndex, 1);
+    console.log(exp)
+    // await profile.save();
 
     res.json(profile);
   } catch (err) {
