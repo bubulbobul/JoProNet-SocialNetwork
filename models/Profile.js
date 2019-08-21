@@ -10,14 +10,22 @@ const ProfileSchema = new mongoose.Schema({
     type: String
   },
   number: {
+    type: Number
+  },
+  workingemail: {
     type: String,
+    required: true
+  },
+  shownumberandworkingemail: {
+    type: Boolean,
     required: true
   },
   country: {
     type: String
   },
   languages: {
-    type: [String]
+    type: [String],
+    required: true
   },
   website: {
     type: String

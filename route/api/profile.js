@@ -44,6 +44,9 @@ router.post(
         .isEmpty(),
       check("skills", "Skills is required")
         .not()
+        .isEmpty(),
+      check("languages", "Languages is required")
+        .not()
         .isEmpty()
     ]
   ],
@@ -58,6 +61,8 @@ router.post(
     const {
       company,
       number,
+      workingemail,
+      shownumberandworkingemail,
       country,
       languages,
       website,
@@ -87,6 +92,18 @@ router.post(
       profileFields.number = null;
     } else {
       profileFields.number = number;
+    }
+
+    if (workingemail === "") {
+      profileFields.workingemail = null;
+    } else {
+      profileFields.workingemail = workingemail;
+    }
+
+    if (shownumberandworkingemail === "") {
+      profileFields.shownumberandworkingemail = null;
+    } else {
+      profileFields.shownumberandworkingemail = shownumberandworkingemail;
     }
 
     if (country === "") {
