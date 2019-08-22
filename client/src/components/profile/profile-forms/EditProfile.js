@@ -35,6 +35,10 @@ const EditProfile = props => {
   const [formData, setFormData] = useState({
     company: "",
     number: "",
+    workingemail: "",
+    showworkingemail: false,
+    shownumber: false,
+    area: "",
     languages: "",
     country: "",
     status: "",
@@ -52,6 +56,10 @@ const EditProfile = props => {
   const {
     company,
     number,
+    area,
+    shownumber,
+    workingemail,
+    showworkingemail,
     languages,
     website,
     location,
@@ -71,26 +79,30 @@ const EditProfile = props => {
   useEffect(
     () => {
       props.getCurrentProfileAct(apiUrl);
-      // profile &&
-      setFormData({
-        company: loading || !profile.company ? "" : profile.company,
-        number: loading || !profile.number ? "" : profile.number,
-        country: loading || !profile.country ? "" : profile.country,
-        status: loading || !profile.status ? "" : profile.status,
-        website: loading || !profile.website ? "" : profile.website,
-        location: loading || !profile.location ? "" : profile.location,
-        skills: loading || !profile.skills ? "" : profile.skills.toString(),
-        languages:
-          loading || !profile.languages ? "" : profile.languages.toString(),
-        githubusername:
-          loading || !profile.githubusername ? "" : profile.githubusername,
-        bio: loading || !profile.bio ? "" : profile.bio,
-        twitter: loading || !profile.social ? "" : profile.social.twitter,
-        facebook: loading || !profile.social ? "" : profile.social.facebook,
-        linkedin: loading || !profile.social ? "" : profile.social.linkedin,
-        youtube: loading || !profile.social ? "" : profile.social.youtube,
-        instagram: loading || !profile.social ? "" : profile.social.instagram
-      });
+      profile &&
+        setFormData({
+          company: loading || !profile.company ? "" : profile.company,
+          workingemail: loading || !profile.workingemail ? "" : profile.workingemail,
+          area: loading || !profile.area ? "" : profile.area,
+          showworkingemail: loading || !profile.showworkingemail ? "" : profile.showworkingemail,
+          number: loading || !profile.number ? "" : profile.number,
+          shownumber: loading || !profile.shownumber ? "" : profile.shownumber,
+          country: loading || !profile.country ? "" : profile.country,
+          status: loading || !profile.status ? "" : profile.status,
+          website: loading || !profile.website ? "" : profile.website,
+          location: loading || !profile.location ? "" : profile.location,
+          skills: loading || !profile.skills ? "" : profile.skills.toString(),
+          languages:
+            loading || !profile.languages ? "" : profile.languages.toString(),
+          githubusername:
+            loading || !profile.githubusername ? "" : profile.githubusername,
+          bio: loading || !profile.bio ? "" : profile.bio,
+          twitter: loading || !profile.social ? "" : profile.social.twitter,
+          facebook: loading || !profile.social ? "" : profile.social.facebook,
+          linkedin: loading || !profile.social ? "" : profile.social.linkedin,
+          youtube: loading || !profile.social ? "" : profile.social.youtube,
+          instagram: loading || !profile.social ? "" : profile.social.instagram
+        });
     },
     // The conditon is when it's loading it will run
     []
@@ -98,21 +110,26 @@ const EditProfile = props => {
   const icon = "black tie";
   const edit = true;
 
-
   const handleChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = e => {
+    console.log(formData);
+    // console.log(checkedEmailValue);
     e.preventDefault();
     props.createOrUpdateProfileAct(apiUrl, formData, props.history, edit);
-    handleReset();
+    // handleReset();
   };
 
   const handleReset = e => {
     setFormData({
       company: "",
       status: "",
+      area: "",
       number: "",
+      workingemail: "",
+      shownumber: false,
+      showworkingemail: false,
       country: "",
       languages: "",
       website: "",
@@ -130,9 +147,6 @@ const EditProfile = props => {
 
   return (
     <Fragment>
-      <Divider hidden />
-      <Divider hidden />
-      <Divider hidden />
       <Divider hidden />
       <Divider hidden />
       <Divider hidden />
@@ -216,7 +230,8 @@ const EditProfile = props => {
                                 onChange={e => handleChange(e)}
                               />
                               <p style={{ color: "#888" }}>
-                                Could be your own company or one you work for
+                                Could be your company's website or your portofolio
+                                  (eg. https://www.google.com/)
                               </p>
                             </Form.Field>
                           </Form.Group>
@@ -249,7 +264,7 @@ const EditProfile = props => {
                             <Form.Field>
                               <Form.Input
                                 label='Github Username'
-                                placeholder='Enter you github Username'
+                                placeholder='Enter your github Username'
                                 name='githubusername'
                                 value={githubusername}
                                 onChange={e => handleChange(e)}
@@ -263,18 +278,6 @@ const EditProfile = props => {
                           <Form.Group widths='equal'>
                             <Form.Field>
                               <Form.Input
-                                label='Number'
-                                placeholder='Enter your number'
-                                name='number'
-                                value={number}
-                                onChange={e => handleChange(e)}
-                              />
-                              <p style={{ color: "#888" }}>
-                                Please enter the number in this format: +33 12345 67890
-                              </p>
-                            </Form.Field>
-                            <Form.Field>
-                              <Form.Input
                                 label='Spoken Languages'
                                 placeholder='Which language do you speak'
                                 name='languages'
@@ -283,7 +286,7 @@ const EditProfile = props => {
                               />
                               <p style={{ color: "#888" }}>
                                 Please use comma separated values (eg.
-                                French,English,Lingala,German)
+                                French,English,Spanish,German)
                               </p>
                             </Form.Field>
                           </Form.Group>
@@ -331,6 +334,18 @@ const EditProfile = props => {
                           </Form.Field>
                           <Form.Field>
                             <Form.Input
+                              label='Locality'
+                              placeholder='Locality'
+                              name='area'
+                              value={area}
+                              onChange={e => handleChange(e)}
+                            />
+                            <p style={{ color: "#888" }}>Your locality can be a state or a city</p>
+                          </Form.Field>
+                        </Form.Group>
+                        <Form.Group widths='equal'>
+                          <Form.Field>
+                            <Form.Input
                               label='Number'
                               placeholder='Enter your number'
                               name='number'
@@ -338,6 +353,51 @@ const EditProfile = props => {
                               onChange={e => handleChange(e)}
                             />
                             <p style={{ color: "#888" }}>Please enter your number</p>
+                          </Form.Field>
+                          <Form.Field>
+                            <Form.Input
+                              label='Working Email'
+                              placeholder='Enter your joinable email'
+                              name='workingemail'
+                              value={workingemail}
+                              onChange={e => handleChange(e)}
+                            />
+                          </Form.Field>
+                        </Form.Group>
+                        <Form.Group widths='equal'>
+                          <Form.Field>
+                            <label>Publish my number ?</label>
+                            <Form.Radio
+                              label='Yes, I agree'
+                              checked={shownumber === true}
+                              onChange={e => {
+                                setFormData({ ...formData, shownumber: true });
+                              }}
+                            />
+                            <Form.Radio
+                              label='No, I refuse'
+                              checked={shownumber !== true}
+                              onChange={e => {
+                                setFormData({ ...formData, shownumber: false });
+                              }}
+                            />
+                          </Form.Field>
+                          <Form.Field >
+                            <label>Publish my working email ?</label>
+                            <Form.Radio
+                              label='Yes, I agree'
+                              checked={showworkingemail === true}
+                              onChange={e => {
+                                setFormData({ ...formData, showworkingemail: true });
+                              }}
+                            />
+                            <Form.Radio
+                              label='No, I refuse'
+                              checked={showworkingemail !== true}
+                              onChange={e => {
+                                setFormData({ ...formData, showworkingemail: false });
+                              }}
+                            />
                           </Form.Field>
                         </Form.Group>
                         <Divider hidden />
@@ -487,6 +547,7 @@ const EditProfile = props => {
 
         </Segment>
       </Container>
+      <Divider hidden />
     </Fragment>
   );
 };

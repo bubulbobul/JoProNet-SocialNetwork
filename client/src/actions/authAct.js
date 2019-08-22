@@ -89,10 +89,16 @@ export const loginAct = (apiUrl, email, password) => async dispatch => {
 
     dispatch(loadUser(apiUrl));
   } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+    console.log(err)
+    console.log(err.response)
+    if (err !== undefined) {
+      const errors = err.response.data.errors;
+      if (errors) {
+        errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+      }
     }
+
+
     dispatch({
       type: LOGIN_FAIL
     });

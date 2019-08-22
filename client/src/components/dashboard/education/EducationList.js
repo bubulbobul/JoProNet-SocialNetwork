@@ -50,12 +50,12 @@ const EducationList = props => {
           ) : (
               <List>
                 {profile &&
-                  profile.education.map((edu, id) => {
+                  profile.education.map((edu) => {
                     return (
                       <Segment key={edu._id}>
                         <List.Item>
                           <List.Content>
-                            <Link to={`/education/${id}`}>
+                            <Link to={`/education/${edu._id}`}>
                               <Button animated='vertical' floated='right' primary>
                                 <Button.Content visible>More</Button.Content>
                                 <Button.Content hidden>

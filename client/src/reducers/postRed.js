@@ -2,6 +2,7 @@ import {
   GET_POSTS,
   POST_ERROR,
   UPDATE_LIKES,
+  UPDATE_LIKE,
   DELETE_POST,
   CLEAR_POST,
   ADD_POST,
@@ -76,6 +77,28 @@ export default (state = initialState, action) => {
         error: payload,
         loading: false
       };
+    case UPDATE_LIKE:
+      const post = state.post
+      if (payload.rmLike === true) {
+        console.log(payload)
+        return {
+          ...state,
+          post: {
+            ...post,
+            // likes: payload.likes
+            likes: [...payload.likes.filter(like => like._id !== payload.postId)]
+          }
+        }
+      } else {
+        return {
+          ...state,
+          post: {
+            ...post,
+            likes: payload.likes
+          }
+        }
+      };
+
     case UPDATE_LIKES:
       return {
         ...state,

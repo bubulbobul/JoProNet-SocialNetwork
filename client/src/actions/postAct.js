@@ -10,7 +10,8 @@ import {
   GET_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
-  CLEAR_POST
+  CLEAR_POST,
+  UPDATE_LIKE
 } from "./types";
 
 // Get posts
@@ -66,11 +67,20 @@ export const getAllPostsAct = apiUrl => async dispatch => {
 };
 
 // ADD LIKE
-export const upDateLikeAct = (likes, postId) => {
+export const upDateLikesAct = (likes, postId) => {
   return {
     type: UPDATE_LIKES,
     payload: {
       postId,
+      likes: likes
+    }
+  };
+};
+
+export const upDateLikeAct = (likes) => {
+  return {
+    type: UPDATE_LIKE,
+    payload: {
       likes: likes
     }
   };
@@ -87,6 +97,8 @@ export const addLikeAct = (apiUrl, postId) => {
     return axios
       .put(`${apiUrl}/api/posts/like/${postId}`)
       .then(response => {
+        console.log(response.data)
+        dispatch(upDateLikesAct(response.data, postId));
         dispatch(upDateLikeAct(response.data, postId));
       })
       .catch(err => {
@@ -100,12 +112,23 @@ export const addLikeAct = (apiUrl, postId) => {
 };
 
 // REMOVE LIKE
-export const rmLike = (likes, postId) => {
+export const rmLikes = (likes, postId) => {
   return {
     type: UPDATE_LIKES,
     payload: {
       postId,
       likes: likes
+    }
+  };
+};
+
+export const rmLike = (likes, postId, rmLike = true) => {
+  return {
+    type: UPDATE_LIKE,
+    payload: {
+      postId,
+      likes: likes,
+      rmLike
     }
   };
 };
@@ -121,6 +144,7 @@ export const removeLikeAct = (apiUrl, postId) => {
     return axios
       .put(`${apiUrl}/api/posts/unlike/${postId}`)
       .then(response => {
+        dispatch(rmLikes(response.data, postId));
         dispatch(rmLike(response.data, postId));
       })
       .catch(error => {
@@ -131,7 +155,8 @@ export const removeLikeAct = (apiUrl, postId) => {
 };
 
 // Delete post
-export const deletePostAct = (apiUrl, postId, postName) => async dispatch => {
+export const deletePostAct = (apiUrl, postId, postName, history, tr) => async dispatch => {
+  console.log(tr, history)
   try {
     await axios.delete(`${apiUrl}/api/posts/${postId}`);
 
@@ -147,6 +172,10 @@ export const deletePostAct = (apiUrl, postId, postName) => async dispatch => {
         "success"
       )
     );
+
+    if (tr) {
+      history.push(`/posts`);
+    }
   } catch (error) {
     dispatch({
       type: POST_ERROR

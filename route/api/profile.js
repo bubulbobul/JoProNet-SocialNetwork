@@ -325,13 +325,34 @@ router.put(
 // @desc    Get an experience by its Id
 // @access  Private
 router.get("/experience/:exp_id", auth, async (req, res) => {
+
+  // try {
+  //   // Get profile by user id
+  //   const profile = await Profile.findOne({ user: req.user.id });
+
+  //   // And get the remove index
+  //   const removeIndex = profile.experience
+  //     .map(item => item.id)
+  //     .indexOf(req.params.exp_id);
+
+  //   const exp = profile.experience.splice(removeIndex, 1);
+  //   console.log(JSON.stringify(exp))
+  //   // await profile.save();
+
+  //   res.json(exp);
+  // } catch (err) {
+  //   console.error(err.message);
+  //   res.status(500).send("Server Error");
+  // }
+
+
   try {
     // Get profile by user id
     const profile = await Profile.findOne({ user: req.user.id });
 
     expId = req.params.exp_id;
     const experiences = profile.experience
-    const experience = experiences.find(exp => exp._id = expId)
+    const experience = experiences.find(exp => exp._id.toString() === expId)
 
     const experienceId = experience._id.toString()
 
@@ -365,7 +386,7 @@ router.get("/education/:edu_id", auth, async (req, res) => {
 
     eduId = req.params.edu_id;
     const educations = profile.education
-    const education = educations.find(edu => edu._id = eduId)
+    const education = educations.find(edu => edu._id.toString() === eduId)
 
     const educationId = education._id.toString()
 
@@ -403,7 +424,7 @@ router.delete("/experience/:exp_id", auth, async (req, res) => {
 
     const exp = profile.experience.splice(removeIndex, 1);
     console.log(exp)
-    // await profile.save();
+    await profile.save();
 
     res.json(profile);
   } catch (err) {

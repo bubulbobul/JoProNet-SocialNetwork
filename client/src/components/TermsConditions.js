@@ -15,7 +15,7 @@ const TermsConditionsModal = ({ termsConditions }) => {
             </p>
             <p style={{ color: "#333", fontSize: "1.3rem" }}>
               By accessing this website we assume you accept these terms and
-              conditions. Do not continue to use Website Name if you do not
+              conditions. Do not continue to use JoProNet if you do not
               agree to take all of the terms and conditions stated on this page.
             </p>
             <p style={{ color: "#333", fontSize: "1.3rem" }}>
@@ -38,9 +38,9 @@ const TermsConditionsModal = ({ termsConditions }) => {
             <Header>License</Header>
             <p style={{ color: "#333", fontSize: "1.3rem" }}>
               Unless otherwise stated, JoProNet and/or its licensors own the
-              intellectual property rights for all material on Website Name. All
+              intellectual property rights for all material on JoProNet. All
               intellectual property rights are reserved. You may access this
-              from Website Name for your own personal use subjected to
+              from JoProNet for your own personal use subjected to
               restrictions set in these terms and conditions.
             </p>
             <p style={{ color: "#333", fontSize: "1.3rem" }}>You must not:</p>
@@ -158,7 +158,7 @@ const TermsConditionsModal = ({ termsConditions }) => {
               ourselves or to our accredited businesses; (b) the organization
               does not have any negative records with us; (c) the benefit to us
               from the visibility of the hyperlink compensates the absence of
-              Company Name; and (d) the link is in the context of general
+              JoProNet; and (d) the link is in the context of general
               resource information.
             </p>
             <p style={{ color: "#333", fontSize: "1.3rem" }}>
@@ -171,7 +171,7 @@ const TermsConditionsModal = ({ termsConditions }) => {
             <p style={{ color: "#333", fontSize: "1.3rem" }}>
               If you are one of the organizations listed in paragraph 2 above
               and are interested in linking to our website, you must inform us
-              by sending an e-mail to Company Name. Please include your name,
+              by sending an e-mail to JoProNet. Please include your name,
               your organization name, contact information as well as the URL of
               your site, a list of any URLs from which you intend to link to our
               Website, and a list of the URLs on our site to which you would
@@ -192,7 +192,7 @@ const TermsConditionsModal = ({ termsConditions }) => {
               </List.Item>
             </List>
             <p style={{ color: "#333", fontSize: "1.3rem" }}>
-              No use of Company Name's logo or other artwork will be allowed for
+              No use of JoProNet's logo or other artwork will be allowed for
               linking absent a trademark license agreement.
             </p>
             <Header>iFrames</Header>

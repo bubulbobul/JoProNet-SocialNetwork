@@ -21,19 +21,20 @@ const ProfileAbout = ({
       <Segment style={{ background: "#f4f4f4" }}>
         <Fragment>
           {bio && (
-            <Container textAlign='center'>
-              <Header color='teal'>{name.trim().split(" ")[0]}'s Bio</Header>
-              <p>{bio}</p>
-            </Container>
+            <Fragment>
+              <Container textAlign='center'>
+                <Header color='teal'>{name.trim().split(" ")[0]}'s Bio</Header>
+                <p>{bio}</p>
+              </Container>
+              <Divider hidden />
+              <Divider />
+              <Divider hidden />
+            </Fragment>
           )}
         </Fragment>
         <Fragment>
           {skills && (
             <Fragment>
-              <Divider hidden />
-              <Divider />
-              <Divider hidden />
-
               <Container textAlign='center'>
                 <Header color='teal'>Skill Set</Header>
                 <List horizontal>
@@ -49,15 +50,15 @@ const ProfileAbout = ({
                   })}
                 </List>
               </Container>
+              <Divider hidden />
+              <Divider />
+              <Divider hidden />
             </Fragment>
           )}
         </Fragment>
         <Fragment>
           {languages.length > 1 && (
             <Fragment>
-              <Divider hidden />
-              <Divider />
-              <Divider hidden />
               <Container textAlign='center'>
                 <Header color='teal'>Spoken Languages</Header>
                 <List horizontal>

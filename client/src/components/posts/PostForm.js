@@ -76,12 +76,16 @@ const PostForm = ({ apiUrl, addPostAct }) => {
               onClick={e => {
                 addPostAct(apiUrl, formData);
                 handleReset(e);
+                togglePostForm(!displayPostForm)
               }}
             >
               Submit
               <Icon name='chevron down' />
             </Button>
-            <Button icon labelPosition='left' onClick={e => handleReset(e)}>
+            <Button icon labelPosition='left' onClick={e => {
+              handleReset(e)
+              togglePostForm(!displayPostForm)
+            }}>
               Cancel
               <Icon name='cancel' />
             </Button>

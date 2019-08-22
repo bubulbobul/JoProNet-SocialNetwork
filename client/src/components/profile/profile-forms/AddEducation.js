@@ -91,9 +91,6 @@ const AddEducation = props => {
         <Divider hidden />
         <Divider hidden />
         <Divider hidden />
-        <Divider hidden />
-        <Divider hidden />
-        <Divider hidden />
         <Segment color='blue'>
           <Grid columns='equal'>
             <Grid.Column>
@@ -263,8 +260,6 @@ const AddEducation = props => {
             </Link>
           </Form>
         </Segment>
-        <Divider hidden />
-        <Divider hidden />
         <Divider hidden />
       </Container>
     </Fragment>

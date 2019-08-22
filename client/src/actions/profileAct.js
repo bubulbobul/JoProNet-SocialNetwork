@@ -8,11 +8,21 @@ import {
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
   GET_ALL_PROFILES,
-  GET_REPOS
+  GET_REPOS,
+  GET_SINGLE_EXPERIENCE,
+  GET_SINGLE_EDUCATION,
+  CLEAR_GET_SINGLE_EXPERIENCE,
+  CLEAR_GET_SINGLE_EDUCATION
 } from "./types";
 
 // Fct to get the current users profile
 export const getCurrentProfileAct = apiUrl => async dispatch => {
+  dispatch({
+    type: CLEAR_GET_SINGLE_EXPERIENCE
+  });
+  dispatch({
+    type: CLEAR_GET_SINGLE_EDUCATION
+  });
 
   try {
     const res = await axios.get(`${apiUrl}/api/profile/me`);
@@ -22,17 +32,19 @@ export const getCurrentProfileAct = apiUrl => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+    // const errors = err.response.data.errors;
+    // if (errors) {
+    //   errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+    // }
+    if (err !== undefined) {
+      const errors = err.response.data.errors;
+      if (errors) {
+        errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+      }
     }
 
     dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg: err.response.statusText,
-        status: err.response.status
-      }
+      type: PROFILE_ERROR
     });
   }
 };
@@ -40,7 +52,13 @@ export const getCurrentProfileAct = apiUrl => async dispatch => {
 // To Get all profiles
 export const getAllProfilesAct = apiUrl => async dispatch => {
   dispatch({
-    type: CLEAR_PROFILE
+    type: CLEAR_PROFILE,
+  });
+  dispatch({
+    type: CLEAR_GET_SINGLE_EXPERIENCE
+  });
+  dispatch({
+    type: CLEAR_GET_SINGLE_EDUCATION
   });
 
   try {
@@ -335,5 +353,39 @@ export const deleteAccountAct = apiUrl => async dispatch => {
       });
       throw err
     }
+  }
+};
+
+// GET A SINGLE EXPERIENCE
+export const getSingleExperience = (apiUrl, expId) => async dispatch => {
+  try {
+    const res = await axios.get(`${apiUrl}/api/profile/experience/${expId}`);
+    dispatch({
+      type: GET_SINGLE_EXPERIENCE,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR
+    });
+    throw err
+  }
+};
+
+
+// GET A SINGLE EDUCATION
+export const getSingleEducation = (apiUrl, eduId) => async dispatch => {
+  try {
+    const res = await axios.get(`${apiUrl}/api/profile/education/${eduId}`);
+
+    dispatch({
+      type: GET_SINGLE_EDUCATION,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR
+    });
+    throw err
   }
 };

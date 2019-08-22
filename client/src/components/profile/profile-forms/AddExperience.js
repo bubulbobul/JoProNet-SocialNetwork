@@ -85,9 +85,6 @@ const AddExperience = props => {
         <Divider hidden />
         <Divider hidden />
         <Divider hidden />
-        <Divider hidden />
-        <Divider hidden />
-        <Divider hidden />
         <Segment color='blue'>
           <Grid columns='equal'>
             <Grid.Column>
@@ -252,8 +249,6 @@ const AddExperience = props => {
             </Link>
           </Form>
         </Segment>
-        <Divider hidden />
-        <Divider hidden />
         <Divider hidden />
       </Container>
     </Fragment>

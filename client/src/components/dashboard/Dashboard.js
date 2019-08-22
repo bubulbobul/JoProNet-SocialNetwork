@@ -33,13 +33,10 @@ const Dashboard = props => {
     props.deleteAccountAct(apiUrl);
   };
 
-  return profile.profile === null ? (
+  return profile.profile === null && profile.hasProfile !== null ? (
     <MainLoader />
   ) : (
       <Fragment>
-        <Divider hidden />
-        <Divider hidden />
-        <Divider hidden />
         <Divider hidden />
         <Divider hidden />
         <Divider hidden />
@@ -123,6 +120,8 @@ const Dashboard = props => {
             </Fragment>
             <Divider hidden />
             <Divider hidden />
+            <Divider />
+            <Divider hidden />
             <Fragment>
               <Grid columns='equal'>
                 <Grid.Column textAlign='right'>
@@ -145,12 +144,10 @@ const Dashboard = props => {
                 </Grid.Column>
               </Grid>
             </Fragment>
-            <Divider hidden />
+
             <Divider hidden />
           </Segment>
         </Container>
-        <Divider hidden />
-        <Divider hidden />
         <Divider hidden />
       </Fragment>
     );

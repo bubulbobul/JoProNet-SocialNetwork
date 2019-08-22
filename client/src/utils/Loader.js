@@ -44,3 +44,23 @@ export const LoaderEditProfile = () => (
     </Dimmer>
   </Fragment>
 );
+
+export const LoaderExperienceDetails = () => (
+  <Fragment>
+    <Dimmer active>
+      <Loader active inline='centered' size='huge'>
+        Your Experience credential is loading...
+      </Loader>
+    </Dimmer>
+  </Fragment>
+);
+
+export const LoaderEducationDetails = () => (
+  <Fragment>
+    <Dimmer active>
+      <Loader active inline='centered' size='huge'>
+        Your Education credential is loading...
+      </Loader>
+    </Dimmer>
+  </Fragment>
+);

@@ -67,12 +67,16 @@ const CommentForm = ({ apiUrl, postId, addCommentAct }) => {
               onClick={e => {
                 addCommentAct(apiUrl, postId, formData);
                 handleReset(e);
+                toggleCommentForm(!displayCommentForm)
               }}
             >
               Submit
               <Icon name='chevron down' />
             </Button>
-            <Button icon labelPosition='left' onClick={e => handleReset(e)}>
+            <Button icon labelPosition='left' onClick={e => {
+              handleReset(e)
+              toggleCommentForm(!displayCommentForm)
+            }}>
               Cancel
               <Icon name='cancel' />
             </Button>

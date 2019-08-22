@@ -1,12 +1,21 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { getGithubReposAct } from "../../../actions/profileAct";
+import Linkify from 'react-linkify';
 import { Segment, Header, Grid, Icon, Divider } from "semantic-ui-react";
 
 const ProfileGithub = ({ username, apiUrl, getGithubReposAct, repos }) => {
   useEffect(() => {
     getGithubReposAct(apiUrl, username);
   }, []);
+
+  const componentDecorator = (href, text, key) => {
+    return (
+      <a href={href} key={key} target="_blank" rel='noopener noreferrer'>
+        {text}
+      </a>
+    )
+  };
 
   return (
     <Fragment>
@@ -21,11 +30,13 @@ const ProfileGithub = ({ username, apiUrl, getGithubReposAct, repos }) => {
                     <Grid.Row>
                       <Grid.Column>
                         <Header>
-                          <a href={repo.html_url} target='_blank'>
+                          <a href={repo.html_url} target='_blank' rel='noopener noreferrer'>
                             {repo.name}
                           </a>
                         </Header>
-                        <p>{repo.description}</p>
+                        <Linkify componentDecorator={componentDecorator}>
+                          {repo.description}
+                        </Linkify>
                       </Grid.Column>
                     </Grid.Row>{" "}
                     <Grid.Row>

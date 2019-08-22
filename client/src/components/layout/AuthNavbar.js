@@ -25,7 +25,7 @@ const AuthNavbar = ({ alerts }) => {
             position: "fixed",
             width: "100vw",
             margin: "0",
-            zIndex: "10"
+            zIndex: "100"
           }}
         >
           <Container>

@@ -9,7 +9,8 @@ import {
   Image,
   Icon,
   Button,
-  Label
+  Label,
+  Divider
 } from "semantic-ui-react";
 import TextTruncate from "react-text-truncate";
 
@@ -19,8 +20,10 @@ const PostItem = ({
   deletePostAct,
   apiUrl,
   auth,
+  tr,
   post: { _id, title, text, name, avatar, user, likes, comments, date }
 }) => {
+
   return (
     <Segment raised>
       <Grid stackable>
@@ -43,10 +46,9 @@ const PostItem = ({
                 {title}
               </Header>
             )}
-            <br />
+            <Divider />
             <TextTruncate
               line={3}
-              element='span'
               truncateText='…'
               text={text}
             />
@@ -117,7 +119,7 @@ const PostItem = ({
                 icon
                 color='red'
                 floated='right'
-                onClick={e => deletePostAct(apiUrl, _id, title)}
+                onClick={e => deletePostAct(apiUrl, _id, title, tr)}
               >
                 <Icon name='remove' />
               </Button>

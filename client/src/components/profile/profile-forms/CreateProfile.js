@@ -23,10 +23,14 @@ import { countryOptions } from "../../../utils/dropdownData";
 const CreateProfile = props => {
   const [formData, setFormData] = useState({
     company: "",
-    status: "",
     number: "",
+    area: "",
+    workingemail: "",
+    showworkingemail: false,
+    shownumber: false,
     languages: "",
     country: "",
+    status: "",
     website: "",
     location: "",
     skills: "",
@@ -36,7 +40,7 @@ const CreateProfile = props => {
     facebook: "",
     linkedin: "",
     youtube: "",
-    instagram: ""
+    instagram: "",
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
@@ -48,11 +52,15 @@ const CreateProfile = props => {
   const {
     company,
     website,
+    area,
     number,
     languages,
     location,
     skills,
     githubusername,
+    showworkingemail,
+    workingemail,
+    shownumber,
     bio,
     twitter,
     facebook,
@@ -67,13 +75,17 @@ const CreateProfile = props => {
   const handleSubmit = e => {
     e.preventDefault();
     props.createOrUpdateProfileAct(apiUrl, formData, props.history, edit);
-    handleReset();
+    // handleReset();
   };
 
   const handleReset = e => {
     setFormData({
       company: "",
       number: "",
+      area: "",
+      workingemail: "",
+      showworkingemail: false,
+      shownumber: false,
       languages: "",
       country: "",
       status: "",
@@ -92,7 +104,13 @@ const CreateProfile = props => {
 
   return (
     <Fragment>
-      <Container style={{ marginTop: "50px", marginBottom: "50px" }}>
+      <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
+      <Container>
         <Segment color='blue'>
           <Grid columns='equal'>
             <Grid.Column>
@@ -146,6 +164,7 @@ const CreateProfile = props => {
                       />
                       <p style={{ color: "#888" }}>
                         Could be your own company or one you work for
+
                       </p>
                     </Form.Field>
                     <Form.Field>
@@ -157,7 +176,8 @@ const CreateProfile = props => {
                         onChange={e => handleChange(e)}
                       />
                       <p style={{ color: "#888" }}>
-                        Could be your own company or one you work for
+                        Could be your company's website or your portofolio
+                        (eg. https://www.google.com/)
                       </p>
                     </Form.Field>
                   </Form.Group>
@@ -213,7 +233,7 @@ const CreateProfile = props => {
                       />
                       <p style={{ color: "#888" }}>
                         Please use comma separated values (eg.
-                        French,English,Lingala,German)
+                        French,English, Spain,German)
                       </p>
                     </Form.Field>
                   </Form.Group>
@@ -256,8 +276,20 @@ const CreateProfile = props => {
                     />
                     <p style={{ color: "#888" }}>
                       You can search for a country
-                    </p>
+                            </p>
                   </Form.Field>
+                  <Form.Field>
+                    <Form.Input
+                      label='Locality'
+                      placeholder='Locality'
+                      name='area'
+                      value={area}
+                      onChange={e => handleChange(e)}
+                    />
+                    <p style={{ color: "#888" }}>Your locality can be a state or a city</p>
+                  </Form.Field>
+                </Form.Group>
+                <Form.Group widths='equal'>
                   <Form.Field>
                     <Form.Input
                       label='Number'
@@ -267,6 +299,51 @@ const CreateProfile = props => {
                       onChange={e => handleChange(e)}
                     />
                     <p style={{ color: "#888" }}>Please enter your number</p>
+                  </Form.Field>
+                  <Form.Field>
+                    <Form.Input
+                      label='Working Email'
+                      placeholder='Enter your joinable email'
+                      name='workingemail'
+                      value={workingemail}
+                      onChange={e => handleChange(e)}
+                    />
+                  </Form.Field>
+                </Form.Group>
+                <Form.Group widths='equal'>
+                  <Form.Field>
+                    <label>Publish my number ?</label>
+                    <Form.Radio
+                      label='Yes, I agree'
+                      checked={shownumber === true}
+                      onChange={e => {
+                        setFormData({ ...formData, shownumber: true });
+                      }}
+                    />
+                    <Form.Radio
+                      label='No, I refuse'
+                      checked={shownumber !== true}
+                      onChange={e => {
+                        setFormData({ ...formData, shownumber: false });
+                      }}
+                    />
+                  </Form.Field>
+                  <Form.Field >
+                    <label>Publish my working email ?</label>
+                    <Form.Radio
+                      label='Yes, I agree'
+                      checked={showworkingemail === true}
+                      onChange={e => {
+                        setFormData({ ...formData, showworkingemail: true });
+                      }}
+                    />
+                    <Form.Radio
+                      label='No, I refuse'
+                      checked={showworkingemail !== true}
+                      onChange={e => {
+                        setFormData({ ...formData, showworkingemail: false });
+                      }}
+                    />
                   </Form.Field>
                 </Form.Group>
                 <Divider hidden />
@@ -412,6 +489,7 @@ const CreateProfile = props => {
           </Form>
         </Segment>
       </Container>
+      <Divider hidden />
     </Fragment>
   );
 };

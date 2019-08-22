@@ -18,6 +18,7 @@ import ProfileAbout from "./ProfileAbout";
 import ProfileExperience from "./ProfileExperience";
 import ProfileEducation from "./ProfileEducation";
 import ProfileGithub from "./ProfileGithub";
+import ProfileContactMe from "./ProfileContactMe";
 
 const Profile = props => {
   const { match, apiUrl, profile, auth } = props;
@@ -30,9 +31,6 @@ const Profile = props => {
     <Fragment>
       <Fragment>
         <Container>
-          <Divider hidden />
-          <Divider hidden />
-          <Divider hidden />
           <Divider hidden />
           <Divider hidden />
           <Divider hidden />
@@ -137,6 +135,21 @@ const Profile = props => {
                       </Grid.Column>
                     </Grid>
                   </Fragment>
+                  {
+                    (profile.profile.area || profile.profile.country) &&
+                    (
+                      <Segment raised>
+                        <ProfileContactMe
+                          shownumber={profile.profile.shownumber}
+                          showworkingemail={profile.profile.showworkingemail}
+                          workingemail={profile.profile.workingemail}
+                          number={profile.profile.number}
+                          area={profile.profile.area}
+                          country={profile.profile.country}
+                        />
+                      </Segment>
+                    )
+                  }
                   <Fragment>
                     {profile.profile.githubusername && (
                       <Segment>
@@ -145,7 +158,6 @@ const Profile = props => {
                             <Icon name='github' />
                             <Header.Content>Github Repos</Header.Content>
                           </Header>
-
                           <ProfileGithub
                             username={profile.profile.githubusername}
                           />
@@ -156,11 +168,10 @@ const Profile = props => {
                 </Fragment>
               )}
           </Segment>
-          <Divider hidden />
-          <Divider hidden />
-          <Divider hidden />
         </Container>
       </Fragment>
+      <Divider hidden />
+
     </Fragment>
   );
 };

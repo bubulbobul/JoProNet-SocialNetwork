@@ -10,15 +10,23 @@ import {
   Icon,
   Button
 } from "semantic-ui-react";
+import Linkify from 'react-linkify';
 
 const CommentItem = ({
   comment: { _id, text, name, avatar, user, date },
   postId,
   deleteCommentAct,
   apiUrl,
-  auth
+  auth,
+  history
 }) => {
-  // console.log(apiUrl);
+  const componentDecorator = (href, text, key) => {
+    return (
+      <a href={href} key={key} target="_blank" rel='noopener noreferrer'>
+        {text}
+      </a>
+    )
+  };
   return (
     <Segment raised>
       <Grid stackable>
@@ -36,7 +44,7 @@ const CommentItem = ({
         </Grid.Column>
         <Grid.Column width={12} style={{ paddingTop: "3%" }}>
           <Container textAlign='justified'>
-            <p>{text}</p>
+            <Linkify componentDecorator={componentDecorator}>{text}</Linkify>
           </Container>
         </Grid.Column>
         <Grid.Column
@@ -64,7 +72,7 @@ const CommentItem = ({
                 icon
                 color='red'
                 floated='right'
-                onClick={e => deleteCommentAct(apiUrl, postId, _id)}
+                onClick={e => deleteCommentAct(apiUrl, postId, _id, history)}
               >
                 <Icon name='remove' />
               </Button>

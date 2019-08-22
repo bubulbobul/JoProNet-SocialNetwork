@@ -49,7 +49,7 @@ const ExperienceCard = props => {
           ) : (
               <Card.Group itemsPerRow={4}>
                 {profile &&
-                  profile.experience.map((exp, id) => {
+                  profile.experience.map((exp) => {
                     return (
                       <Card
                         key={exp._id}
@@ -77,7 +77,7 @@ const ExperienceCard = props => {
                           </Card.Description>
                         </Card.Content>
                         <Card.Content extra>
-                          <Link to={`/experience/${id}`}>
+                          <Link to={`/experience/${exp._id}`}>
                             <Button animated='vertical' primary floated='right'>
                               <Button.Content visible>More</Button.Content>
                               <Button.Content hidden>

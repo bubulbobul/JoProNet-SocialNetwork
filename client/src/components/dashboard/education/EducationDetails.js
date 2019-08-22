@@ -1,9 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter, Redirect } from "react-router-dom";
-import { getCurrentProfileAct } from "../../../actions/profileAct";
-import { deleteEducationAct } from "../../../actions/profileAct";
-import { MainLoader } from "../../../utils/Loader";
+import { getSingleEducation, deleteEducationAct } from "../../../actions/profileAct";
+import { LoaderEducationDetails } from "../../../utils/Loader";
 import Moment from "react-moment";
 import {
   Segment,
@@ -17,48 +16,58 @@ import {
 } from "semantic-ui-react";
 
 const EducationDetails = props => {
-  const { apiUrl, education } = props;
+  const { apiUrl, profile } = props;
 
   useEffect(() => {
-    props.getCurrentProfileAct(apiUrl);
+    props.getSingleEducation(apiUrl, props.match.params.id);
   }, []);
 
   const handleDelete = (e, id, school) => {
     props.deleteEducationAct(apiUrl, id, school, props.history, true);
   };
 
-  return education === null ||
-    education === undefined ||
-    education.school === null ||
-    education.school === undefined ? (
-    <Redirect to='/dashboard' />
-  ) : props.profile.loading && props.profile.profile === null ? (
-    <MainLoader />
-  ) : (
+  return (
     <Fragment>
+      <Divider hidden />
+      <Divider hidden />
+      <Divider hidden />
       <Divider hidden />
       <Divider hidden />
       <Divider hidden />
       <Container>
         <Segment raised>
-          <Grid divided>
+            {
+              profile === null || profile.education === null ? (
+                <Fragment>
+                  <Divider hidden />
+                  <Divider hidden />
+                  <Divider hidden />
+                  <LoaderEducationDetails />
+                  <Divider hidden />
+                  <Divider hidden />
+                  <Divider hidden />
+                </Fragment>
+              ) :
+                (
+                  <Fragment>
+<Grid divided>
             <Grid.Row>
               <Grid.Column floated='left' width={8}>
                 <Header as='h2'>
                   <Icon name='book' color='blue' />
                   <Header.Content>
-                    {education.school}
+                    {profile.education.school}
                     <Header.Subheader>
-                      {education.current === true
-                        ? `I study in ${education.school}`
-                        : `I got my ${education.degree} in ${education.school}`}
+                      {profile.education.current === true
+                        ? `I study in ${profile.education.school}`
+                        : `I got my ${profile.education.degree} in ${profile.education.school}`}
                     </Header.Subheader>
                   </Header.Content>
                 </Header>
               </Grid.Column>
               <Grid.Column width={8}>
                 <Header as='h4' floated='right'>
-                  My education with {education.school}
+                  My education with {profile.education.school}
                 </Header>
               </Grid.Column>
             </Grid.Row>
@@ -74,20 +83,20 @@ const EducationDetails = props => {
                     <Header.Content>What I Did</Header.Content>
                   </Header>
                   <Fragment>
-                    {education.description === "" ? (
+                    {profile.education.description === "" ? (
                       <Fragment>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <Message
                           warning
                           header='Warning'
                           content='You did
-                      not add any description of education'
+                      not add any description of your education'
                         />
                       </Fragment>
                     ) : (
                       <p>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {education.description}
+                        {profile.education.description}
                       </p>
                     )}
                   </Fragment>
@@ -105,7 +114,7 @@ const EducationDetails = props => {
                   </Header>
                   <Header as='h5'>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <strong>Country:</strong>&nbsp;&nbsp;{education.country}
+                    <strong>Country:</strong>&nbsp;&nbsp;{profile.education.country}
                   </Header>
                 </Container>
               </Grid.Column>
@@ -119,13 +128,13 @@ const EducationDetails = props => {
                   </Header>
                   <Header as='h5'>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;From&nbsp;:&nbsp;&nbsp;&nbsp;
-                    <Moment format='YYYY/MM/DD'>{education.from}</Moment>
+                    <Moment format='YYYY/MM/DD'>{profile.education.from}</Moment>
                     <br />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;:&nbsp;&nbsp;&nbsp;
-                    {education.to === null ? (
+                    {profile.education.to === null ? (
                       " Now"
                     ) : (
-                      <Moment format='YYYY/MM/DD'>{education.to}</Moment>
+                      <Moment format='YYYY/MM/DD'>{profile.education.to}</Moment>
                     )}
                   </Header>
                 </Container>
@@ -148,7 +157,7 @@ const EducationDetails = props => {
                   floated='right'
                   color='red'
                   onClick={e =>
-                    handleDelete(e, education._id, education.school)
+                    handleDelete(e, profile.education._id, profile.education.school)
                   }
                 >
                   Delete
@@ -157,6 +166,10 @@ const EducationDetails = props => {
               </Grid.Column>
             </Grid.Row>
           </Grid>
+                  </Fragment>
+                )
+          }
+          
         </Segment>
       </Container>
       <Divider hidden />
@@ -166,28 +179,18 @@ const EducationDetails = props => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const id = ownProps.match.params.id;
-  // console.log(id);
-
-  const educations = state.profile.educations;
-  // console.log("educations", educations);
-
-  const education = educations ? educations[id] : null;
-  // console.log(experience);
-
+const mapStateToProps = (state) => {
   return {
     apiUrl: state.apiUrl.apiUrl,
     auth: state.auth,
-    profile: state.profile,
-    education: education
+    profile: state.profile
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCurrentProfileAct: apiUrl => {
-      dispatch(getCurrentProfileAct(apiUrl));
+    getSingleEducation: (apiUrl, eduId) => {
+      dispatch(getSingleEducation(apiUrl, eduId));
     },
     deleteEducationAct: (apiUrl, id, school, history, detailPage) => {
       dispatch(deleteEducationAct(apiUrl, id, school, history, detailPage));

@@ -4,7 +4,11 @@ import {
   CLEAR_PROFILE,
   UPDATE_PROFILE,
   GET_ALL_PROFILES,
-  GET_REPOS
+  GET_REPOS,
+  GET_SINGLE_EDUCATION,
+  CLEAR_GET_SINGLE_EDUCATION,
+  GET_SINGLE_EXPERIENCE,
+  CLEAR_GET_SINGLE_EXPERIENCE,
 } from "../actions/types";
 
 const initialState = {
@@ -16,7 +20,9 @@ const initialState = {
   error: {},
   hasProfile: null,
   experiences: null,
-  educations: null
+  educations: null,
+  experience: null,
+  education: null
 };
 
 // console.log("initialState", initialState);
@@ -25,6 +31,7 @@ export default (state = initialState, action) => {
   const { type, payload } = action;
   // console.log("PAYLOAD GET_PROFILE", payload);
   switch (type) {
+
     case GET_PROFILE:
     case UPDATE_PROFILE:
       // console.log("TYPE", type);
@@ -32,10 +39,28 @@ export default (state = initialState, action) => {
         ...state,
         profile: payload,
         profileLoading: false,
-        hasProfile: true,
-        experiences: payload.experience,
-        educations: payload.education
+        hasProfile: true
       };
+    case GET_SINGLE_EXPERIENCE:
+      return {
+        ...state,
+        experience: payload
+      }
+    case CLEAR_GET_SINGLE_EXPERIENCE:
+      return {
+        ...state,
+        experience: null
+      }
+    case GET_SINGLE_EDUCATION:
+      return {
+        ...state,
+        education: payload
+      }
+    case CLEAR_GET_SINGLE_EDUCATION:
+      return {
+        ...state,
+        education: null
+      }
     case GET_ALL_PROFILES:
       return {
         ...state,
