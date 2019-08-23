@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getAllPostsAct, addLikeAct, removeLikeAct, deletePostAct, addPostAct } from "../../actions/postAct";
 import { MainLoader } from "../../utils/Loader";
@@ -13,6 +13,7 @@ import {
 } from "semantic-ui-react";
 import PostItem from "./PostItem";
 import PostForm from "./PostForm";
+import PostsPagination from "./PostsPagination";
 
 const Posts = ({
   auth,
@@ -24,13 +25,29 @@ const Posts = ({
   getAllPostsAct,
   post: { posts, loading }
 }) => {
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(5);
+
   useEffect(() => {
     getAllPostsAct(apiUrl);
   }, []);
 
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  const handlePaginationChange = (e, pageInfo) => {
+    setCurrentPage(pageInfo.activePage)
+  }
+
+  const handleChangePostPerPage = (e, number) => {
+    setPostsPerPage(number.value)
+    window.scrollTo(0, 0)
+  }
+
   const tr = false;
 
-  console.log(posts)
   return loading && posts.length === 0 ? (
     <MainLoader />
   ) : (
@@ -65,18 +82,33 @@ const Posts = ({
               <PostForm apiUrl={apiUrl} addPostAct={addPostAct} />
             </Fragment>
             <Fragment>
-              {posts.map(post => (
-                <PostItem
-                  key={post._id}
-                  post={post}
-                  removeLikeAct={removeLikeAct}
-                  addLikeAct={addLikeAct}
-                  auth={auth}
-                  apiUrl={apiUrl}
-                  deletePostAct={deletePostAct}
-                  tr={tr}
-                />
-              ))}
+              {
+                currentPosts.length > 0 ? (
+                  <Fragment>
+                    {currentPosts.map(post => (
+                      <PostItem
+                        key={post._id}
+                        post={post}
+                        removeLikeAct={removeLikeAct}
+                        addLikeAct={addLikeAct}
+                        auth={auth}
+                        apiUrl={apiUrl}
+                        deletePostAct={deletePostAct}
+                        tr={tr}
+                      />
+                    ))}
+                    <PostsPagination
+                      currentPage={currentPage}
+                      postsPerPage={postsPerPage}
+                      totalPosts={posts.length}
+                      handlePaginationChange={handlePaginationChange}
+                      handleChangePostPerPage={handleChangePostPerPage}
+                    />
+                  </Fragment>
+                ) : (
+                    <Header size='huge'>No posts found...</Header>
+                  )
+              }
             </Fragment>
             <Divider hidden />
           </Segment>

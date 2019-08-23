@@ -29,7 +29,7 @@ const EditProfile = props => {
   const {
     apiUrl,
     auth,
-    profile: { profile, loading }
+    profile: { profile, profileLoading }
   } = props;
 
   const [formData, setFormData] = useState({
@@ -81,31 +81,32 @@ const EditProfile = props => {
       props.getCurrentProfileAct(apiUrl);
       profile &&
         setFormData({
-          company: loading || !profile.company ? "" : profile.company,
-          workingemail: loading || !profile.workingemail ? "" : profile.workingemail,
-          area: loading || !profile.area ? "" : profile.area,
-          showworkingemail: loading || !profile.showworkingemail ? "" : profile.showworkingemail,
-          number: loading || !profile.number ? "" : profile.number,
-          shownumber: loading || !profile.shownumber ? "" : profile.shownumber,
-          country: loading || !profile.country ? "" : profile.country,
-          status: loading || !profile.status ? "" : profile.status,
-          website: loading || !profile.website ? "" : profile.website,
-          location: loading || !profile.location ? "" : profile.location,
-          skills: loading || !profile.skills ? "" : profile.skills.toString(),
+          company: profileLoading || !profile.company ? "" : profile.company,
+          workingemail: profileLoading || !profile.workingemail ? "" : profile.workingemail,
+          area: profileLoading || !profile.area ? "" : profile.area,
+          showworkingemail: profileLoading || !profile.showworkingemail ? "" : profile.showworkingemail,
+          number: profileLoading || !profile.number ? "" : profile.number,
+          shownumber: profileLoading || !profile.shownumber ? "" : profile.shownumber,
+          country: profileLoading || !profile.country ? "" : profile.country,
+          status: profileLoading || !profile.status ? "" : profile.status,
+          website: profileLoading || !profile.website ? "" : profile.website,
+          location: profileLoading || !profile.location ? "" : profile.location,
+          skills: profileLoading || !profile.skills ? "" : profile.skills.toString(),
           languages:
-            loading || !profile.languages ? "" : profile.languages.toString(),
+            profileLoading || !profile.languages ? "" : profile.languages.toString(),
           githubusername:
-            loading || !profile.githubusername ? "" : profile.githubusername,
-          bio: loading || !profile.bio ? "" : profile.bio,
-          twitter: loading || !profile.social ? "" : profile.social.twitter,
-          facebook: loading || !profile.social ? "" : profile.social.facebook,
-          linkedin: loading || !profile.social ? "" : profile.social.linkedin,
-          youtube: loading || !profile.social ? "" : profile.social.youtube,
-          instagram: loading || !profile.social ? "" : profile.social.instagram
+            profileLoading || !profile.githubusername ? "" : profile.githubusername,
+          bio: profileLoading || !profile.bio ? "" : profile.bio,
+          twitter: profileLoading || !profile.social ? "" : profile.social.twitter,
+          facebook: profileLoading || !profile.social ? "" : profile.social.facebook,
+          linkedin: profileLoading || !profile.social ? "" : profile.social.linkedin,
+          youtube: profileLoading || !profile.social ? "" : profile.social.youtube,
+          instagram: profileLoading || !profile.social ? "" : profile.social.instagram
         });
     },
     // The conditon is when it's loading it will run
-    []
+    // when the data is loading the useEffect function will run
+    [profileLoading]
   );
   const icon = "black tie";
   const edit = true;

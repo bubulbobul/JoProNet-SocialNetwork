@@ -25,8 +25,10 @@ const AuthNavbar = ({ alerts }) => {
             position: "fixed",
             width: "100vw",
             margin: "0",
-            zIndex: "10000"
+            zIndex: "10002",
+            background: "white"
           }}
+          pointing secondary
         >
           <Container>
             <Menu.Item
@@ -35,6 +37,7 @@ const AuthNavbar = ({ alerts }) => {
               name='dashboard'
               active={activeItem === "dashboard"}
               onClick={handleItemClick}
+              style={{ padding: "10px 0 5px 0" }}
             >
               <Image circular src={Logo} size='tiny' />{" "}
             </Menu.Item>

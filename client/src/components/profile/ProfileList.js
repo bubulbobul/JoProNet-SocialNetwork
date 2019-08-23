@@ -15,6 +15,8 @@ import { connect } from "react-redux";
 const ProfileList = props => {
   const { profile } = props;
 
+  // console.log(profile.AllProfiles.length)
+  // console.log(profile)
   return (
     <Fragment>
       {profile && (

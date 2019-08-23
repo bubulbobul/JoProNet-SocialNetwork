@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import AllProfilePlaceholder from "./AllProfilePlaceholder"
@@ -9,16 +9,65 @@ import {
   Divider,
   Header,
   Grid,
-  Icon
+  Icon,
 } from "semantic-ui-react";
 import ProfileList from "./ProfileList";
+import ProfilesPagination from "./ProfilesPagination";
+import SearchProfiles from "./SearchProfiles";
 
-const AllProfiles = props => {
-  const { apiUrl, profile } = props;
+const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profileLoading } }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [profilesPerPage, setProfilesPerPage] = useState(5);
+  const [search, setSearch] = useState({
+    searchTerm: "",
+    searchResults: []
+  });
+  const [loadingSearch, setLoadingsearch] = useState(false);
+  const { searchResults } = search
 
   useEffect(() => {
-    props.getAllProfilesAct(apiUrl);
+    getAllProfilesAct(apiUrl);
   }, []);
+
+
+  const indexOfLastProfile = currentPage * profilesPerPage;
+  const indexOfFirstProfile = indexOfLastProfile - profilesPerPage;
+  const currentProfiles = allProfiles.slice(indexOfFirstProfile, indexOfLastProfile);
+
+  const handlePaginationChange = (e, pageInfo) => {
+    setCurrentPage(pageInfo.activePage)
+  }
+
+  const handleChangeProfilePerPage = (e, number) => {
+    setProfilesPerPage(number.value)
+    window.scrollTo(0, 0)
+  }
+  const handleSearchChange = e => {
+    setLoadingsearch(true)
+    const searchTerm = e.target.value
+    const profiles = [...allProfiles];
+
+    /** gi means that we want the RegExp to be applied Globally an case Insensitively */
+    const regex = new RegExp(searchTerm, 'gi');
+
+    const searchResults = profiles.reduce((acc, profile) => {
+      if ((profile.user.name && profile.user.name.match(regex))
+      ) {
+        acc.push(profile);
+      }
+
+      return acc;
+    }, []);
+
+    setSearch({ searchResults });
+    setTimeout(() => setLoadingsearch(false), 1000);
+  }
+
+  const displayProfiles = profiles => (
+    profiles.map(profile => (
+      <ProfileList key={profile._id} profile={profile} />
+    ))
+  )
 
   return (
     <Fragment>
@@ -31,18 +80,17 @@ const AllProfiles = props => {
           <Divider hidden />
           <Divider hidden />
           <Segment>
-            {profile.loading || profile.allProfiles.length === 0 ? (
-              // <MainLoader />
+            {profileLoading || allProfiles.length === 0 ? (
               <AllProfilePlaceholder />
-
             ) : (
                 <Fragment>
                   <Fragment>
+                    <SearchProfiles handleSearchChange={handleSearchChange} loadingSearch={loadingSearch} />
                     <Grid columns='equal'>
                       <Grid.Column>
                         <Header as='h1' color='blue'>
                           Keep Connecting
-                    </Header>
+                        </Header>
                       </Grid.Column>
                     </Grid>
                     <Grid columns='equal'>
@@ -58,14 +106,25 @@ const AllProfiles = props => {
                   </Fragment>
                   <Divider hidden />
                   <Fragment>
-                    {profile.allProfiles.length > 0 ? (
-                      profile.allProfiles.map(profile => (
-                        <ProfileList key={profile._id} profile={profile} />
-                      ))
-                    ) : (
-                        <Header size='huge'>No profiles found...</Header>
-                      )}
                   </Fragment>
+                  {allProfiles.length > 0 ? (
+                    <Fragment>
+                      {searchResults.length > 0 ?
+                        displayProfiles(searchResults)
+                        :
+                        displayProfiles(currentProfiles)
+                      }
+                      <ProfilesPagination
+                        currentPage={currentPage}
+                        profilePerPage={profilesPerPage}
+                        totalProfiles={allProfiles.length}
+                        handlePaginationChange={handlePaginationChange}
+                        handleChangeProfilePerPage={handleChangeProfilePerPage}
+                      />
+                    </Fragment>
+                  ) : (
+                      <Header size='huge'>No profiles found...</Header>
+                    )}
                 </Fragment>
               )}
           </Segment>

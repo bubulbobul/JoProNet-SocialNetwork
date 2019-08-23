@@ -14,7 +14,7 @@ const GuestNavbar = () => {
   const { activeItem } = active;
   return (
     <React.Fragment>
-      <Menu size='small' fixed='top' stackable>
+      <Menu size='small' fixed='top' stackable pointing secondary style={{ background: "white" }}>
         <Container>
           <Menu.Item
             as={NavLink}
@@ -22,10 +22,9 @@ const GuestNavbar = () => {
             name='welcome'
             active={activeItem === "welcome"}
             onClick={handleItemClick}
+            style={{ padding: "5px 0" }}
           >
-            <Segment style={{ background: "white", padding: "0" }} size='mini'>
-              <Image circular src={Logo} size='tiny' />
-            </Segment>
+            <Image circular src={Logo} size='tiny' />
           </Menu.Item>
           <Menu.Menu position='right'>
             <Menu.Item

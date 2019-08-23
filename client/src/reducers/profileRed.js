@@ -63,7 +63,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         allProfiles: payload,
-        loading: false
+        profileLoading: false
       };
     case GET_REPOS:
       return {
