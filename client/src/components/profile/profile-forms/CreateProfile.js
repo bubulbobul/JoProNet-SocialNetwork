@@ -482,7 +482,7 @@ const CreateProfile = props => {
             </Button>
             <Link to='/dashboard'>
               <Button icon labelPosition='left' floated='right'>
-                Go Back
+                Dashboard
                 <Icon name='left arrow' />
               </Button>
             </Link>

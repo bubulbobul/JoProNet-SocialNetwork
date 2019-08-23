@@ -89,8 +89,8 @@ export const loginAct = (apiUrl, email, password) => async dispatch => {
 
     dispatch(loadUser(apiUrl));
   } catch (err) {
-    console.log(err)
-    console.log(err.response)
+    // console.log(err)
+    // console.log(err.response)
     if (err !== undefined) {
       const errors = err.response.data.errors;
       if (errors) {

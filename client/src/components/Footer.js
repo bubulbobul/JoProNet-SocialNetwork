@@ -21,7 +21,7 @@ const TopSidebar = () => {
       <Segment
         inverted
         vertical
-        style={{ padding: "5em 0em" }}
+        style={{ padding: "5em 0em", zIndex: "10001" }}
       >
         <Container textAlign='center'>
           <Grid divided inverted stackable>

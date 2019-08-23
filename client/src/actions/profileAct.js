@@ -17,12 +17,16 @@ import {
 
 // Fct to get the current users profile
 export const getCurrentProfileAct = apiUrl => async dispatch => {
+  // console.log(apiUrl)
   dispatch({
     type: CLEAR_GET_SINGLE_EXPERIENCE
   });
   dispatch({
     type: CLEAR_GET_SINGLE_EDUCATION
   });
+  dispatch({
+    type: CLEAR_PROFILE
+  })
 
   try {
     const res = await axios.get(`${apiUrl}/api/profile/me`);
@@ -32,19 +36,23 @@ export const getCurrentProfileAct = apiUrl => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    // const errors = err.response.data.errors;
-    // if (errors) {
-    //   errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
-    // }
-    if (err !== undefined) {
-      const errors = err.response.data.errors;
-      if (errors) {
-        errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
-      }
-    }
+    const msg = err.response.data.msg;
+    const status = err.response.status;
+    const statusText = err.response.statusText;
+
+    // console.log(err.response.data.msg)
+    // console.log(err.response.status)
+    // console.log(err.response.statusText)
+    // console.log(err.response)
+    // dispatch(setAlert(err.response.data.msg, null, "error"))
 
     dispatch({
-      type: PROFILE_ERROR
+      type: PROFILE_ERROR,
+      payload: {
+        msg,
+        status,
+        statusText
+      }
     });
   }
 };
@@ -78,7 +86,9 @@ export const getAllProfilesAct = apiUrl => async dispatch => {
 
 // To Get a profile by the user id
 export const getProfileByTheUserIdAct = (apiUrl, userId) => async dispatch => {
-
+  dispatch({
+    type: CLEAR_PROFILE,
+  });
   try {
     const res = await axios.get(`${apiUrl}/api/profile/user/${userId}`);
 

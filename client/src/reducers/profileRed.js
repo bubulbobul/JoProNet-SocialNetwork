@@ -16,13 +16,11 @@ const initialState = {
   allProfiles: [],
   repos: [],
   profileLoading: true,
-  profileLoading1: true,
   error: {},
-  hasProfile: null,
-  experiences: null,
-  educations: null,
+  hasProfile: false,
   experience: null,
-  education: null
+  education: null,
+  loading: true
 };
 
 // console.log("initialState", initialState);
@@ -78,6 +76,7 @@ export default (state = initialState, action) => {
         ...state,
         error: payload,
         loading: false,
+        profileLoading: false,
         hasProfile: null
       };
     case CLEAR_PROFILE:

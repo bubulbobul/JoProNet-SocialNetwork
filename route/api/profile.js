@@ -14,7 +14,7 @@ const Post = require("../../models/Post");
 // @desc    To get profile of the current connected user
 // @access  Private
 router.get("/me", auth, async (req, res) => {
-  console.log(req.user)
+  // console.log(req.user)
   try {
     const profile = await Profile.findOne({ user: req.user.id }).populate(
       "user",
@@ -22,12 +22,14 @@ router.get("/me", auth, async (req, res) => {
     );
 
     if (!profile) {
-      return res.status(400).json({ msg: "There is no profile for this user" });
-    }
+      return res.json("");
 
-    res.json(profile);
+    } else {
+      return res.json(profile);
+    }
   } catch (err) {
     console.error(err.message);
+    console.log("There is no profile for this use")
     res.status(500).send("Server Error");
   }
 });
@@ -223,7 +225,13 @@ router.get("/user/:user_id", async (req, res) => {
     const profile = await Profile.findOne({
       user: req.params.user_id
     }).populate("user", ["name", "avatar"]);
-    if (!profile) return res.status(400).json({ msg: "Profile not found" });
+    // if (!profile) return res.status(400).json({ msg: "Profile not found" });
+    if (!profile) {
+      return res.json("");
+
+    } else {
+      return res.json(profile);
+    }
 
     res.json(profile);
   } catch (err) {

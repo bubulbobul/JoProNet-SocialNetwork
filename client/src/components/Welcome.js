@@ -166,7 +166,6 @@ const Welcome = ({ isAuthenticated }) => {
                     to run JavaScript in the system
                   </p>
                 </Container>
-                <Divider hidden />
               </Segment>
             </Grid.Column>
           </Grid.Row>

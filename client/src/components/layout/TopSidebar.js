@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
-import { getCurrentProfileAct } from "../../actions/profileAct";
+import { getCurrentProfileAct, getProfileByTheUserIdAct } from "../../actions/profileAct";
 import { withRouter, Link } from "react-router-dom";
 import {
   Sidebar,
@@ -19,16 +19,15 @@ import { MainLoader } from "../../utils/Loader";
 const TopSidebar = props => {
   const { apiUrl, auth } = props;
 
-  useEffect(function getCurrentProfil() {
-    // 👍 We're not breaking the first rule anymore
-    if (apiUrl) {
-      props.getCurrentProfileAct(apiUrl);
-    }
-  }, []);
-
   const handleLogout = () => {
     props.logoutAct(props.history, true);
   };
+
+  const myProfile = (e) => {
+    if (apiUrl) {
+      props.getProfileByTheUserIdAct(apiUrl, auth.user._id)
+    }
+  }
 
   return auth.user === null ||
     auth.user.email === null ||
@@ -37,7 +36,7 @@ const TopSidebar = props => {
     ) : (
       <Fragment>
         <Fragment>
-          <Sidebar as={Segment} inverted direction='top' width='wide' visible>
+          <Sidebar as={Segment} inverted direction='top' width='wide' visible style={{ zIndex: "10001" }}>
             <Container>
               <Grid>
                 <Grid.Row columns={3}>
@@ -48,6 +47,7 @@ const TopSidebar = props => {
                         to={`/profile/${auth.user._id}`}
                         size='tiny'
                         inverted
+                        onClick={e => myProfile(e)}
                       >
                         <Image circular src={auth.user.avatar} avatar />{" "}
                         {auth.user.name.toUpperCase()}
@@ -88,6 +88,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getCurrentProfileAct: apiUrl => {
       dispatch(getCurrentProfileAct(apiUrl));
+    },
+    getProfileByTheUserIdAct: (apiUrl, userId) => {
+      dispatch(getProfileByTheUserIdAct(apiUrl, userId));
     },
     logoutAct: (history, tr) => {
       dispatch(logoutAct(history, tr));
