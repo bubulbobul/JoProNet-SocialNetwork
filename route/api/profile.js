@@ -334,26 +334,6 @@ router.put(
 // @access  Private
 router.get("/experience/:exp_id", auth, async (req, res) => {
 
-  // try {
-  //   // Get profile by user id
-  //   const profile = await Profile.findOne({ user: req.user.id });
-
-  //   // And get the remove index
-  //   const removeIndex = profile.experience
-  //     .map(item => item.id)
-  //     .indexOf(req.params.exp_id);
-
-  //   const exp = profile.experience.splice(removeIndex, 1);
-  //   console.log(JSON.stringify(exp))
-  //   // await profile.save();
-
-  //   res.json(exp);
-  // } catch (err) {
-  //   console.error(err.message);
-  //   res.status(500).send("Server Error");
-  // }
-
-
   try {
     // Get profile by user id
     const profile = await Profile.findOne({ user: req.user.id });
@@ -377,11 +357,138 @@ router.get("/experience/:exp_id", auth, async (req, res) => {
     }
 
   } catch (err) {
-    console.error(err.message);
+    // console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
 /************************ */
+
+/************************ */
+// @route   PUT api/profile/experience/:exp_id
+// @desc    Update an experience to a PRofile
+// @access  Private
+router.put("/experience/:exp_id", [auth,
+  [
+    check("title", "Title is required")
+      .not()
+      .isEmpty(),
+    check("company", "Company is required")
+      .not()
+      .isEmpty(),
+    check("from", "From date is required")
+      .not()
+      .isEmpty()
+  ]
+], async (req, res) => {
+
+
+
+  // If there is an error then return ....
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const {
+    title,
+    company,
+    country,
+    location,
+    from,
+    to,
+    current,
+    description
+  } = req.body;
+
+  // Build a experience object
+  let experienceFields = {};
+  experienceFields.user = req.user.id;
+
+  if (title === "") {
+    experienceFields.title = null;
+  } else {
+    experienceFields.title = title;
+  }
+  if (company === "") {
+    experienceFields.company = null;
+  } else {
+    experienceFields.company = company;
+  }
+  if (country === "") {
+    experienceFields.country = null;
+  } else {
+    experienceFields.country = country;
+  }
+  if (location === "") {
+    experienceFields.location = null;
+  } else {
+    experienceFields.location = location;
+  }
+  if (from === "") {
+    experienceFields.from = null;
+  } else {
+    experienceFields.from = from;
+  }
+  if (to === "") {
+    experienceFields.to = null;
+  } else {
+    experienceFields.to = to;
+  }
+  if (current === "") {
+    experienceFields.current = null;
+  } else {
+    experienceFields.current = current;
+  }
+  if (description === "") {
+    experienceFields.description = null;
+  } else {
+    experienceFields.description = description;
+  }
+
+  try {
+    const expId = req.params.exp_id;
+
+    let profile = await Profile.findOne({ user: req.user.id });
+
+    if (profile) {
+      // Update a profile
+      profile = await Profile.findOneAndUpdate(
+        { 'experience._id': expId },
+        {
+          $set: {
+            'experience.$.title': title,
+            'experience.$.country': country,
+            'experience.$.location': location,
+            'experience.$.company': company,
+            'experience.$.from': from,
+            'experience.$.to': to,
+            'experience.$.current': current,
+            'experience.$.description': description
+          }
+        },
+        { new: true }
+      );
+
+      const experiences = profile.experience
+      const experience = experiences.find(exp => exp._id.toString() === expId)
+
+      const experienceId = experience._id.toString()
+
+      if (experienceId === expId) {
+        return res.json(experience);
+      }
+      // else {
+      //   return res.status(400).json({ msg: "Experience not found" });
+      // }
+
+    }
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 
 /************************** */
 // @route   GET api/profile/education/:edu_id
@@ -411,7 +518,7 @@ router.get("/education/:edu_id", auth, async (req, res) => {
     }
 
   } catch (err) {
-    console.error(err.message);
+    // console.error(err.message);
     res.status(500).send("Server Error");
   }
 });
@@ -431,7 +538,7 @@ router.delete("/experience/:exp_id", auth, async (req, res) => {
       .indexOf(req.params.exp_id);
 
     const exp = profile.experience.splice(removeIndex, 1);
-    console.log(exp)
+    // console.log(exp)
     await profile.save();
 
     res.json(profile);
@@ -506,6 +613,135 @@ router.put(
     }
   }
 );
+
+/************************** */
+// @route   PUT api/profile/education/:edu_id
+// @desc    Update an education to a PRofile
+// @access  Private
+router.put("/education/:edu_id", [auth,
+  [
+    check("school", "School is required")
+      .not()
+      .isEmpty(),
+    check("degree", "Degree is required")
+      .not()
+      .isEmpty(),
+    check("fieldofstudy", "Field of study date is required")
+      .not()
+      .isEmpty(),
+    check("from", "From date is required")
+      .not()
+      .isEmpty()
+  ]
+], async (req, res) => {
+
+
+
+  // If there is an error then return ....
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const {
+    school,
+    degree,
+    fieldofstudy,
+    country,
+    from,
+    to,
+    current,
+    description
+  } = req.body;
+
+  // Build a education object
+  let educationFields = {};
+  educationFields.user = req.user.id;
+
+  if (school === "") {
+    educationFields.school = null;
+  } else {
+    educationFields.school = school;
+  }
+  if (degree === "") {
+    educationFields.degree = null;
+  } else {
+    educationFields.degree = degree;
+  }
+  if (fieldofstudy === "") {
+    educationFields.fieldofstudy = null;
+  } else {
+    educationFields.fieldofstudy = fieldofstudy;
+  }
+  if (country === "") {
+    educationFields.country = null;
+  } else {
+    educationFields.country = country;
+  }
+  if (from === "") {
+    educationFields.from = null;
+  } else {
+    educationFields.from = from;
+  }
+  if (to === "") {
+    educationFields.to = null;
+  } else {
+    educationFields.to = to;
+  }
+  if (current === "") {
+    educationFields.current = null;
+  } else {
+    educationFields.current = current;
+  }
+  if (description === "") {
+    educationFields.description = null;
+  } else {
+    educationFields.description = description;
+  }
+
+  try {
+    const eduId = req.params.edu_id;
+
+    let profile = await Profile.findOne({ user: req.user.id });
+
+    if (profile) {
+      // Update a profile
+      profile = await Profile.findOneAndUpdate(
+        { 'education._id': eduId },
+        {
+          $set: {
+            'education.$.school': school,
+            'education.$.degree': degree,
+            'education.$.country': country,
+            'education.$.fieldofstudy': fieldofstudy,
+            'education.$.from': from,
+            'education.$.to': to,
+            'education.$.current': current,
+            'education.$.description': description
+          }
+        },
+        { new: true }
+      );
+
+      const educations = profile.education
+      const education = educations.find(edu => edu._id.toString() === eduId)
+
+      const educationId = education._id.toString()
+
+      if (educationId === eduId) {
+        return res.json(education);
+      }
+      // else {
+      //   return res.status(400).json({ msg: "Experience not found" });
+      // }
+
+    }
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
 
 // @route   DELETE api/profile/education/:edu_id
 // @desc    delete education from profile
