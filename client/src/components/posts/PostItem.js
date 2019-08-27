@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import {
@@ -13,6 +13,7 @@ import {
   Divider
 } from "semantic-ui-react";
 import TextTruncate from "react-text-truncate";
+import Highlighter from "react-highlight-words";
 
 const PostItem = ({
   removeLikeAct,
@@ -21,8 +22,10 @@ const PostItem = ({
   apiUrl,
   auth,
   tr,
-  post: { _id, title, text, name, avatar, user, likes, comments, date }
+  post: { _id, title, text, name, avatar, user, likes, comments, date },
+  searchWordItem
 }) => {
+  // console.log(searchWordItem)
 
   return (
     <Segment raised>
@@ -41,17 +44,44 @@ const PostItem = ({
         </Grid.Column>
         <Grid.Column width={12} style={{ paddingTop: "3%" }}>
           <Container textAlign='justified'>
-            {title && (
-              <Header as={Link} to={`/post/${_id}`}>
-                {title}
-              </Header>
-            )}
+            {
+              searchWordItem !== undefined ? (
+                <Header>
+                  <Highlighter
+                    highlightClassName="YourHighlightClass"
+                    highlightStyle={{ background: "#e2c08d", padding: "0 5px", borderRadius: "5px" }}
+                    searchWords={searchWordItem.split()}
+                    autoEscape={true}
+                    textToHighlight={title}
+                  />
+                </Header>
+              ) :
+                (<Fragment>
+                  <Header as={Link} to={`/post/${_id}`}>
+                    {title}
+                  </Header>
+                </Fragment>)
+            }
             <Divider />
-            <TextTruncate
-              line={3}
-              truncateText='…'
-              text={text}
-            />
+            {
+              searchWordItem !== undefined ? (
+                <Highlighter
+                  highlightClassName="YourHighlightClass"
+                  highlightStyle={{ background: "#e2c08d", padding: "0 5px", borderRadius: "5px" }}
+                  searchWords={searchWordItem.split()}
+                  autoEscape={true}
+                  textToHighlight={text}
+                />
+              ) :
+                (<Fragment>
+                  <TextTruncate
+                    line={3}
+                    truncateText='…'
+                    text={text}
+                  />
+                </Fragment>)
+            }
+
           </Container>
         </Grid.Column>
         <Grid.Column
@@ -61,7 +91,22 @@ const PostItem = ({
         >
           <Container textAlign='center'>
             <Link to={`/profile/${user}`}>
-              <Header>{name}</Header>
+              {
+                searchWordItem !== undefined ? (
+                  <Header>
+                    <Highlighter
+                      highlightClassName="YourHighlightClass"
+                      highlightStyle={{ background: "#e2c08d", padding: "0 5px", borderRadius: "5px" }}
+                      searchWords={searchWordItem.split()}
+                      autoEscape={true}
+                      textToHighlight={name}
+                    />
+                  </Header>
+                ) :
+                  (<Fragment>
+                    <Header>{name}</Header>
+                  </Fragment>)
+              }
             </Link>
           </Container>
         </Grid.Column>

@@ -2,37 +2,18 @@ import React, { Fragment } from 'react'
 import {
     Segment,
     Grid,
-    Placeholder,
-    Button
+    Placeholder
 } from "semantic-ui-react";
-const AllProfilePlaceholder = () => {
+const PostsPlacehoder = () => {
     return (
         <Fragment>
             <Fragment>
-                <Grid columns={6}>
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Placeholder>
-                                <Placeholder.Header>
-                                    <Placeholder.Line />
-                                    <Placeholder.Line />
-                                </Placeholder.Header>
-                            </Placeholder>
-                        </Grid.Column>
-                        <Grid.Column />
-                        <Grid.Column />
-                        <Grid.Column />
-                        <Grid.Column />
-                        <Grid.Column>
-                            <Placeholder style={{ borderRadius: '5px', }}>
-                                <Placeholder.Header as={Button} floated="right">
-                                    <Placeholder.Line />
-                                    <Placeholder.Line />
-                                </Placeholder.Header>
-                            </Placeholder>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
+                <Placeholder>
+                    <Placeholder.Header>
+                        <Placeholder.Line />
+                        <Placeholder.Line />
+                    </Placeholder.Header>
+                </Placeholder>
                 <Segment raised>
                     <Grid>
                         <Grid.Column width={3}>
@@ -143,4 +124,4 @@ const AllProfilePlaceholder = () => {
     )
 }
 
-export default AllProfilePlaceholder
+export default PostsPlacehoder;

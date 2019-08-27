@@ -6,7 +6,9 @@ import {
   Header,
   Grid,
   Image,
-  Container
+  Container,
+  Button,
+  Icon
 } from "semantic-ui-react";
 import Logo from "../assets/images/logo.jpg";
 
@@ -21,7 +23,7 @@ const TopSidebar = () => {
       <Segment
         inverted
         vertical
-        style={{ padding: "5em 0em", zIndex: "10001" }}
+        style={{ padding: "5em 0em" }}
       >
         <Container textAlign='center'>
           <Grid divided inverted stackable>
@@ -35,6 +37,27 @@ const TopSidebar = () => {
                   rel='noopener noreferrer'
                 >
                   About Us
+                </List.Item>
+                <List.Item
+                  as="a"
+                  href="https://www.linkedin.com/in/windam-djimi-5a192918b/"
+                  target="_blank"
+                  rel='noopener noreferrer'
+                >
+                  <Button color='linkedin'>
+                    <Icon name='linkedin' /> LinkedIn
+                  </Button>
+                </List.Item>
+                <List.Item
+                  as="a"
+                  href="https://github.com/bubulbobul"
+                  target="_blank"
+                  rel='noopener noreferrer'
+                >
+                  <Button basic color="grey" icon labelPosition='left'>
+                    <Icon name='github' />
+                    Github
+                </Button>
                 </List.Item>
               </List>
             </Grid.Column>

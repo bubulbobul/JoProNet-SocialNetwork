@@ -3,7 +3,7 @@ import { Header, List, Modal, Container } from "semantic-ui-react";
 
 const TermsConditionsModal = ({ termsConditions }) => {
   return (
-    <Modal open={termsConditions}>
+    <Modal open={termsConditions} style={{ zIndex: '100005' }}>
       <Modal.Header>Terms and Conditions</Modal.Header>
       <Modal.Content>
         <Modal.Description>

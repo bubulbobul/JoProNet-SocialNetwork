@@ -3,7 +3,7 @@ import { Header, List, Modal, Container } from "semantic-ui-react";
 
 const PrivacyPolicyModal = ({ privacyPolicy }) => {
   return (
-    <Modal open={privacyPolicy}>
+    <Modal open={privacyPolicy} style={{ zIndex: "10005" }}>
       <Modal.Header>Privacy Policy of JoProNet</Modal.Header>
       <Modal.Content>
         <Modal.Description>

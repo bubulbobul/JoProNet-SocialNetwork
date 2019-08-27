@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
@@ -75,7 +75,7 @@ const EditProfile = props => {
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
-
+  // console.log(profileLoading)
   useEffect(
     () => {
       props.getCurrentProfileAct(apiUrl);
@@ -115,12 +115,17 @@ const EditProfile = props => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = e => {
-    console.log(formData);
+    // console.log(formData);
     // console.log(checkedEmailValue);
     e.preventDefault();
     props.createOrUpdateProfileAct(apiUrl, formData, props.history, edit);
     // handleReset();
   };
+
+  const goBack = (history) => {
+    history.go(-1);
+    // history.goBack();
+  }
 
   const handleReset = e => {
     setFormData({
@@ -535,12 +540,10 @@ const EditProfile = props => {
                       Cancel
                       <Icon name='cancel' />
                     </Button>
-                    <Link to='/dashboard'>
-                      <Button icon labelPosition='left' floated='right'>
-                        Go Back
+                    <Button icon labelPosition='left' floated='right' onClick={e => goBack(props.history)}>
+                      Go Back
                         <Icon name='left arrow' />
-                      </Button>
-                    </Link>
+                    </Button>
                   </Form>
                 </Fragment>
               )

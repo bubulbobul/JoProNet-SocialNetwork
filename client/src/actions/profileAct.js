@@ -12,7 +12,10 @@ import {
   GET_SINGLE_EXPERIENCE,
   GET_SINGLE_EDUCATION,
   CLEAR_GET_SINGLE_EXPERIENCE,
-  CLEAR_GET_SINGLE_EDUCATION
+  CLEAR_GET_SINGLE_EDUCATION,
+  EDIT_SINGLE_EXPERIENCE,
+  EDIT_SINGLE_EDUCATION,
+  PROFILE_LOADING
 } from "./types";
 
 // Fct to get the current users profile
@@ -39,12 +42,6 @@ export const getCurrentProfileAct = apiUrl => async dispatch => {
     const msg = err.response.data.msg;
     const status = err.response.status;
     const statusText = err.response.statusText;
-
-    // console.log(err.response.data.msg)
-    // console.log(err.response.status)
-    // console.log(err.response.statusText)
-    // console.log(err.response)
-    // dispatch(setAlert(err.response.data.msg, null, "error"))
 
     dispatch({
       type: PROFILE_ERROR,
@@ -367,7 +364,11 @@ export const deleteAccountAct = apiUrl => async dispatch => {
 };
 
 // GET A SINGLE EXPERIENCE
-export const getSingleExperience = (apiUrl, expId) => async dispatch => {
+export const getSingleExperienceAct = (apiUrl, expId) => async dispatch => {
+  dispatch({
+    type: PROFILE_LOADING
+  })
+
   try {
     const res = await axios.get(`${apiUrl}/api/profile/experience/${expId}`);
     dispatch({
@@ -382,9 +383,51 @@ export const getSingleExperience = (apiUrl, expId) => async dispatch => {
   }
 };
 
+// EDIT A SINGLE EXPERIENCE
+export const editSingleExperienceAct = (apiUrl, formData, expId, company) => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  // console.log(apiUrl, formData, expId, company, config)
+
+  try {
+    const res = await axios.put(`${apiUrl}/api/profile/experience/${expId}`,
+      formData,
+      config
+    );
+
+    dispatch({
+      type: EDIT_SINGLE_EXPERIENCE,
+      payload: res.data
+    });
+
+    dispatch(
+      setAlert(
+        "Success",
+        `Your experience with ${company} has been updated successfully`,
+        "success"
+      )
+    );
+
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+    }
+
+    dispatch({
+      type: PROFILE_ERROR
+    });
+    throw err
+  }
+};
+
 
 // GET A SINGLE EDUCATION
-export const getSingleEducation = (apiUrl, eduId) => async dispatch => {
+export const getSingleEducationAct = (apiUrl, eduId) => async dispatch => {
   try {
     const res = await axios.get(`${apiUrl}/api/profile/education/${eduId}`);
 
@@ -399,3 +442,5 @@ export const getSingleEducation = (apiUrl, eduId) => async dispatch => {
     throw err
   }
 };
+
+

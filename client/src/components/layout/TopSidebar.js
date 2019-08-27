@@ -36,7 +36,7 @@ const TopSidebar = props => {
     ) : (
       <Fragment>
         <Fragment>
-          <Sidebar as={Segment} inverted direction='top' width='wide' visible style={{ zIndex: "10001" }}>
+          <Sidebar as={Segment} inverted direction='top' width='wide' visible style={{ zIndex: "100" }}>
             <Container>
               <Grid>
                 <Grid.Row columns={3}>

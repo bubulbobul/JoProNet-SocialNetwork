@@ -12,7 +12,7 @@ const ProfilePlaceholder = () => {
             <Fragment>
                 <Grid columns={6}>
                     <Grid.Row>
-                        <Grid.Column>
+                        <Grid.Column width={6}>
                             <Placeholder style={{ borderRadius: '5px', }}>
                                 <Placeholder.Header as={Button} floated="left">
                                     <Placeholder.Line />
@@ -20,7 +20,6 @@ const ProfilePlaceholder = () => {
                                 </Placeholder.Header>
                             </Placeholder>
                         </Grid.Column>
-                        <Grid.Column />
                         <Grid.Column />
                         <Grid.Column />
                         <Grid.Column />

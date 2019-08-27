@@ -26,6 +26,7 @@ import NoProfile from "./NoProfile";
 const Profile = props => {
   const { match, apiUrl, profile, auth } = props;
 
+
   useEffect(() => {
     // console.log("useeffect")
     props.getProfileByTheUserIdAct(apiUrl, match.params.id);
@@ -36,7 +37,12 @@ const Profile = props => {
       console.log('will unmount');
     }
   }, []);
-  console.log(profile)
+
+  const goBack = (history) => {
+    history.go(-1);
+    // history.goBack();
+  }
+
   return (
     <Fragment>
       <Fragment>
@@ -65,12 +71,10 @@ const Profile = props => {
                       </Fragment>
                     ) : (
                         <Fragment>
-                          <Link to='/profiles'>
-                            <Button icon labelPosition='left' floated='left'>
-                              Go To Profiles
+                          <Button icon labelPosition='left' floated='left' onClick={e => goBack(props.history)}>
+                            Go Back
                               <Icon name='left arrow' />
-                            </Button>
-                          </Link>
+                          </Button>
                           {auth.isAuthenticated & (auth.loading === false) &&
                             auth.user._id === profile.profile.user._id && (
                               <Link to='/edit-profile'>

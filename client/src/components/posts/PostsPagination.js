@@ -1,7 +1,12 @@
 import React, { Fragment } from 'react'
 import { Pagination, Dropdown, Grid } from 'semantic-ui-react'
 
-const PostsPagination = ({ totalPosts, postsPerPage, handlePaginationChange, handleChangePostPerPage }) => {
+const PostsPagination = ({
+    totalPosts,
+    postsPerPage,
+    handlePaginationChange,
+    handleChangePostPerPage }) => {
+
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -9,6 +14,7 @@ const PostsPagination = ({ totalPosts, postsPerPage, handlePaginationChange, han
     }
 
     const totalPages = pageNumbers.length.toString();
+
 
     const options = [
         { key: 5, text: "5", value: 5 },
@@ -44,7 +50,7 @@ const PostsPagination = ({ totalPosts, postsPerPage, handlePaginationChange, han
                             text="Number of posts per page"
                             value={postsPerPage}
                             onChange={handleChangePostPerPage}
-                            style={{ zIndex: "10001" }}
+                            // style={{ zIndex: "10001" }}
                             floated="right"
                         />
                     </Grid.Column>

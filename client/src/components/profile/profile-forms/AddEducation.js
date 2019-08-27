@@ -70,14 +70,17 @@ const AddEducation = props => {
     });
   };
 
+  const goBack = (history) => {
+    history.go(-1);
+    // history.goBack();
+  }
+
   const onDateChange = (e, name) => {
     if (name.name === "from") {
-      // console.log(name.value);
       setFormData({ ...formData, from: name.value });
     }
 
     if (name.name === "to") {
-      // console.log(name.value);
       setFormData({ ...formData, to: name.value });
     }
   };
@@ -252,12 +255,10 @@ const AddEducation = props => {
               Cancel
               <Icon name='cancel' />
             </Button>
-            <Link to='/dashboard'>
-              <Button icon labelPosition='left' floated='right'>
-                Go Back
+            <Button icon labelPosition='left' floated='right' onClick={e => goBack(props.history)}>
+              Go Back
                 <Icon name='left arrow' />
-              </Button>
-            </Link>
+            </Button>
           </Form>
         </Segment>
         <Divider hidden />

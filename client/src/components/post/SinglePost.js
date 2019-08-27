@@ -47,8 +47,11 @@ const SinglePost = (props) => {
     )
   };
 
-  console.log(post.post)
-  console.log(post.posts)
+  const goBack = (history) => {
+    history.go(-1);
+    // history.goBack();
+  }
+
   const tr = true
 
   return (
@@ -76,12 +79,10 @@ const SinglePost = (props) => {
               ) : (
                 <Fragment>
                   <Fragment>
-                    <Link to='/posts'>
-                      <Button icon labelPosition='left' floated='left'>
-                        Go Back Posts
-                    <Icon name='left arrow' />
-                      </Button>
-                    </Link>
+                    <Button icon labelPosition='left' floated='left' onClick={e => goBack(history)}>
+                      Go Back Posts
+                        <Icon name='left arrow' />
+                    </Button>
                   </Fragment>
                   <Divider hidden />
                   <Divider hidden />

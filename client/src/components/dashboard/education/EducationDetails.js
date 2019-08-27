@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link, withRouter, Redirect } from "react-router-dom";
-import { getSingleEducation, deleteEducationAct } from "../../../actions/profileAct";
+import { withRouter } from "react-router-dom";
+import { getSingleEducationAct, deleteEducationAct } from "../../../actions/profileAct";
 import { LoaderEducationDetails } from "../../../utils/Loader";
 import Moment from "react-moment";
 import {
@@ -19,12 +19,17 @@ const EducationDetails = props => {
   const { apiUrl, profile } = props;
 
   useEffect(() => {
-    props.getSingleEducation(apiUrl, props.match.params.id);
+    props.getSingleEducationAct(apiUrl, props.match.params.id);
   }, []);
 
   const handleDelete = (e, id, school) => {
     props.deleteEducationAct(apiUrl, id, school, props.history, true);
   };
+
+  const goBack = (history) => {
+    history.go(-1);
+    // history.goBack();
+  }
 
   return (
     <Fragment>
@@ -50,7 +55,7 @@ const EducationDetails = props => {
               ) :
                 (
                   <Fragment>
-<Grid divided>
+            <Grid divided>
             <Grid.Row>
               <Grid.Column floated='left' width={8}>
                 <Header as='h2'>
@@ -142,12 +147,10 @@ const EducationDetails = props => {
               <Grid.Column width={3} floated='right'>
                 <Divider hidden />
                 <Divider />
-                <Link to='/dashboard'>
-                  <Button icon labelPosition='left' floated='right'>
+                  <Button icon labelPosition='left' floated='right' onClick={e => goBack(props.history)}>
                     Go Back
                     <Icon name='left arrow' />
                   </Button>
-                </Link>
                 <Divider hidden />
                 <Divider hidden />
                 <Divider hidden />
@@ -189,8 +192,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getSingleEducation: (apiUrl, eduId) => {
-      dispatch(getSingleEducation(apiUrl, eduId));
+    getSingleEducationAct: (apiUrl, eduId) => {
+      dispatch(getSingleEducationAct(apiUrl, eduId));
     },
     deleteEducationAct: (apiUrl, id, school, history, detailPage) => {
       dispatch(deleteEducationAct(apiUrl, id, school, history, detailPage));

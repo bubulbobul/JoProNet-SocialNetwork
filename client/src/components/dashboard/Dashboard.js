@@ -1,8 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getCurrentProfileAct } from "../../actions/profileAct";
-import { deleteAccountAct } from "../../actions/profileAct";
+import { getCurrentProfileAct, deleteAccountAct } from "../../actions/profileAct";
 import { MainLoader } from "../../utils/Loader";
 import { Link } from "react-router-dom";
 
@@ -19,18 +18,17 @@ import DashboardActions from "./DashboardActions";
 import ExperienceCard from "./experience/ExperienceCard";
 import EducationList from "./education/EducationList";
 
-const Dashboard = props => {
-  const { apiUrl, auth, profile } = props;
+const Dashboard = ({ apiUrl, auth, profile, getCurrentProfileAct, deleteAccountAct }) => {
 
   useEffect(function getCurrentProfil() {
     // 👍 We're not breaking the first rule anymore
     if (apiUrl) {
-      props.getCurrentProfileAct(apiUrl);
+      getCurrentProfileAct(apiUrl);
     }
   }, []);
 
   const handeDeleteAccount = e => {
-    props.deleteAccountAct(apiUrl);
+    deleteAccountAct(apiUrl);
   };
 
   // console.log(typeof (profile.profile))
@@ -125,7 +123,7 @@ const Dashboard = props => {
                               <Divider hidden />
                               <Fragment>
                                 <Segment raised>
-                                  <ExperienceCard profile={props.profile.profile} />
+                                  <ExperienceCard profile={profile.profile} />
                                 </Segment>
                               </Fragment>
                               <Divider hidden />
@@ -135,7 +133,7 @@ const Dashboard = props => {
                               <Divider hidden />
                               <Fragment>
                                 <Segment raised>
-                                  <EducationList profile={props.profile.profile} />
+                                  <EducationList profile={profile.profile} />
                                 </Segment>
                               </Fragment>
                             </Fragment>

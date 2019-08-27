@@ -1,7 +1,12 @@
 import React, { Fragment } from 'react'
 import { Pagination, Dropdown, Grid } from 'semantic-ui-react'
 
-const ProfilesPagination = ({ totalProfiles, profilePerPage, handlePaginationChange, handleChangeProfilePerPage }) => {
+const ProfilesPagination = ({
+    totalProfiles,
+    profilePerPage,
+    handlePaginationChange,
+    handleChangeProfilePerPage }) => {
+
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(totalProfiles / profilePerPage); i++) {
@@ -44,7 +49,7 @@ const ProfilesPagination = ({ totalProfiles, profilePerPage, handlePaginationCha
                             text="Number of profile per page"
                             value={profilePerPage}
                             onChange={handleChangeProfilePerPage}
-                            style={{ zIndex: "10001" }}
+                            // style={{ zIndex: "10001" }}
                             floated="right"
                         />
                     </Grid.Column>

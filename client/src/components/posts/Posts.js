@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { getAllPostsAct, addLikeAct, removeLikeAct, deletePostAct, addPostAct } from "../../actions/postAct";
-import { MainLoader } from "../../utils/Loader";
 import PropTypes from "prop-types";
 import {
   Container,
@@ -13,7 +12,11 @@ import {
 } from "semantic-ui-react";
 import PostItem from "./PostItem";
 import PostForm from "./PostForm";
+import PostsPlaceholder from "./PostsPlaceholder";
 import PostsPagination from "./PostsPagination";
+import PostsSearch from "./PostsSearch";
+import Highlighter from "react-highlight-words";
+
 
 const Posts = ({
   auth,
@@ -28,6 +31,18 @@ const Posts = ({
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
+
+  const [search, setSearch] = useState({
+    searchTerm: "",
+    searchResults: []
+  });
+  const [searchWord, setSearchWord] = useState({
+    searchWordItem: ""
+  });
+  const [loadingSearch, setLoadingsearch] = useState(false);
+  const [searching, toggleSearching] = useState(false);
+  const { searchResults } = search
+  const { searchWordItem } = searchWord
 
   useEffect(() => {
     getAllPostsAct(apiUrl);
@@ -46,21 +61,129 @@ const Posts = ({
     window.scrollTo(0, 0)
   }
 
+  const handleSearchChange = e => {
+    setLoadingsearch(true)
+    const searchTerm = e.target.value;
+    setSearchWord({ searchWordItem: e.target.value })
+    const postsSearch = [...posts];
+
+    if (searchTerm !== null || searchTerm !== undefined) {
+      toggleSearching(true)
+    }
+
+    if (searchTerm === "") {
+      toggleSearching(false)
+    }
+
+    // console.log(searchTerm)
+    // console.log(searchTerm.split())
+    // console.log(searchTerm.split().length)
+    // console.log(typeof (searchTerm))
+    // console.log(searching)
+
+    /** gi means that we want the RegExp to be applied Globally an case Insensitively */
+    const regex = new RegExp(searchTerm, 'gi');
+
+    const searchResults = postsSearch.reduce((acc, post) => {
+      if ((post.title.match(regex) || post.text.match(regex) || post.name.match(regex))
+      ) {
+        acc.push(post);
+      }
+
+      return acc;
+    }, []);
+
+    setSearch({ searchResults });
+    setTimeout(() => setLoadingsearch(false), 1000);
+  }
+
+  const displaySearchPosts = posts => {
+    // console.log("displaySearchPosts")
+
+    if (posts.length === 0) {
+      return (
+        <Header>
+          Sorry,
+          <Highlighter
+            highlightClassName="YourHighlightClass"
+            highlightStyle={{ background: "#e2c08d", padding: "0 5px", borderRadius: "5px" }}
+            searchWords={searchWordItem.split()}
+            autoEscape={true}
+            textToHighlight={searchWordItem}
+          />
+          is not found.
+        </Header>
+      )
+    }
+
+    return (
+      posts.map(post => (
+        <PostItem
+          key={post._id}
+          post={post}
+          removeLikeAct={removeLikeAct}
+          addLikeAct={addLikeAct}
+          auth={auth}
+          apiUrl={apiUrl}
+          deletePostAct={deletePostAct}
+          tr={tr}
+          searchWordItem={searchWordItem}
+        />
+      ))
+    )
+  }
+
+  const displayPosts = postss => {
+    // console.log("displayPosts")
+    return (
+      <Fragment>
+        <Fragment>
+          {
+            postss.map(post => (
+              <PostItem
+                key={post._id}
+                post={post}
+                removeLikeAct={removeLikeAct}
+                addLikeAct={addLikeAct}
+                auth={auth}
+                apiUrl={apiUrl}
+                deletePostAct={deletePostAct}
+                tr={tr}
+              />
+            ))
+          }
+        </Fragment>
+        <PostsPagination
+          currentPage={currentPage}
+          postsPerPage={postsPerPage}
+          totalPosts={posts.length}
+          handlePaginationChange={handlePaginationChange}
+          handleChangePostPerPage={handleChangePostPerPage}
+        />
+      </Fragment>
+    )
+  }
+
   const tr = false;
 
-  return loading && posts.length === 0 ? (
-    <MainLoader />
-  ) : (
-      <Fragment>
-        <Container>
-          <Divider hidden />
-          <Divider hidden />
-          <Divider hidden />
-          <Divider hidden />
-          <Divider hidden />
-          <Divider hidden />
-          <Segment>
+  return (
+    <Fragment>
+      <Container>
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Divider hidden />
+        <Segment>
+          {loading || posts.length === 0 ? (
+            <PostsPlaceholder />
+          ) : (<Fragment>
             <Fragment>
+              <PostsSearch
+                handleSearchChange={handleSearchChange}
+                loadingSearch={loadingSearch}
+              />
               <Grid columns='equal'>
                 <Grid.Column>
                   <Header as='h1' color='blue'>
@@ -83,39 +206,28 @@ const Posts = ({
             </Fragment>
             <Fragment>
               {
-                currentPosts.length > 0 ? (
+                posts.length > 0 ? (
                   <Fragment>
-                    {currentPosts.map(post => (
-                      <PostItem
-                        key={post._id}
-                        post={post}
-                        removeLikeAct={removeLikeAct}
-                        addLikeAct={addLikeAct}
-                        auth={auth}
-                        apiUrl={apiUrl}
-                        deletePostAct={deletePostAct}
-                        tr={tr}
-                      />
-                    ))}
-                    <PostsPagination
-                      currentPage={currentPage}
-                      postsPerPage={postsPerPage}
-                      totalPosts={posts.length}
-                      handlePaginationChange={handlePaginationChange}
-                      handleChangePostPerPage={handleChangePostPerPage}
-                    />
+                    {searching === false ?
+                      displayPosts(currentPosts)
+                      :
+                      displaySearchPosts(searchResults)
+                    }
+
                   </Fragment>
                 ) : (
                     <Header size='huge'>No posts found...</Header>
                   )
               }
             </Fragment>
-            <Divider hidden />
-          </Segment>
-        </Container>
-        <Divider hidden />
-      </Fragment>
-    );
+          </Fragment>)}
+
+          <Divider hidden />
+        </Segment>
+      </Container>
+      <Divider hidden />
+    </Fragment>
+  );
 };
 
 Posts.propTypes = {

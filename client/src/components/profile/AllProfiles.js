@@ -14,16 +14,21 @@ import {
 import ProfileList from "./ProfileList";
 import ProfilesPagination from "./ProfilesPagination";
 import SearchProfiles from "./SearchProfiles";
+import Highlighter from "react-highlight-words";
 
 const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profileLoading } }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [profilesPerPage, setProfilesPerPage] = useState(5);
   const [search, setSearch] = useState({
-    searchTerm: "",
     searchResults: []
   });
+  const [searchWord, setSearchWord] = useState({
+    searchWordItem: ""
+  });
   const [loadingSearch, setLoadingsearch] = useState(false);
+  const [searching, toggleSearching] = useState(false);
   const { searchResults } = search
+  const { searchWordItem } = searchWord
 
   useEffect(() => {
     getAllProfilesAct(apiUrl);
@@ -35,6 +40,7 @@ const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profil
   const currentProfiles = allProfiles.slice(indexOfFirstProfile, indexOfLastProfile);
 
   const handlePaginationChange = (e, pageInfo) => {
+    // console.log(pageInfo)
     setCurrentPage(pageInfo.activePage)
   }
 
@@ -42,16 +48,36 @@ const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profil
     setProfilesPerPage(number.value)
     window.scrollTo(0, 0)
   }
+
   const handleSearchChange = e => {
     setLoadingsearch(true)
-    const searchTerm = e.target.value
+    const searchTerm = e.target.value;
+    setSearchWord({ searchWordItem: e.target.value })
     const profiles = [...allProfiles];
+
+    if (searchTerm !== null || searchTerm !== undefined) {
+      toggleSearching(true)
+    }
+
+    if (searchTerm === "") {
+      toggleSearching(false)
+    }
+
+    // console.log(searchTerm)
+    // console.log(searchTerm.split())
+    // console.log(searchTerm.split().length)
+    // console.log(typeof (searchTerm))
+    // console.log(searching)
 
     /** gi means that we want the RegExp to be applied Globally an case Insensitively */
     const regex = new RegExp(searchTerm, 'gi');
 
     const searchResults = profiles.reduce((acc, profile) => {
-      if ((profile.user.name && profile.user.name.match(regex))
+      if ((profile.user.name && profile.user.name.match(regex)) ||
+        (profile.skills.toString().match(regex)) ||
+        (profile.company && profile.company.match(regex)) ||
+        (profile.status.match(regex)) ||
+        (profile.location && profile.location.match(regex))
       ) {
         acc.push(profile);
       }
@@ -63,11 +89,58 @@ const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profil
     setTimeout(() => setLoadingsearch(false), 1000);
   }
 
-  const displayProfiles = profiles => (
-    profiles.map(profile => (
-      <ProfileList key={profile._id} profile={profile} />
-    ))
-  )
+  const displaySearchProfiles = profiles => {
+    // console.log("displaySearchProfiles")
+
+    if (profiles.length === 0) {
+      return (
+        <Header>
+          Sorry,
+          <Highlighter
+            highlightClassName="YourHighlightClass"
+            highlightStyle={{ background: "#e2c08d", padding: "0 5px", borderRadius: "5px" }}
+            searchWords={searchWordItem.split()}
+            autoEscape={true}
+            textToHighlight={searchWordItem}
+          />
+          is not found.
+        </Header>
+      )
+    }
+
+    return (
+      profiles.map(profile => (
+        <ProfileList key={profile._id} profile={profile} searchWordItem={searchWordItem} />
+      ))
+    )
+
+
+  }
+
+  const displayProfiles = profiles => {
+    // console.log("displayProfiles")
+    return (
+      <Fragment>
+        <Fragment>
+          {
+            profiles.map(profile => (
+              <ProfileList key={profile._id} profile={profile} />
+            ))
+          }
+        </Fragment>
+        <ProfilesPagination
+          currentPage={currentPage}
+          profilePerPage={profilesPerPage}
+          totalProfiles={allProfiles.length}
+          handlePaginationChange={handlePaginationChange}
+          handleChangeProfilePerPage={handleChangeProfilePerPage}
+        />
+      </Fragment>
+    )
+  }
+
+  // console.log(searchWordItem)
+  // console.log(search.searchResults)
 
   return (
     <Fragment>
@@ -85,7 +158,10 @@ const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profil
             ) : (
                 <Fragment>
                   <Fragment>
-                    <SearchProfiles handleSearchChange={handleSearchChange} loadingSearch={loadingSearch} />
+                    <SearchProfiles
+                      handleSearchChange={handleSearchChange}
+                      loadingSearch={loadingSearch}
+                    />
                     <Grid columns='equal'>
                       <Grid.Column>
                         <Header as='h1' color='blue'>
@@ -109,18 +185,11 @@ const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profil
                   </Fragment>
                   {allProfiles.length > 0 ? (
                     <Fragment>
-                      {searchResults.length > 0 ?
-                        displayProfiles(searchResults)
-                        :
+                      {searching === false ?
                         displayProfiles(currentProfiles)
+                        :
+                        displaySearchProfiles(searchResults)
                       }
-                      <ProfilesPagination
-                        currentPage={currentPage}
-                        profilePerPage={profilesPerPage}
-                        totalProfiles={allProfiles.length}
-                        handlePaginationChange={handlePaginationChange}
-                        handleChangeProfilePerPage={handleChangeProfilePerPage}
-                      />
                     </Fragment>
                   ) : (
                       <Header size='huge'>No profiles found...</Header>

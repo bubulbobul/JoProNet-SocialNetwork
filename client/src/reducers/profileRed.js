@@ -9,6 +9,8 @@ import {
   CLEAR_GET_SINGLE_EDUCATION,
   GET_SINGLE_EXPERIENCE,
   CLEAR_GET_SINGLE_EXPERIENCE,
+  EDIT_SINGLE_EXPERIENCE,
+  EDIT_SINGLE_EDUCATION
 } from "../actions/types";
 
 const initialState = {
@@ -40,9 +42,12 @@ export default (state = initialState, action) => {
         hasProfile: true
       };
     case GET_SINGLE_EXPERIENCE:
+    case EDIT_SINGLE_EXPERIENCE:
       return {
         ...state,
-        experience: payload
+        experience: payload,
+        profileLoading: false,
+        loading: false
       }
     case CLEAR_GET_SINGLE_EXPERIENCE:
       return {
@@ -50,9 +55,12 @@ export default (state = initialState, action) => {
         experience: null
       }
     case GET_SINGLE_EDUCATION:
+    case EDIT_SINGLE_EDUCATION:
       return {
         ...state,
-        education: payload
+        education: payload,
+        profileLoading: false,
+        loading: false
       }
     case CLEAR_GET_SINGLE_EDUCATION:
       return {

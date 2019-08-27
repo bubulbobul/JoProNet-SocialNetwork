@@ -1,12 +1,7 @@
 import React, { Fragment } from 'react'
 import {
-    Container,
     Header,
-    Grid,
-    Button,
     Segment,
-    Icon,
-    Message,
     Divider,
     Image
 } from "semantic-ui-react";
