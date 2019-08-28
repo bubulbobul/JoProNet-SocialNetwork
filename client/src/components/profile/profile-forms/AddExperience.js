@@ -32,21 +32,27 @@ const AddExperience = ({ apiUrl, auth, addExperienceAct, history }) => {
     current: false,
     description: ""
   });
+  const [error, setError] = useState(false)
 
   const [toDateDisabled, toggleDisabled] = useState(false);
 
   const { company, title, location, from, to, current, description } = formData;
 
   const handleChange = e => {
-    // console.log(e.target.name);
-    // console.log(e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    addExperienceAct(apiUrl, formData, history);
-    handleReset();
+    if (company === "" || title === "" || from === "") {
+      addExperienceAct(apiUrl, formData, history);
+      setError(true);
+    } else {
+      addExperienceAct(apiUrl, formData, history);
+      setError(false)
+      handleReset();
+    }
+
   };
 
   const handleReset = e => {
@@ -69,12 +75,10 @@ const AddExperience = ({ apiUrl, auth, addExperienceAct, history }) => {
 
   const onDateChange = (e, name) => {
     if (name.name === "from") {
-      // console.log(name.value);
       setFormData({ ...formData, from: name.value });
     }
 
     if (name.name === "to") {
-      // console.log(name.value);
       setFormData({ ...formData, to: name.value });
     }
   };
@@ -110,7 +114,7 @@ const AddExperience = ({ apiUrl, auth, addExperienceAct, history }) => {
                     an experience to your profile
                   </Header>
                 </Divider>
-                <Segment raised color='blue'>
+                <Segment raised>
                   <Form.Group widths='equal'>
                     <Form.Field>
                       <Form.Input
@@ -119,6 +123,7 @@ const AddExperience = ({ apiUrl, auth, addExperienceAct, history }) => {
                         name='title'
                         value={title}
                         onChange={e => handleChange(e)}
+                        error={error}
                       />
                       <p style={{ color: "#888" }}>
                         Could be Developer, Manager etc.
@@ -131,6 +136,7 @@ const AddExperience = ({ apiUrl, auth, addExperienceAct, history }) => {
                         name='company'
                         value={company}
                         onChange={e => handleChange(e)}
+                        error={error}
                       />
                       <p style={{ color: "#888" }}>
                         In which company did you worked
@@ -182,6 +188,7 @@ const AddExperience = ({ apiUrl, auth, addExperienceAct, history }) => {
                         iconPosition='left'
                         onChange={(e, name) => onDateChange(e, name)}
                         dateFormat='MM-DD-YYYY'
+                        error={error}
                       />
                     </Form.Field>
                     <Form.Field disabled={toDateDisabled ? true : false}>

@@ -51,7 +51,7 @@ const Profile = ({ match, apiUrl, profile, auth, getProfileByTheUserIdAct, histo
           <Divider hidden />
           <Divider hidden />
           <Divider hidden />
-          <Segment>
+          <Segment color="blue">
             {profile === null || profile.loading === null || profile.profile === null ? (
               <Fragment>
                 <ProfilePlaceholder />

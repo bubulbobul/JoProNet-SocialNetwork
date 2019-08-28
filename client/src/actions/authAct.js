@@ -88,6 +88,14 @@ export const loginAct = (apiUrl, email, password) => async dispatch => {
     });
 
     dispatch(loadUser(apiUrl));
+
+    dispatch(
+      setAlert(
+        "Hello",
+        `How are you ?`,
+        "success"
+      )
+    );
   } catch (err) {
     // console.log(err)
     // console.log(err.response)

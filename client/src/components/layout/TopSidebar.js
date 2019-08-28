@@ -10,7 +10,6 @@ import {
   Image,
   Grid,
   Button,
-  Icon,
   Container
 } from "semantic-ui-react";
 import { logoutAct } from "../../actions/authAct";

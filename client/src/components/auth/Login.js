@@ -31,10 +31,6 @@ const Login = ({ apiUrl, loginAct, setAlert }) => {
 
   return (
     <Fragment>
-      <Header as='h3' textAlign='center'>
-        Log-in to your account
-      </Header>
-      <Divider hidden />
       <Form onSubmit={e => handleSubmit(e)}>
         <Form.Input
           icon='at'
@@ -53,8 +49,7 @@ const Login = ({ apiUrl, loginAct, setAlert }) => {
           value={password}
           onChange={e => handleChange(e)}
         />
-
-        <Button content='Login' primary />
+        <Button content='Login' primary floated="left" />
       </Form>
     </Fragment>
   );

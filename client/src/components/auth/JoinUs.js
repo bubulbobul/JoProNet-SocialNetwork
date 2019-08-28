@@ -4,20 +4,16 @@ import { setAlert } from "../../actions/alertAct";
 import { loginAct, registerAct } from "../../actions/authAct";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
-
-import LoginImg from "../../assets/images/login-logo.png";
-import RegisterImg from "../../assets/images/register-logo.png";
+import { Transition as TransitionSpring, animated } from 'react-spring/renderprops';
 
 import {
   Grid,
   Segment,
-  Image,
   Header,
   Icon,
   Message,
   Divider,
-  Container,
-  Transition
+  Container
 } from "semantic-ui-react";
 import Login from "./Login";
 import Register from "./Register";
@@ -59,7 +55,7 @@ const JoinUs = ({
             alerts.map(alert => (
               <Fragment key={alert.id}>
                 {alert.alertType === "success" && (
-                  <Message positive>
+                  <Message positive style={{ borderRadius: "50px" }}>
                     <Message.Header>{alert.msgHeader}</Message.Header>
                     <p>{alert.msgContent}</p>
                   </Message>
@@ -73,7 +69,7 @@ const JoinUs = ({
             alerts.map(alert => (
               <Fragment key={alert.id}>
                 {alert.alertType === "error" && (
-                  <Message error>
+                  <Message error style={{ borderRadius: "50px" }}>
                     <Message.Header>{alert.msgHeader}</Message.Header>
                     <p>{alert.msgContent}</p>
                   </Message>
@@ -82,10 +78,10 @@ const JoinUs = ({
             ))}
         </Fragment>
         <Grid columns={2} relaxed='very' stackable>
-          <Grid.Row>
+          <Grid.Row verticalAlign="top">
             <Grid.Column>
               <Fragment>
-                <Segment raised>
+                <Segment style={{ borderRadius: "50px" }}>
                   <Divider
                     horizontal
                     onClick={() =>
@@ -96,8 +92,8 @@ const JoinUs = ({
                       {login ? (
                         <Icon name='arrow alternate circle up' />
                       ) : (
-                        <Icon name='arrow alternate circle down' />
-                      )}
+                          <Icon name='arrow alternate circle down' />
+                        )}
                       <Header.Content>Login</Header.Content>
                     </Header>
                   </Divider>
@@ -106,7 +102,7 @@ const JoinUs = ({
             </Grid.Column>
             <Grid.Column>
               <Fragment>
-                <Segment raised>
+                <Segment style={{ borderRadius: "50px" }}>
                   <Divider
                     horizontal
                     onClick={() =>
@@ -117,8 +113,8 @@ const JoinUs = ({
                       {register ? (
                         <Icon name='arrow alternate circle up' />
                       ) : (
-                        <Icon name='arrow alternate circle down' />
-                      )}
+                          <Icon name='arrow alternate circle down' />
+                        )}
                       <Header.Content>Register</Header.Content>
                     </Header>
                   </Divider>
@@ -128,72 +124,55 @@ const JoinUs = ({
           </Grid.Row>
           <Grid.Row>
             <Grid.Column textAlign='center'>
-              <Segment raised>
-                <Transition
-                  unmountOnHide={true}
-                  visible={login}
-                  animation='fade'
-                  duration={100}
-                  transitionOnMount={true}
+              <Segment style={{ backgroundColor: "transparent", border: "none" }}>
+                <TransitionSpring
+                  native
+                  items={login}
+                  from={{ opacity: 0 }}
+                  enter={{ opacity: 1 }}
+                  leave={{ opacity: 0 }}
+                  config={{ delay: 1000 }}
                 >
-                  <Fragment>
-                    <Login
-                      apiUrl={apiUrl}
-                      loginAct={loginAct}
-                      setAlert={setAlert}
-                    />
-                  </Fragment>
-                </Transition>
-
-                <Fragment>
-                  {register && (
-                    <Image
-                      src={LoginImg}
-                      size='small'
-                      centered
-                      onClick={() =>
-                        toggleFormVisible({
-                          login: !login,
-                          register: !register
-                        })
-                      }
-                    />
-                  )}
-                </Fragment>
+                  {
+                    show => show && (props => (
+                      <animated.div style={props}>
+                        <Fragment>
+                          <Login
+                            apiUrl={apiUrl}
+                            loginAct={loginAct}
+                            setAlert={setAlert}
+                          />
+                        </Fragment>
+                      </animated.div>
+                    ))
+                  }
+                </TransitionSpring>
               </Segment>
             </Grid.Column>
             <Grid.Column verticalAlign='top'>
-              <Segment raised>
-                <Transition
-                  unmountOnHide={true}
-                  visible={register}
-                  animation='fade'
-                  duration={100}
-                  transitionOnMount={true}
+              <Segment style={{ backgroundColor: "transparent", border: "none" }}>
+                <TransitionSpring
+                  native
+                  items={register}
+                  from={{ opacity: 0 }}
+                  enter={{ opacity: 1 }}
+                  leave={{ opacity: 0 }}
+                  config={{ delay: 1000 }}
                 >
-                  <Fragment>
-                    <Register
-                      apiUrl={apiUrl}
-                      registerAct={registerAct}
-                      setAlert={setAlert}
-                    />
-                  </Fragment>
-                </Transition>
-                <Fragment>
-                  {login && (
-                    <Image
-                      src={RegisterImg}
-                      size='small'
-                      centered
-                      onClick={() =>
-                        toggleFormVisible({
-                          login: !login,
-                          register: !register
-                        })
-                      }
-                    />
-                  )}
-                </Fragment>
+                  {
+                    show => show && (props => (
+                      <animated.div style={props}>
+                        <Fragment>
+                          <Register
+                            apiUrl={apiUrl}
+                            registerAct={registerAct}
+                            setAlert={setAlert}
+                          />
+                        </Fragment>
+                      </animated.div>
+                    ))
+                  }
+                </TransitionSpring>
               </Segment>
             </Grid.Column>
           </Grid.Row>

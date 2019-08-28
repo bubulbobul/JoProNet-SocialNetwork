@@ -20,6 +20,7 @@ const initialState = {
   profileLoading: true,
   error: {},
   hasProfile: false,
+  hasUserProfile: false,
   experience: null,
   education: null,
   loading: true
@@ -35,12 +36,24 @@ export default (state = initialState, action) => {
     case GET_PROFILE:
     case UPDATE_PROFILE:
       // console.log("TYPE", type);
-      return {
-        ...state,
-        profile: payload,
-        profileLoading: false,
-        hasProfile: true
-      };
+      if (payload === "") {
+        return {
+          ...state,
+          profile: payload,
+          profileLoading: false,
+          hasProfile: false,
+          hasUserProfile: false
+        };
+      } else {
+        return {
+          ...state,
+          profile: payload,
+          profileLoading: false,
+          hasProfile: true,
+          hasUserProfile: true
+        };
+      }
+
     case GET_SINGLE_EXPERIENCE:
     case EDIT_SINGLE_EXPERIENCE:
       return {

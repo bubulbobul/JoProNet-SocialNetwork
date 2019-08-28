@@ -9,12 +9,6 @@ const PostsPlacehoder = () => {
     return (
         <Fragment>
             <Fragment>
-                {/* <Placeholder>
-                    <Placeholder.Header>
-                        <Placeholder.Line />
-                        <Placeholder.Line />
-                    </Placeholder.Header>
-                </Placeholder> */}
                 <Grid columns={5}>
                     <Grid.Row>
                         <Grid.Column>

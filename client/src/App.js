@@ -13,7 +13,6 @@ import Navbar from "./components/layout/Navbar";
 import Welcome from "./components/Welcome";
 import Footer from "./components/Footer";
 
-import JoinUs from "./components/auth/JoinUs";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreateProfile from "./components/profile/profile-forms/CreateProfile";
 import EditProfile from "./components/profile/profile-forms/EditProfile";
@@ -80,7 +79,6 @@ const App = ({ getAPIAct, apiUrl }) => {
                     <ScrollIntoView>
                       <Switch>
                         <Route exact path='/' component={Welcome} />
-                        <Route path='/join-us' component={JoinUs} />
                         <Route path='/profiles' component={AllProfiles} />
                         <Route path='/profile/:id' component={Profile} />
                         <PrivateRoute path='/dashboard' component={Dashboard} />

@@ -97,7 +97,6 @@ export const addLikeAct = (apiUrl, postId) => {
     return axios
       .put(`${apiUrl}/api/posts/like/${postId}`)
       .then(response => {
-        console.log(response.data)
         dispatch(upDateLikesAct(response.data, postId));
         dispatch(upDateLikeAct(response.data, postId));
       })
@@ -156,7 +155,6 @@ export const removeLikeAct = (apiUrl, postId) => {
 
 // Delete post
 export const deletePostAct = (apiUrl, postId, postName, history, tr) => async dispatch => {
-  console.log(tr, history)
   try {
     await axios.delete(`${apiUrl}/api/posts/${postId}`);
 

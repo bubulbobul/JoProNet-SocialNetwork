@@ -41,6 +41,16 @@ const AuthNavbar = ({ alerts }) => {
             >
               <Image circular src={Logo} size='tiny' />{" "}
             </Menu.Item>
+            <Menu.Item
+              as={NavLink}
+              to='/dashboard'
+              name='dashboard'
+              active={activeItem === "dashboard"}
+              onClick={handleItemClick}
+            >
+              <Icon name='user' />
+              DASHBOARD
+            </Menu.Item>
             <Fragment>
               {alerts !== null &&
                 alerts.length > 0 &&
@@ -48,7 +58,7 @@ const AuthNavbar = ({ alerts }) => {
                   <Fragment key={alert.id}>
                     {alert.alertType === "success" && (
                       <Menu.Item>
-                        <Message positive>
+                        <Message positive style={{ borderRadius: "50px" }}>
                           <Message.Header>{alert.msgHeader}</Message.Header>
                           <p>{alert.msgContent}</p>
                         </Message>
@@ -64,7 +74,7 @@ const AuthNavbar = ({ alerts }) => {
                   <Fragment key={alert.id}>
                     {alert.alertType === "error" && (
                       <Menu.Item>
-                        <Message error>
+                        <Message error style={{ borderRadius: "50px" }}>
                           <Message.Header>{alert.msgHeader}</Message.Header>
                           <p>{alert.msgContent}</p>
                         </Message>
@@ -74,16 +84,6 @@ const AuthNavbar = ({ alerts }) => {
                 ))}
             </Fragment>
             <Menu.Menu position='right'>
-              <Menu.Item
-                as={NavLink}
-                to='/dashboard'
-                name='dashboard'
-                active={activeItem === "dashboard"}
-                onClick={handleItemClick}
-              >
-                <Icon name='user' />
-                DASHBOARD
-              </Menu.Item>
               <Menu.Item
                 as={NavLink}
                 to='/posts'

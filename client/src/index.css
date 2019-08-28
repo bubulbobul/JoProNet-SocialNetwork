@@ -10,9 +10,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background: url(/img/mario-bg.png) no-repeat;
-    background-size: 100%;
-    background-position: bottom; */
-  background-color: #e2c08d;
+  background: url(./assets/images/kupono-kuwamura-LzgK6IMoSZM-unsplash.jpg);
+  background-size: cover;
+  background-position: bottom;
+  /* background-color: #233237; */
+  /* background-color: #e2c08d; */
   /* min-height: 100%; */
 }

@@ -32,6 +32,7 @@ const AddEducation = ({ apiUrl, auth, addEducationAct, history }) => {
     current: false,
     description: ""
   });
+  const [error, setError] = useState(false)
 
   const [toDateDisabled, toggleDisabled] = useState(false);
 
@@ -51,8 +52,14 @@ const AddEducation = ({ apiUrl, auth, addEducationAct, history }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    addEducationAct(apiUrl, formData, history);
-    handleReset();
+    if (school === "" || degree === "" || fieldofstudy === "" || from === "") {
+      addEducationAct(apiUrl, formData, history);
+      setError(true);
+    } else {
+      addEducationAct(apiUrl, formData, history);
+      setError(false)
+      handleReset();
+    }
   };
 
   const handleReset = e => {
@@ -114,7 +121,7 @@ const AddEducation = ({ apiUrl, auth, addEducationAct, history }) => {
                     your education right below
                   </Header>
                 </Divider>
-                <Segment raised color='blue'>
+                <Segment raised>
                   <Form.Group widths='equal'>
                     <Form.Field>
                       <Form.Input
@@ -123,6 +130,7 @@ const AddEducation = ({ apiUrl, auth, addEducationAct, history }) => {
                         name='school'
                         value={school}
                         onChange={e => handleChange(e)}
+                        error={error}
                       />
                       <p style={{ color: "#888" }}>
                         Could be Harvard, Oxford etc.
@@ -135,6 +143,7 @@ const AddEducation = ({ apiUrl, auth, addEducationAct, history }) => {
                         name='degree'
                         value={degree}
                         onChange={e => handleChange(e)}
+                        error={error}
                       />
                       <p style={{ color: "#888" }}>
                         Could be Bachelor, Master or BCA, BBA, BCSci, MCA, MBA
@@ -149,6 +158,7 @@ const AddEducation = ({ apiUrl, auth, addEducationAct, history }) => {
                         name='fieldofstudy'
                         value={fieldofstudy}
                         onChange={e => handleChange(e)}
+                        error={error}
                       />
                       <p style={{ color: "#888" }}>
                         {" "}
@@ -187,6 +197,7 @@ const AddEducation = ({ apiUrl, auth, addEducationAct, history }) => {
                         iconPosition='left'
                         onChange={(e, name) => onDateChange(e, name)}
                         dateFormat='MM-DD-YYYY'
+                        error={error}
                       />
                     </Form.Field>
                     <Form.Field disabled={toDateDisabled ? true : false}>

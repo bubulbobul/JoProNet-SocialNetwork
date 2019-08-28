@@ -36,15 +36,6 @@ const GuestNavbar = () => {
             >
               COMMUNITY
             </Menu.Item>
-            <Menu.Item
-              as={NavLink}
-              to='/join-us'
-              name='join us'
-              active={activeItem === "join us"}
-              onClick={handleItemClick}
-            >
-              JOIN US
-            </Menu.Item>
           </Menu.Menu>
         </Container>
       </Menu>

@@ -1,19 +1,19 @@
-import React, { Fragment } from "react";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import PropTypes from "prop-types";
-
-import Carousel from "nuka-carousel";
+import React, { Fragment } from 'react'
+import { Link } from "react-router-dom";
+import { Parallax, ParallaxLayer } from 'react-spring/renderprops-addons'
 
 import {
-  Image,
-  Container,
   Segment,
   Divider,
+  Image,
+  Container,
   Header,
   Grid
 } from "semantic-ui-react";
-import Logo from "../assets/images/logo.jpg";
+import Carousel from "nuka-carousel";
+
+import JoinUs from "./auth/JoinUs";
+
 import Coding1 from "../assets/images/coding-1.jpg";
 import AnimalMonkey from "../assets/images/animal-ape-fur-39571.jpg";
 import HtmlCss from "../assets/images/design-development-electronics-326424.jpg";
@@ -21,15 +21,14 @@ import CodingCoffee from "../assets/images/blurred-background-coffee-cup-contemp
 import BumpCollaboration from "../assets/images/bump-collaboration-colleagues-1068523.jpg";
 import Office from "../assets/images/architectural-design-architecture-ceiling-380768.jpg";
 import MernLogo from "../assets/images/mern.jpeg";
-import MongodbIcon from "../assets/images/mongodb-icon.jpg";
-import ExpressJsLogo from "../assets/images/express.png";
-import ReactLogo from "../assets/images/react.png";
-import NodeJsLogo from "../assets/images/nodejs.png";
 
-const Welcome = ({ isAuthenticated }) => {
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
-  }
+import Cloud from "../assets/welcomeImg/cloud.svg"
+import Earth from "../assets/welcomeImg/earth.svg"
+import Satellite from "../assets/welcomeImg/satellite4.svg"
+import Team from "../assets/welcomeImg/team.png"
+
+const Welcome = () => {
+  const url = (name, wrap = false) => `${wrap ? 'url(' : ''}https://awv3node-homepage.surge.sh/build/assets/${name}.svg${wrap ? ')' : ''}`
 
   return (
     <Fragment>
@@ -39,157 +38,118 @@ const Welcome = ({ isAuthenticated }) => {
       <Divider hidden />
       <Divider hidden />
       <Container>
-        <Fragment>
-          <Container textAlign='center'>
-            <Segment>
-              <Carousel
-                cellAlign='center'
-                autoGenerateStyleTag={true}
-                autoplay={true}
-                pauseOnHover={true}
-                width='100%'
-                height='40vw'
-                wrapAround={true}
+        <Segment style={{ background: "#233237", margin: "0", padding: "0 0 35vw 0" }} raised>
+          <Fragment>
+            <Parallax pages={3}>
+              <ParallaxLayer offset={1} speed={1} style={{ backgroundColor: '#805E73' }} />
+              <ParallaxLayer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
+
+              <ParallaxLayer offset={0} speed={0} factor={3} style={{ backgroundImage: url('stars', true), backgroundSize: 'cover' }} />
+
+              <ParallaxLayer offset={1.3} speed={-0.3} style={{ pointerEvents: 'none' }}>
+                <img src={Satellite} style={{ width: '15%', marginLeft: '70%' }} alt="Satellite" />
+              </ParallaxLayer>
+
+              <ParallaxLayer offset={1} speed={0.8} style={{ opacity: 0.1 }}>
+                <img src={Cloud} alt="Cloud" style={{ display: 'block', width: '20%', marginLeft: '55%' }} />
+                <img src={Cloud} alt="Cloud" style={{ display: 'block', width: '10%', marginLeft: '15%' }} />
+              </ParallaxLayer>
+
+              <ParallaxLayer offset={1.75} speed={0.5} style={{ opacity: 0.1 }}>
+                <img src={Cloud} alt="Cloud" style={{ display: 'block', width: '20%', marginLeft: '70%' }} />
+                <img src={Cloud} alt="Cloud" style={{ display: 'block', width: '20%', marginLeft: '40%' }} />
+              </ParallaxLayer>
+
+              <ParallaxLayer offset={1} speed={0.2} style={{ opacity: 0.2 }}>
+                <img src={Cloud} alt="Cloud" style={{ display: 'block', width: '10%', marginLeft: '10%' }} />
+                <img src={Cloud} alt="Cloud" style={{ display: 'block', width: '20%', marginLeft: '75%' }} />
+              </ParallaxLayer>
+
+              <ParallaxLayer offset={1.6} speed={-0.1} style={{ opacity: 0.4 }}>
+                <img src={Cloud} alt="Cloud" style={{ display: 'block', width: '20%', marginLeft: '60%' }} />
+                <img src={Cloud} alt="Cloud" style={{ display: 'block', width: '25%', marginLeft: '30%' }} />
+                <img src={Cloud} alt="Cloud" style={{ display: 'block', width: '10%', marginLeft: '80%' }} />
+              </ParallaxLayer>
+
+              <ParallaxLayer offset={2.6} speed={0.4} style={{ opacity: 0.6 }}>
+                <img src={Cloud} alt="Cloud" style={{ display: 'block', width: '20%', marginLeft: '5%' }} />
+                <img src={Cloud} alt="Cloud" style={{ display: 'block', width: '15%', marginLeft: '75%' }} />
+              </ParallaxLayer>
+
+              <ParallaxLayer offset={2.5} speed={-0.4} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none' }}>
+                <img src={Earth} alt="Earth" style={{ width: '60%' }} />
+              </ParallaxLayer>
+
+              <ParallaxLayer
+                offset={2}
+                speed={-0.3}
+                style={{
+                  backgroundSize: '80%',
+                  backgroundPosition: 'center'
+                }}
+              />
+
+              <ParallaxLayer
+                offset={0}
+                speed={0.1}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Container style={{ padding: "0 10% 0 10%", marginTop: "-170px" }}>
+                  <JoinUs />
+                </Container>
+              </ParallaxLayer>
+
+              <ParallaxLayer
+                offset={1}
+                speed={0.1}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                {/* <Image src={Bash} size="medium" /> */}
+                <Fragment>
+                  <Container textAlign='center'>
+                    <Grid textAlign="center">
+                      <Grid.Row>
+                        <Segment style={{ width: '50%', textAlign: 'center' }}>
+                          <Carousel
+                            cellAlign='center'
+                            autoGenerateStyleTag={true}
+                            autoplay={true}
+                            pauseOnHover={true}
+                            width='100%'
+                            height='20vw'
+                            wrapAround={true}
+                          >
+                            <Image src={MernLogo} />
+                            <Image src={Coding1} />
+                            <Image src={CodingCoffee} />
+                            <Image src={BumpCollaboration} />
+                            <Image src={Office} />
+                            <Image src={HtmlCss} />
+                            <Image src={AnimalMonkey} />
+                          </Carousel>
+                        </Segment>
+                      </Grid.Row>
+                    </Grid>
+                  </Container>
+                </Fragment>
+              </ParallaxLayer>
+
+              <ParallaxLayer
+                offset={2}
+                speed={-0}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                <Image src={MernLogo} />
-                <Image src={Coding1} />
-                <Image src={CodingCoffee} />
-                <Image src={BumpCollaboration} />
-                <Image src={Office} />
-                <Image src={HtmlCss} />
-                <Image src={AnimalMonkey} />
-              </Carousel>
-            </Segment>
-          </Container>
-        </Fragment>
-        <Segment>
-          <Container textAlign='center'>
-            <Image circular src={Logo} size='small' centered />
-            <Header as='h2'>Welcome to JoProNet</Header>
-          </Container>
+                <Container textAlign="center">
+                  <Header as={Link} to="/profiles" size="huge" style={{ color: "white" }}>We have a large <br />community</Header><br />
+                  <Image as={Link} to="/profiles" src={Team} circular size="medium" centered style={{ marginRight: "0px" }} />
+                </Container>
+              </ParallaxLayer>
+            </Parallax>
+          </Fragment>
         </Segment>
-
-        <Grid columns={2}>
-          <Grid.Row>
-            <Grid.Column>
-              <Segment raised>
-                <Container textAlign='justified'>
-                  <Header>What is JoProNet ?</Header>
-                  <p style={{ color: "#333", fontSize: "1.3rem" }}>
-                    JoProNet stands for Job Professional Network is a Social
-                    Media Network for developers who intend to share their
-                    knowledge and experience with each other and allow the users
-                    to show their aptitute to each other especially for
-                    employers.
-                  </p>
-                  <p style={{ color: "#333", fontSize: "1.3rem" }}>
-                    A community is present and exchange about the new upcoming
-                    technologies which will raised the programmers facilities
-                  </p>
-                </Container>
-              </Segment>
-              <Segment raised>
-                <Grid columns={4} verticalAlign='middle' textAlign='center'>
-                  <Grid.Row>
-                    <Grid.Column>
-                      <Container textAlign='center'>
-                        <Header textAlign='center'>
-                          <Image avatar src={MongodbIcon} centered />
-                        </Header>
-                      </Container>
-                    </Grid.Column>
-                    <Grid.Column>
-                      <Container textAlign='center'>
-                        <Header textAlign='center'>
-                          <Image avatar src={ExpressJsLogo} centered />
-                        </Header>
-                      </Container>
-                    </Grid.Column>
-                    <Grid.Column>
-                      <Container textAlign='center'>
-                        <Header textAlign='center'>
-                          <Image avatar src={ReactLogo} centered />
-                        </Header>
-                      </Container>
-                    </Grid.Column>
-                    <Grid.Column>
-                      <Container textAlign='center'>
-                        <Header textAlign='center'>
-                          <Image avatar src={NodeJsLogo} centered />
-                        </Header>
-                      </Container>
-                    </Grid.Column>
-                  </Grid.Row>
-                  <Grid.Row>
-                    <Grid.Column>
-                      <Container textAlign='center'>
-                        <Header textAlign='center'>Mongodb</Header>
-                      </Container>
-                    </Grid.Column>
-                    <Grid.Column>
-                      <Container textAlign='center'>
-                        <Header textAlign='center'>Express JS</Header>
-                      </Container>
-                    </Grid.Column>
-                    <Grid.Column>
-                      <Container textAlign='center'>
-                        <Header textAlign='center'>ReactJS</Header>
-                      </Container>
-                    </Grid.Column>
-                    <Grid.Column>
-                      <Container textAlign='center'>
-                        <Header textAlign='center'>NodeJS</Header>
-                      </Container>
-                    </Grid.Column>
-                  </Grid.Row>
-                </Grid>
-              </Segment>
-            </Grid.Column>
-            <Grid.Column>
-              <Segment raised>
-                <Container textAlign='justified'>
-                  <Header>How JoProNet Has been developped ?</Header>
-                  <p style={{ color: "#333", fontSize: "1.3rem" }}>
-                    JoProNet is a MERN (Mongodb, Express, React, Node)stack
-                    application i.e it's an web application developped with
-                    mongodb as database collection storage to store our data,
-                    Express JS is a light-weight web application framework to
-                    help organize your web application create easily web api.
-                    React JS is a framwork or to be more specific is one of the
-                    most JavaScript Library used for the front-end development
-                    it allows us to reuse component React can be used as a base
-                    in the development of single-page or mobile applications.
-                  </p>
-
-                  <p style={{ color: "#333", fontSize: "1.3rem" }}>
-                    And Node.js is an open source server environment it allows
-                    to run JavaScript in the system
-                  </p>
-                </Container>
-              </Segment>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-
-        <Divider hidden />
-        <Divider hidden />
-        <Divider hidden />
-        {/* <BottomSidebar /> */}
       </Container>
-
-      {/* <Footer /> */}
+      <Divider hidden />
+      <Divider hidden />
     </Fragment>
-  );
-};
+  )
+}
 
-Welcome.protoTypes = {
-  isAuthenticated: PropTypes.bool
-};
-
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: state.auth.isAuthenticated
-  };
-};
-
-export default connect(mapStateToProps)(Welcome);
+export default Welcome;

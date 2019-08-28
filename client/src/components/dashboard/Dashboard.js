@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getCurrentProfileAct, deleteAccountAct } from "../../actions/profileAct";
 import { MainLoader } from "../../utils/Loader";
 import { Link } from "react-router-dom";
+import { Transition as TransitionSpring, animated } from 'react-spring/renderprops';
 
 import {
   Container,
@@ -42,7 +43,7 @@ const Dashboard = ({ apiUrl, auth, profile, getCurrentProfileAct, deleteAccountA
         <Divider hidden />
         <Divider hidden />
         <Container>
-          <Segment raised>
+          <Segment raised color="blue">
             <Fragment>
               {
                 profile === null || profile.profileLoading || profile.profile === null ? (
@@ -123,7 +124,23 @@ const Dashboard = ({ apiUrl, auth, profile, getCurrentProfileAct, deleteAccountA
                               <Divider hidden />
                               <Fragment>
                                 <Segment raised>
-                                  <ExperienceCard profile={profile.profile} />
+                                  <TransitionSpring
+                                    native
+                                    items={true}
+                                    from={{ opacity: 0 }}
+                                    enter={{ opacity: 1 }}
+                                    leave={{ opacity: 0 }}
+                                  >
+                                    {
+                                      show => show && (props => (
+                                        <animated.div style={props}>
+                                          <Fragment>
+                                            <ExperienceCard profile={profile.profile} />
+                                          </Fragment>
+                                        </animated.div>
+                                      ))
+                                    }
+                                  </TransitionSpring>
                                 </Segment>
                               </Fragment>
                               <Divider hidden />
@@ -133,7 +150,24 @@ const Dashboard = ({ apiUrl, auth, profile, getCurrentProfileAct, deleteAccountA
                               <Divider hidden />
                               <Fragment>
                                 <Segment raised>
-                                  <EducationList profile={profile.profile} />
+                                  <TransitionSpring
+                                    native
+                                    items={true}
+                                    from={{ opacity: 0 }}
+                                    enter={{ opacity: 1 }}
+                                    leave={{ opacity: 0 }}
+                                    config={{ delay: 1500 }}
+                                  >
+                                    {
+                                      show => show && (props => (
+                                        <animated.div style={props}>
+                                          <Fragment>
+                                            <EducationList profile={profile.profile} />
+                                          </Fragment>
+                                        </animated.div>
+                                      ))
+                                    }
+                                  </TransitionSpring>
                                 </Segment>
                               </Fragment>
                             </Fragment>

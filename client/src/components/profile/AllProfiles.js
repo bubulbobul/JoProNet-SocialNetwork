@@ -11,6 +11,7 @@ import {
   Grid,
   Icon,
 } from "semantic-ui-react";
+import { Transition as TransitionSpring, animated } from 'react-spring/renderprops';
 import ProfileList from "./ProfileList";
 import ProfilesPagination from "./ProfilesPagination";
 import SearchProfiles from "./SearchProfiles";
@@ -27,6 +28,7 @@ const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profil
   });
   const [loadingSearch, setLoadingsearch] = useState(false);
   const [searching, toggleSearching] = useState(false);
+  // const [dislayTransition, toggleDisplayTransition] = useState(false);
   const { searchResults } = search
   const { searchWordItem } = searchWord
 
@@ -121,20 +123,39 @@ const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profil
     // console.log("displayProfiles")
     return (
       <Fragment>
-        <Fragment>
-          {
-            profiles.map(profile => (
-              <ProfileList key={profile._id} profile={profile} />
-            ))
-          }
-        </Fragment>
-        <ProfilesPagination
-          currentPage={currentPage}
-          profilePerPage={profilesPerPage}
-          totalProfiles={allProfiles.length}
-          handlePaginationChange={handlePaginationChange}
-          handleChangeProfilePerPage={handleChangeProfilePerPage}
-        />
+        {
+          <TransitionSpring
+            native
+            items={true}
+            from={{ opacity: 0 }}
+            enter={{ opacity: 1 }}
+            leave={{ opacity: 0 }}
+          >
+            {
+              show => show && (props => (
+                <animated.div style={props}>
+                  <Fragment>
+                    <Fragment>
+                      {
+                        profiles.map(profile => (
+                          <ProfileList key={profile._id} profile={profile} />
+                        ))
+                      }
+                    </Fragment>
+                    <ProfilesPagination
+                      currentPage={currentPage}
+                      profilePerPage={profilesPerPage}
+                      totalProfiles={allProfiles.length}
+                      handlePaginationChange={handlePaginationChange}
+                      handleChangeProfilePerPage={handleChangeProfilePerPage}
+                    />
+                  </Fragment>
+                </animated.div>
+              ))
+            }
+          </TransitionSpring>
+        }
+
       </Fragment>
     )
   }
@@ -152,7 +173,7 @@ const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profil
           <Divider hidden />
           <Divider hidden />
           <Divider hidden />
-          <Segment>
+          <Segment color="blue">
             {profileLoading || allProfiles.length === 0 ? (
               <AllProfilePlaceholder />
             ) : (

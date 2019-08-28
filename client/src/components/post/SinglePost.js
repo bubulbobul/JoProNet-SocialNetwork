@@ -64,7 +64,7 @@ const SinglePost = (props) => {
         <Divider hidden />
         <Divider hidden />
         <Divider hidden />
-        <Segment>
+        <Segment color="blue">
           {
             post == null || post.loading === null ||
               post.post === null ? (
@@ -80,7 +80,7 @@ const SinglePost = (props) => {
               ) : (
                 <Fragment>
                   <Fragment>
-                    <Button style={{borderRadius: "50px"}} icon labelPosition='left' floated='left' onClick={e => goBack(history)}>
+                    <Button style={{ borderRadius: "50px" }} icon labelPosition='left' floated='left' onClick={e => goBack(history)}>
                       Go Back
                         <Icon name='left arrow' />
                     </Button>

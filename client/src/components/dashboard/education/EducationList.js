@@ -33,7 +33,7 @@ const EducationList = props => {
           </Grid.Column>
           <Grid.Column floated='right' width={5}>
             <Header as='h4' floated='right'>
-              My current status&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
+              Current status&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
               {profile.status.toUpperCase()}
             </Header>
           </Grid.Column>
@@ -53,7 +53,7 @@ const EducationList = props => {
                 {profile &&
                   profile.education.map((edu) => {
                     return (
-                      <Segment key={edu._id}>
+                      <Segment key={edu._id} color="blue">
                         <List.Item>
                           <List.Content>
                             <Link to={`/education/${edu._id}`}>

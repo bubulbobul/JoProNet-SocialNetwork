@@ -8,8 +8,7 @@ import {
 } from "../../../actions/profileAct";
 import { LoaderEditProfile } from "../../../utils/Loader";
 import 'react-phone-number-input/style.css'
-import flags from 'react-phone-number-input/flags'
-import PhoneInput from 'react-phone-number-input'
+import { Transition as TransitionSpring, animated } from 'react-spring/renderprops';
 
 import {
   Button,
@@ -163,7 +162,7 @@ const EditProfile = props => {
       <Divider hidden />
       <Divider hidden />
       <Container>
-        <Segment>
+        <Segment color="blue">
           {
             profile === null ?
               <Fragment>
@@ -197,7 +196,7 @@ const EditProfile = props => {
                             profile
                           </Header>
                         </Divider>
-                        <Segment raised color='blue'>
+                        <Segment raised>
                           <Form.Field>
                             <label>Status</label>
                             <Dropdown
@@ -425,106 +424,124 @@ const EditProfile = props => {
                                 Add Social Network Links
                               </Label>
                             </Button>
-                            {/* Add Social Network Links */}
                           </Header>
                         </Divider>
-                        {displaySocialInputs && (
-                          <Fragment>
-                            <Segment raised color='blue'>
-                              <Grid>
-                                <Grid.Row>
-                                  <Grid.Column width={3} />
-                                  <Grid.Column width={10}>
-                                    <Grid>
-                                      <Grid.Column width={1}>
-                                        <Icon name='twitter' size='big' color='blue' />
-                                      </Grid.Column>
-                                      <Grid.Column width={15}>
-                                        <Form.Field>
-                                          <Form.Input
-                                            placeholder='Twitter URL'
-                                            name='twitter'
-                                            value={twitter}
-                                            onChange={e => handleChange(e)}
-                                          />
-                                        </Form.Field>
-                                      </Grid.Column>
-                                    </Grid>
+                        <TransitionSpring
+                          native
+                          items={displaySocialInputs}
+                          from={{ opacity: 0 }}
+                          enter={{ opacity: 1 }}
+                          leave={{ opacity: 0 }}
+                          config={{ delay: 500 }}
+                        >
+                          {
+                            show => show && (props => (
+                              <animated.div style={props}>
+                                <Fragment>
+                                  <Fragment>
+                                    <Segment raised color='blue'>
+                                      <Grid>
+                                        <Grid.Row>
+                                          <Grid.Column width={3} />
+                                          <Grid.Column width={10}>
+                                            <Grid>
+                                              <Grid.Column width={1}>
+                                                <Icon name='twitter' size='big' color='blue' />
+                                              </Grid.Column>
+                                              <Grid.Column width={15}>
+                                                <Form.Field>
+                                                  <Form.Input
+                                                    placeholder='Twitter URL'
+                                                    name='twitter'
+                                                    value={twitter}
+                                                    onChange={e => handleChange(e)}
+                                                  />
+                                                </Form.Field>
+                                              </Grid.Column>
+                                            </Grid>
 
-                                    <Grid>
-                                      <Grid.Column width={1}>
-                                        <Icon name='facebook' size='big' color='blue' />{" "}
-                                      </Grid.Column>
-                                      <Grid.Column width={15}>
-                                        <Form.Field>
-                                          <Form.Input
-                                            placeholder='Facebook URL'
-                                            name='facebook'
-                                            value={facebook}
-                                            onChange={e => handleChange(e)}
-                                          />
-                                        </Form.Field>
-                                      </Grid.Column>
-                                    </Grid>
+                                            <Grid>
+                                              <Grid.Column width={1}>
+                                                <Icon name='facebook' size='big' color='blue' />{" "}
+                                              </Grid.Column>
+                                              <Grid.Column width={15}>
+                                                <Form.Field>
+                                                  <Form.Input
+                                                    placeholder='Facebook URL'
+                                                    name='facebook'
+                                                    value={facebook}
+                                                    onChange={e => handleChange(e)}
+                                                  />
+                                                </Form.Field>
+                                              </Grid.Column>
+                                            </Grid>
 
-                                    <Grid>
-                                      <Grid.Column width={1}>
-                                        <Icon name='youtube' size='big' color='red' />{" "}
-                                      </Grid.Column>
-                                      <Grid.Column width={15}>
-                                        <Form.Field>
-                                          <Form.Input
-                                            placeholder='YouTube URL'
-                                            name='youtube'
-                                            value={youtube}
-                                            onChange={e => handleChange(e)}
-                                          />
-                                        </Form.Field>
-                                      </Grid.Column>
-                                    </Grid>
+                                            <Grid>
+                                              <Grid.Column width={1}>
+                                                <Icon name='youtube' size='big' color='red' />{" "}
+                                              </Grid.Column>
+                                              <Grid.Column width={15}>
+                                                <Form.Field>
+                                                  <Form.Input
+                                                    placeholder='YouTube URL'
+                                                    name='youtube'
+                                                    value={youtube}
+                                                    onChange={e => handleChange(e)}
+                                                  />
+                                                </Form.Field>
+                                              </Grid.Column>
+                                            </Grid>
 
-                                    <Grid>
-                                      <Grid.Column width={1}>
-                                        <Icon name='linkedin' size='big' color='blue' />{" "}
-                                      </Grid.Column>
-                                      <Grid.Column width={15}>
-                                        <Form.Field>
-                                          <Form.Input
-                                            placeholder='LinkedIn URL'
-                                            name='linkedin'
-                                            value={linkedin}
-                                            onChange={e => handleChange(e)}
-                                          />
-                                        </Form.Field>
-                                      </Grid.Column>
-                                    </Grid>
+                                            <Grid>
+                                              <Grid.Column width={1}>
+                                                <Icon name='linkedin' size='big' color='blue' />{" "}
+                                              </Grid.Column>
+                                              <Grid.Column width={15}>
+                                                <Form.Field>
+                                                  <Form.Input
+                                                    placeholder='LinkedIn URL'
+                                                    name='linkedin'
+                                                    value={linkedin}
+                                                    onChange={e => handleChange(e)}
+                                                  />
+                                                </Form.Field>
+                                              </Grid.Column>
+                                            </Grid>
 
-                                    <Grid>
-                                      <Grid.Column width={1}>
-                                        <Icon
-                                          name='instagram'
-                                          size='big'
-                                          color='blue'
-                                        />{" "}
-                                      </Grid.Column>
-                                      <Grid.Column width={15}>
-                                        <Form.Field>
-                                          <Form.Input
-                                            placeholder='Instagram URL'
-                                            name='instagram'
-                                            value={instagram}
-                                            onChange={e => handleChange(e)}
-                                          />
-                                        </Form.Field>
-                                      </Grid.Column>
-                                    </Grid>
-                                  </Grid.Column>
-                                  <Grid.Column width={3} />
-                                </Grid.Row>
-                              </Grid>
-                            </Segment>
-                          </Fragment>
-                        )}
+                                            <Grid>
+                                              <Grid.Column width={1}>
+                                                <Icon
+                                                  name='instagram'
+                                                  size='big'
+                                                  color='blue'
+                                                />{" "}
+                                              </Grid.Column>
+                                              <Grid.Column width={15}>
+                                                <Form.Field>
+                                                  <Form.Input
+                                                    placeholder='Instagram URL'
+                                                    name='instagram'
+                                                    value={instagram}
+                                                    onChange={e => handleChange(e)}
+                                                  />
+                                                </Form.Field>
+                                              </Grid.Column>
+                                            </Grid>
+                                          </Grid.Column>
+                                          <Grid.Column width={3} />
+                                        </Grid.Row>
+                                      </Grid>
+                                    </Segment>
+                                  </Fragment>
+                                </Fragment>
+                              </animated.div>
+                            ))
+                          }
+                        </TransitionSpring>
+
+                        {/* {displaySocialInputs && (
+                          
+                        )} */}
                       </Grid.Column>
                     </Grid>
                     <Divider hidden />

@@ -16,6 +16,7 @@ import PostsPlaceholder from "./PostsPlaceholder";
 import PostsPagination from "./PostsPagination";
 import PostsSearch from "./PostsSearch";
 import Highlighter from "react-highlight-words";
+import { Transition as TransitionSpring, animated } from 'react-spring/renderprops';
 
 
 const Posts = ({
@@ -137,29 +138,46 @@ const Posts = ({
     // console.log("displayPosts")
     return (
       <Fragment>
-        <Fragment>
+        <TransitionSpring
+          native
+          items={true}
+          from={{ opacity: 0 }}
+          enter={{ opacity: 1 }}
+          leave={{ opacity: 0 }}
+        >
           {
-            postss.map(post => (
-              <PostItem
-                key={post._id}
-                post={post}
-                removeLikeAct={removeLikeAct}
-                addLikeAct={addLikeAct}
-                auth={auth}
-                apiUrl={apiUrl}
-                deletePostAct={deletePostAct}
-                tr={tr}
-              />
+            show => show && (props => (
+              <animated.div style={props}>
+                <Fragment>
+                  <Fragment>
+                    {
+                      postss.map(post => (
+                        <PostItem
+                          key={post._id}
+                          post={post}
+                          removeLikeAct={removeLikeAct}
+                          addLikeAct={addLikeAct}
+                          auth={auth}
+                          apiUrl={apiUrl}
+                          deletePostAct={deletePostAct}
+                          tr={tr}
+                        />
+                      ))
+                    }
+                  </Fragment>
+                  <PostsPagination
+                    currentPage={currentPage}
+                    postsPerPage={postsPerPage}
+                    totalPosts={posts.length}
+                    handlePaginationChange={handlePaginationChange}
+                    handleChangePostPerPage={handleChangePostPerPage}
+                  />
+                </Fragment>
+              </animated.div>
             ))
           }
-        </Fragment>
-        <PostsPagination
-          currentPage={currentPage}
-          postsPerPage={postsPerPage}
-          totalPosts={posts.length}
-          handlePaginationChange={handlePaginationChange}
-          handleChangePostPerPage={handleChangePostPerPage}
-        />
+        </TransitionSpring>
+
       </Fragment>
     )
   }
@@ -175,7 +193,7 @@ const Posts = ({
         <Divider hidden />
         <Divider hidden />
         <Divider hidden />
-        <Segment>
+        <Segment color="blue">
           {loading || posts.length === 0 ? (
             <PostsPlaceholder />
           ) : (<Fragment>

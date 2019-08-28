@@ -10,12 +10,14 @@ import {
 import { Link, withRouter } from "react-router-dom";
 import Monkey from "../../../assets/images/animal-ape-fur-39571.jpg"
 
-const NoProfile = ({ auth, profile, history }) => {
+const NoProfile = ({ auth, profile: { hasUserProfile }, history }) => {
 
     const goBack = (history) => {
         history.go(-1);
         // history.goBack();
     }
+
+    // console.log(profile)
 
     return (
 
@@ -25,7 +27,7 @@ const NoProfile = ({ auth, profile, history }) => {
                 <Divider hidden />
                 <Fragment>
                     {
-                        profile !== "" ? (
+                        hasUserProfile === false ? (
                             <Fragment>
                                 <Image src={Monkey} centered style={{ borderRadius: "50%", width: 300, height: 300 }} />
                                 <Header

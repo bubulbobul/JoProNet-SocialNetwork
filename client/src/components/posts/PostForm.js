@@ -10,6 +10,7 @@ import {
   Divider,
   Label
 } from "semantic-ui-react";
+import { Transition as TransitionSpring, animated } from 'react-spring/renderprops';
 
 const PostForm = ({ apiUrl, addPostAct }) => {
   const [formData, setFormData] = useState({
@@ -47,52 +48,64 @@ const PostForm = ({ apiUrl, addPostAct }) => {
           </Header>
         </Divider>
       </Fragment>
-      {displayPostForm && (
-        <Fragment>
-          <Form>
-            <Form.Field>
-              <Form.Input
-                label='Post Title'
-                placeholder='Please enter the post title'
-                name='title'
-                value={title}
-                onChange={e => handleChange(e)}
-              />
-            </Form.Field>
-            <Form.Field>
-              <label>Post Content</label>
-              <TextArea
-                placeholder='Write here'
-                style={{ minHeight: 100 }}
-                name='text'
-                value={text}
-                onChange={e => handleChange(e)}
-              />
-            </Form.Field>
-            <Button
-              primary
-              icon
-              labelPosition='left'
-              onClick={e => {
-                addPostAct(apiUrl, formData);
-                handleReset(e);
-                togglePostForm(!displayPostForm)
-              }}
-              style={{ borderRadius: "50px" }}
-            >
-              Submit
+      <TransitionSpring
+        native
+        items={displayPostForm}
+        from={{ opacity: 0 }}
+        enter={{ opacity: 1 }}
+        leave={{ opacity: 0 }}
+      >
+        {
+          show => show && (props => (
+            <animated.div style={props}>
+              <Fragment>
+                <Form>
+                  <Form.Field>
+                    <Form.Input
+                      label='Post Title'
+                      placeholder='Please enter the post title'
+                      name='title'
+                      value={title}
+                      onChange={e => handleChange(e)}
+                    />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Post Content</label>
+                    <TextArea
+                      placeholder='Write here'
+                      style={{ minHeight: 100 }}
+                      name='text'
+                      value={text}
+                      onChange={e => handleChange(e)}
+                    />
+                  </Form.Field>
+                  <Button
+                    primary
+                    icon
+                    labelPosition='left'
+                    onClick={e => {
+                      addPostAct(apiUrl, formData);
+                      handleReset(e);
+                      togglePostForm(!displayPostForm)
+                    }}
+                    style={{ borderRadius: "50px" }}
+                  >
+                    Submit
               <Icon name='chevron down' />
-            </Button>
-            <Button style={{ borderRadius: "50px" }} icon labelPosition='left' onClick={e => {
-              handleReset(e)
-              togglePostForm(!displayPostForm)
-            }}>
-              Cancel
+                  </Button>
+                  <Button style={{ borderRadius: "50px" }} icon labelPosition='left' onClick={e => {
+                    handleReset(e)
+                    togglePostForm(!displayPostForm)
+                  }}>
+                    Cancel
               <Icon name='cancel' />
-            </Button>
-          </Form>
-        </Fragment>
-      )}
+                  </Button>
+                </Form>
+              </Fragment>
+            </animated.div>
+          ))
+        }
+      </TransitionSpring>
     </Segment>
   );
 };

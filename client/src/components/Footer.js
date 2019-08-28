@@ -11,6 +11,8 @@ import {
   Icon
 } from "semantic-ui-react";
 import Logo from "../assets/images/logo.jpg";
+import StickyFooter from 'react-sticky-footer';
+
 
 import PrivacyPolicy from "./PrivacyPolicy";
 import TermsConditions from "./TermsConditions";
