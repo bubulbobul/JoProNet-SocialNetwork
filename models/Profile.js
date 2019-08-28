@@ -10,7 +10,7 @@ const ProfileSchema = new mongoose.Schema({
     type: String
   },
   number: {
-    type: Number
+    type: String
   },
   workingemail: {
     type: String
