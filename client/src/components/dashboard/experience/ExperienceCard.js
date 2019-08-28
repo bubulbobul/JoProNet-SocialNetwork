@@ -7,19 +7,19 @@ import {
   Divider,
   Button,
   Icon,
-  Message
+  Message,
+  Popup
 } from "semantic-ui-react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import TextTruncate from "react-text-truncate";
 import { deleteExperienceAct } from "../../../actions/profileAct";
 import { connect } from "react-redux";
 
-const ExperienceCard = props => {
-  const { profile, apiUrl } = props;
+const ExperienceCard = ({ profile, apiUrl, deleteExperienceAct }) => {
   const detailPage = false;
 
   const handleDelete = (e, id, company) => {
-    props.deleteExperienceAct(apiUrl, id, company, detailPage);
+    deleteExperienceAct(apiUrl, id, company, detailPage);
   };
 
   return (
@@ -77,25 +77,13 @@ const ExperienceCard = props => {
                           </Card.Description>
                         </Card.Content>
                         <Card.Content extra>
-                          <Link to={`/experience/${exp._id}`}>
-                            <Button animated='vertical' primary floated='right'>
-                              <Button.Content visible>More</Button.Content>
-                              <Button.Content hidden>
-                                <Icon name='info circle' />
-                              </Button.Content>
-                            </Button>
+                          <Link to={`/add-experience`}>
+                            <Popup content='Add a new experience' trigger={<Button circular icon='add' primary />} />
                           </Link>
-                          <Button
-                            animated='vertical'
-                            color='red'
-                            floated='right'
-                            onClick={e => handleDelete(e, exp._id, exp.company)}
-                          >
-                            <Button.Content visible>Delete</Button.Content>
-                            <Button.Content hidden>
-                              <Icon name='remove circle' />
-                            </Button.Content>
-                          </Button>
+                          <Popup content='Delete' trigger={<Button circular onClick={e => handleDelete(e, exp._id, exp.company)} color="red" icon='remove' />} />
+                          <Link to={`/experience/${exp._id}`}>
+                            <Popup content='View more ...' trigger={<Button circular icon='chevron right' />} />
+                          </Link>
                         </Card.Content>
                       </Card>
                     );

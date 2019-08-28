@@ -56,16 +56,11 @@ const TopSidebar = props => {
                   </Grid.Column>
                   <Grid.Column width={2} floated='right'>
                     <Button
-                      animated='fade'
                       floated='right'
                       onClick={handleLogout}
                       color='red'
-                    >
-                      <Button.Content hidden>LOGOUT</Button.Content>
-                      <Button.Content visible>
-                        <Icon name='sign-out' />
-                      </Button.Content>
-                    </Button>
+                      circular
+                      icon="sign-out" />
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

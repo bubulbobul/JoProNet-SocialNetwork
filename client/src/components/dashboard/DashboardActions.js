@@ -9,7 +9,7 @@ const DashboardActions = () => {
       <Grid columns='equal'>
         <Grid.Column>
           <Link to='/edit-profile'>
-            <Segment raised>
+            <Segment raised style={{ borderRadius: "50px" }}>
               <Header as='h5' color='grey'>
                 <Icon name='user circle' color='blue' />
                 <Header.Content>Edit Profile</Header.Content>
@@ -19,7 +19,7 @@ const DashboardActions = () => {
         </Grid.Column>
         <Grid.Column>
           <Link to='/add-experience'>
-            <Segment raised>
+            <Segment raised style={{ borderRadius: "50px" }}>
               <Header as='h5' color='grey'>
                 <Icon name='file alternate' color='blue' />
                 <Header.Content>Add Experience</Header.Content>
@@ -29,7 +29,7 @@ const DashboardActions = () => {
         </Grid.Column>
         <Grid.Column>
           <Link to='/add-education'>
-            <Segment raised>
+            <Segment raised style={{ borderRadius: "50px" }}>
               <Header as='h5' color='grey'>
                 <Icon name='graduation cap' color='blue' />
                 <Header.Content>Add Education</Header.Content>

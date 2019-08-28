@@ -38,10 +38,10 @@ const CommentForm = ({ apiUrl, postId, addCommentAct }) => {
         >
           <Header as='h3'>
             <Button as='div' labelPosition='right'>
-              <Button icon primary>
+              <Button icon primary style={{ borderRadius: "50px 0 0 50px" }}>
                 <Icon name='compose' />
               </Button>
-              <Label as='a' basic pointing='left'>
+              <Label as='a' basic pointing='left' style={{ borderRadius: "0 50px 50px 0 " }}>
                 Add a Comment
               </Label>
             </Button>
@@ -61,6 +61,7 @@ const CommentForm = ({ apiUrl, postId, addCommentAct }) => {
               />
             </Form.Field>
             <Button
+              style={{ borderRadius: "50px" }}
               primary
               icon
               labelPosition='left'
@@ -73,10 +74,12 @@ const CommentForm = ({ apiUrl, postId, addCommentAct }) => {
               Submit
               <Icon name='chevron down' />
             </Button>
-            <Button icon labelPosition='left' onClick={e => {
-              handleReset(e)
-              toggleCommentForm(!displayCommentForm)
-            }}>
+            <Button
+              style={{ borderRadius: "50px" }}
+              icon labelPosition='left' onClick={e => {
+                handleReset(e)
+                toggleCommentForm(!displayCommentForm)
+              }}>
               Cancel
               <Icon name='cancel' />
             </Button>

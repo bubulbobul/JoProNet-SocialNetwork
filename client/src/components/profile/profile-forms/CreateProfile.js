@@ -355,10 +355,10 @@ const CreateProfile = props => {
                 >
                   <Header as='h3'>
                     <Button as='div' labelPosition='right'>
-                      <Button icon primary>
+                      <Button icon primary style={{ borderRadius: "50px 0 0 50px" }}>
                         <Icon name='share alternate square' />
                       </Button>
-                      <Label as='a' basic pointing='left'>
+                      <Label as='a' basic pointing='left' style={{ borderRadius: "0 50px 50px 0" }}>
                         Add Social Network Links
                       </Label>
                     </Button>
@@ -472,16 +472,17 @@ const CreateProfile = props => {
               icon
               labelPosition='left'
               onClick={e => handleSubmit(e)}
+              style={{ borderRadius: "50px" }}
             >
               Submit
               <Icon name='chevron down' />
             </Button>
-            <Button icon labelPosition='left' onClick={e => handleReset(e)}>
+            <Button icon labelPosition='left' onClick={e => handleReset(e)} style={{ borderRadius: "50px" }}>
               Cancel
               <Icon name='cancel' />
             </Button>
             <Link to='/dashboard'>
-              <Button icon labelPosition='left' floated='right'>
+              <Button icon labelPosition='left' floated='right' style={{ borderRadius: "50px" }}>
                 Dashboard
                 <Icon name='left arrow' />
               </Button>

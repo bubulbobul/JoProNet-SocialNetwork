@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { getSingleExperienceAct, deleteExperienceAct, editSingleExperienceAct } from "../../../actions/profileAct";
 import { LoaderExperienceDetails } from "../../../utils/Loader";
 import Moment from "react-moment";
@@ -16,7 +16,8 @@ import {
   Form,
   TextArea,
   Dropdown,
-  Checkbox
+  Checkbox,
+  Popup
 } from "semantic-ui-react";
 import { DateInput } from "semantic-ui-calendar-react";
 import { countryOptions } from "../../../utils/dropdownData";
@@ -37,8 +38,6 @@ const ExperienceDetails = ({ apiUrl, profile: { experience, profileLoading }, ma
   const [toDateDisabled, toggleDisabled] = useState(false);
 
   const { company, title, location, from, to, current, description } = formData;
-  // console.log(experience)
-
 
   useEffect(() => {
     getSingleExperienceAct(apiUrl, match.params.id);
@@ -58,7 +57,6 @@ const ExperienceDetails = ({ apiUrl, profile: { experience, profileLoading }, ma
   const handleDelete = (e, id, company) => {
     deleteExperienceAct(apiUrl, id, company, history, true);
   };
-
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -88,7 +86,17 @@ const ExperienceDetails = ({ apiUrl, profile: { experience, profileLoading }, ma
   };
 
   const editExperienceTrue = e => {
-    setEdit(true)
+    setEdit(true);
+    setFormData({
+      company: profileLoading || !experience.company ? "" : experience.company,
+      title: profileLoading || !experience.title ? "" : experience.title,
+      country: profileLoading || !experience.country ? "" : experience.country,
+      location: profileLoading || !experience.location ? "" : experience.location,
+      from: profileLoading || !experience.from ? "" : experience.from,
+      to: profileLoading || !experience.to ? "" : experience.to,
+      current: profileLoading || !experience.current ? false : experience.current,
+      description: profileLoading || !experience.description ? "" : experience.description
+    });
   }
 
   return (
@@ -226,34 +234,12 @@ const ExperienceDetails = ({ apiUrl, profile: { experience, profileLoading }, ma
                               <Grid.Column width={3} floated='right'>
                                 <Divider hidden />
                                 <Divider />
-                                <Button icon labelPosition='left' floated='right' onClick={e => goBack(history)}>
-                                  Go Back
-                                  <Icon name='left arrow' />
-                                </Button>
-                                <Divider hidden />
-                                <Divider hidden />
-                                <Divider hidden />
-                                <Button icon labelPosition='left' floated='right' onClick={e => editExperienceTrue(e)}
-                                  color="yellow"
-                                >
-                                  Edit
-                                  <Icon name='edit' />
-                                </Button>
-                                <Divider hidden />
-                                <Divider hidden />
-                                <Divider hidden />
-                                <Button
-                                  icon
-                                  labelPosition='left'
-                                  floated='right'
-                                  color='red'
-                                  onClick={e =>
-                                    handleDelete(e, experience._id, experience.company)
-                                  }
-                                >
-                                  Delete
-                                  <Icon name='remove circle' />
-                                </Button>
+                                <Popup content='Edit' trigger={<Button circular onClick={e => editExperienceTrue(e)} floated='right' icon='edit' color="yellow" />} />
+                                <Popup content='Delete' trigger={<Button circular onClick={e => handleDelete(e, experience._id, experience.company)} floated='right' icon='remove' color="red" />} />
+                                <Link to={`/add-experience`}>
+                                  <Popup content='Add a new experience' trigger={<Button circular floated='right' icon='add' primary />} />
+                                </Link>
+                                <Popup content='Go Back' trigger={<Button circular onClick={e => goBack(history)} floated='right' icon='chevron left' />} />
                               </Grid.Column>
                             </Grid.Row>
                           </Grid>
@@ -364,9 +350,6 @@ const ExperienceDetails = ({ apiUrl, profile: { experience, profileLoading }, ma
                                           value={location}
                                           onChange={e => handleChange(e)}
                                         />
-                                        <p style={{ color: "#888" }}>
-                                          City & state suggested of the company (eg. Boston, MA)
-                                          </p>
                                       </Form.Field>
                                     </Container>
                                   </Grid.Column>
@@ -423,31 +406,12 @@ const ExperienceDetails = ({ apiUrl, profile: { experience, profileLoading }, ma
                                     </Container>
                                   </Grid.Column>
                                   <Grid.Column width={3} floated='right' verticalAlign="bottom">
-                                    <Button
-                                      primary
-                                      icon
-                                      labelPosition='left'
-                                      floated='right'
-                                      onClick={e => handleSubmit(e)}
-                                    >
-                                      Submit
-                                      <Icon name='chevron down' />
-                                    </Button>
-                                    <Divider hidden />
-                                    <Divider hidden />
-                                    <Button icon labelPosition='left' floated='right' onClick={e => {
-                                      setEdit(false)
-                                    }}>
-                                      Cancel
-                                    <Icon name='remove' />
-                                    </Button>
-                                    <Divider hidden />
-                                    <Divider hidden />
-                                    <Divider hidden />
-                                    <Button icon labelPosition='left' floated='right' onClick={e => goBack(history)}>
-                                      Go Back
-                                    <Icon name='left arrow' />
-                                    </Button>
+                                    <Popup content='Cancel' trigger={<Button circular onClick={e => setEdit(false)} floated='right' icon='remove' color="red" />} />
+                                    <Popup content='Submit' trigger={<Button circular onClick={e => handleSubmit(e)} floated='right' icon='chevron down' color="green" />} />
+                                    <Link to={`/add-experience`}>
+                                      <Popup content='Add a new experience' trigger={<Button circular floated='right' icon='add' primary />} />
+                                    </Link>
+                                    <Popup content='Go Back' trigger={<Button circular onClick={e => goBack(history)} floated='right' icon='chevron left' />} />
                                   </Grid.Column>
                                 </Grid.Row>
                               </Grid>
@@ -495,7 +459,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(deleteExperienceAct(apiUrl, id, company, history, detailPage));
     },
     editSingleExperienceAct: (apiUrl, formData, expId, company) => {
-      dispatch(editSingleExperienceAct(apiUrl, formData, expId, company))
+      dispatch(editSingleExperienceAct(apiUrl, formData, expId, company));
     }
   };
 };

@@ -7,7 +7,8 @@ import {
   Button,
   Segment,
   Icon,
-  Image
+  Image,
+  Popup
 } from "semantic-ui-react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { connect } from "react-redux";
@@ -32,13 +33,13 @@ const ProfileList = ({ profile, searchWordItem }) => {
                     searchWordItem !== undefined ? (
                       <Link to={`/profile/${profile.user._id}`}>
                         <p style={{ color: "black" }}>
-                        <Highlighter
-                          highlightClassName="YourHighlightClass"
-                          highlightStyle={{ background: "#e2c08d", padding: "0 5px", borderRadius: "5px" }}
-                          searchWords={searchWordItem.split()}
-                          autoEscape={true}
-                          textToHighlight={profile.user.name.toUpperCase()}
-                        /></p></Link>) :
+                          <Highlighter
+                            highlightClassName="YourHighlightClass"
+                            highlightStyle={{ background: "#e2c08d", padding: "0 5px", borderRadius: "5px" }}
+                            searchWords={searchWordItem.split()}
+                            autoEscape={true}
+                            textToHighlight={profile.user.name.toUpperCase()}
+                          /></p></Link>) :
                       (<Fragment>
                         <Link to={`/profile/${profile.user._id}`}>
                           <p style={{ color: "black" }}>{profile.user.name.toUpperCase()}</p></Link>
@@ -115,7 +116,9 @@ const ProfileList = ({ profile, searchWordItem }) => {
                   }
                 </Fragment>
                 <Link to={`/profile/${profile.user._id}`}>
-                  <Button primary>View Profile</Button>
+                  <Popup content={`${profile.user.name}'s profile`} trigger={
+                    <Button style={{ borderRadius: "50px" }} primary>View Profile</Button>
+                  } />
                 </Link>
               </Container>
             </Grid.Column>

@@ -7,6 +7,9 @@ import {
   getCurrentProfileAct
 } from "../../../actions/profileAct";
 import { LoaderEditProfile } from "../../../utils/Loader";
+import 'react-phone-number-input/style.css'
+import flags from 'react-phone-number-input/flags'
+import PhoneInput from 'react-phone-number-input'
 
 import {
   Button,
@@ -415,10 +418,10 @@ const EditProfile = props => {
                         >
                           <Header as='h3'>
                             <Button as='div' labelPosition='right'>
-                              <Button icon primary>
+                              <Button icon primary style={{ borderRadius: "50px 0 0 50px" }}>
                                 <Icon name='share alternate square' />
                               </Button>
-                              <Label as='a' basic pointing='left'>
+                              <Label as='a' basic pointing='left' style={{ borderRadius: "0 50px 50px 0" }}>
                                 Add Social Network Links
                               </Label>
                             </Button>
@@ -532,15 +535,18 @@ const EditProfile = props => {
                       icon
                       labelPosition='left'
                       onClick={e => handleSubmit(e)}
+                      style={{ borderRadius: "50px" }}
                     >
                       Submit
                       <Icon name='chevron down' />
                     </Button>
-                    <Button icon labelPosition='left' onClick={e => handleReset(e)}>
+                    <Button icon labelPosition='left' onClick={e => handleReset(e)}
+                      style={{ borderRadius: "50px" }}>
                       Cancel
                       <Icon name='cancel' />
                     </Button>
-                    <Button icon labelPosition='left' floated='right' onClick={e => goBack(props.history)}>
+                    <Button icon labelPosition='left' floated='right' onClick={e => goBack(props.history)}
+                      style={{ borderRadius: "50px" }}>
                       Go Back
                         <Icon name='left arrow' />
                     </Button>

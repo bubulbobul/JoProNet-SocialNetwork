@@ -161,7 +161,8 @@ const Dashboard = ({ apiUrl, auth, profile, getCurrentProfileAct, deleteAccountA
                       style={{
                         textDecoration: "none",
                         color: "white",
-                        background: "#db2828"
+                        background: "#db2828",
+                        borderRadius: "50px"
                       }}
                     >
                       Delete my account

@@ -8,7 +8,8 @@ import {
   Button,
   Segment,
   Icon,
-  Message
+  Message,
+  Popup
 } from "semantic-ui-react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import TextTruncate from "react-text-truncate";
@@ -56,24 +57,12 @@ const EducationList = props => {
                         <List.Item>
                           <List.Content>
                             <Link to={`/education/${edu._id}`}>
-                              <Button animated='vertical' floated='right' primary>
-                                <Button.Content visible>More</Button.Content>
-                                <Button.Content hidden>
-                                  <Icon name='info circle' />
-                                </Button.Content>
-                              </Button>
+                              <Popup content='View more ...' trigger={<Button circular floated='right' icon='chevron right' />} />
                             </Link>
-                            <Button
-                              animated='vertical'
-                              floated='right'
-                              color='red'
-                              onClick={e => handleDelete(e, edu._id, edu.school)}
-                            >
-                              <Button.Content visible>Delete</Button.Content>
-                              <Button.Content hidden>
-                                <Icon name='remove circle' />
-                              </Button.Content>
-                            </Button>
+                            <Popup content='Delete' trigger={<Button circular floated='right' onClick={e => handleDelete(e, edu._id, edu.company)} color="red" icon='remove' />} />
+                            <Link to={`/add-education`}>
+                              <Popup content='Add a new education' trigger={<Button circular floated='right' icon='add' primary />} />
+                            </Link>
                           </List.Content>
                           <Header style={{ marginTop: "1%" }}>
                             <Icon name='graduation cap' />

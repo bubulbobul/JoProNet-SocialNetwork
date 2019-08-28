@@ -21,7 +21,7 @@ import { countryOptions } from "../../../utils/dropdownData";
 import { connect } from "react-redux";
 import { addExperienceAct } from "../../../actions/profileAct";
 
-const AddExperience = props => {
+const AddExperience = ({ apiUrl, auth, addExperienceAct, history }) => {
   const [formData, setFormData] = useState({
     company: "",
     title: "",
@@ -35,8 +35,6 @@ const AddExperience = props => {
 
   const [toDateDisabled, toggleDisabled] = useState(false);
 
-  const { apiUrl, auth } = props;
-
   const { company, title, location, from, to, current, description } = formData;
 
   const handleChange = e => {
@@ -47,7 +45,7 @@ const AddExperience = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.addExperienceAct(apiUrl, formData, props.history);
+    addExperienceAct(apiUrl, formData, history);
     handleReset();
   };
 
@@ -205,7 +203,7 @@ const AddExperience = props => {
                         label='Current Job'
                         name='current'
                         onChange={e => {
-                          setFormData({ ...formData, current: !current });
+                          setFormData({ ...formData, current: !current, to: "" });
                           toggleDisabled(!toDateDisabled);
                         }}
                       />
@@ -238,15 +236,16 @@ const AddExperience = props => {
               icon
               labelPosition='left'
               onClick={e => handleSubmit(e)}
+              style={{ borderRadius: "50px" }}
             >
               Submit
               <Icon name='chevron down' />
             </Button>
-            <Button icon labelPosition='left' onClick={e => handleReset(e)}>
+            <Button icon labelPosition='left' onClick={e => handleReset(e)} style={{ borderRadius: "50px" }}>
               Cancel
               <Icon name='cancel' />
             </Button>
-            <Button icon labelPosition='left' floated='right' onClick={e => goBack(props.history)}>
+            <Button icon labelPosition='left' floated='right' onClick={e => goBack(history)} style={{ borderRadius: "50px" }}>
               Go Back
                 <Icon name='left arrow' />
             </Button>

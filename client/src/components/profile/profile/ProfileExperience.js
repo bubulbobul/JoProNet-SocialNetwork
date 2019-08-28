@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
-import { Container, Header, Icon } from "semantic-ui-react";
+import { Container, Header, Icon, Button, Popup } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import Moment from "react-moment";
 
 const ProfileExperience = ({
-  experience: { company, title, from, to, country, location, description }
+  experience: { _id, company, title, from, to, country, location, description }
 }) => {
   return (
     <Fragment>

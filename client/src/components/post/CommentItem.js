@@ -69,6 +69,7 @@ const CommentItem = ({
             </Header>
             {!auth.loading && user === auth.user._id && (
               <Button
+                circular
                 icon
                 color='red'
                 floated='right'

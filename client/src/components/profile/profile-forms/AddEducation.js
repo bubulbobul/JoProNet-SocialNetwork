@@ -21,7 +21,7 @@ import { countryOptions } from "../../../utils/dropdownData";
 import { connect } from "react-redux";
 import { addEducationAct } from "../../../actions/profileAct";
 
-const AddEducation = props => {
+const AddEducation = ({ apiUrl, auth, addEducationAct, history }) => {
   const [formData, setFormData] = useState({
     school: "",
     degree: "",
@@ -34,8 +34,6 @@ const AddEducation = props => {
   });
 
   const [toDateDisabled, toggleDisabled] = useState(false);
-
-  const { apiUrl, auth } = props;
 
   const {
     school,
@@ -53,7 +51,7 @@ const AddEducation = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.addEducationAct(apiUrl, formData, props.history);
+    addEducationAct(apiUrl, formData, history);
     handleReset();
   };
 
@@ -139,7 +137,7 @@ const AddEducation = props => {
                         onChange={e => handleChange(e)}
                       />
                       <p style={{ color: "#888" }}>
-                        Could be Bachelor, Master OR
+                        Could be Bachelor, Master or BCA, BBA, BCSci, MCA, MBA
                       </p>
                     </Form.Field>
                   </Form.Group>
@@ -154,7 +152,7 @@ const AddEducation = props => {
                       />
                       <p style={{ color: "#888" }}>
                         {" "}
-                        It could be BCA, BBA, BCSci, MCA, MBA
+                        eg: Computer Science, Computer Application
                       </p>
                     </Form.Field>
                     <Form.Field>
@@ -247,15 +245,16 @@ const AddEducation = props => {
               icon
               labelPosition='left'
               onClick={e => handleSubmit(e)}
+              style={{ borderRadius: "50px" }}
             >
               Submit
               <Icon name='chevron down' />
             </Button>
-            <Button icon labelPosition='left' onClick={e => handleReset(e)}>
+            <Button icon labelPosition='left' onClick={e => handleReset(e)} style={{ borderRadius: "50px" }}>
               Cancel
               <Icon name='cancel' />
             </Button>
-            <Button icon labelPosition='left' floated='right' onClick={e => goBack(props.history)}>
+            <Button icon labelPosition='left' floated='right' onClick={e => goBack(history)} style={{ borderRadius: "50px" }}>
               Go Back
                 <Icon name='left arrow' />
             </Button>

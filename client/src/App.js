@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { LastLocationProvider } from 'react-router-last-location';
 import PrivateRoute from "./utils/PrivateRoute";
 
 import { getAPIAct } from "./actions/getApiAct";
@@ -70,56 +69,54 @@ const App = ({ getAPIAct, apiUrl }) => {
           <Fragment>
             {apiUrl !== (null || undefined) && (
               <BrowserRouter>
-                <LastLocationProvider>
+                <Fragment>
+                  <Navbar />
+                  <ScrollToTop showUnder={150} style={{ zIndex: "10002" }}>
+                    <Button icon>
+                      <Icon name='angle up' />
+                    </Button>
+                  </ScrollToTop>
                   <Fragment>
-                    <Navbar />
-                    <ScrollToTop showUnder={150} style={{ zIndex: "10002" }}>
-                      <Button icon>
-                        <Icon name='angle up' />
-                      </Button>
-                    </ScrollToTop>
-                    <Fragment>
-                      <ScrollIntoView>
-                        <Switch>
-                          <Route exact path='/' component={Welcome} />
-                          <Route path='/join-us' component={JoinUs} />
-                          <Route path='/profiles' component={AllProfiles} />
-                          <Route path='/profile/:id' component={Profile} />
-                          <PrivateRoute path='/dashboard' component={Dashboard} />
-                          <PrivateRoute
-                            path='/create-profile'
-                            component={CreateProfile}
-                          />
-                          <PrivateRoute
-                            path='/edit-profile'
-                            component={EditProfile}
-                          />
-                          <PrivateRoute
-                            path='/add-experience'
-                            component={AddExperience}
-                          />
-                          <PrivateRoute
-                            path='/add-education'
-                            component={AddEducation}
-                          />
-                          <PrivateRoute
-                            exact
-                            path='/experience/:id'
-                            component={ExperienceDetails}
-                          />
-                          <PrivateRoute
-                            exact
-                            path='/education/:id'
-                            component={EducationDetails}
-                          />
-                          <PrivateRoute path='/posts' component={Posts} />
-                          <PrivateRoute path='/post/:id' component={SinglePost} />
-                        </Switch>
-                      </ScrollIntoView>
-                    </Fragment>
-                    <Footer />
+                    <ScrollIntoView>
+                      <Switch>
+                        <Route exact path='/' component={Welcome} />
+                        <Route path='/join-us' component={JoinUs} />
+                        <Route path='/profiles' component={AllProfiles} />
+                        <Route path='/profile/:id' component={Profile} />
+                        <PrivateRoute path='/dashboard' component={Dashboard} />
+                        <PrivateRoute
+                          path='/create-profile'
+                          component={CreateProfile}
+                        />
+                        <PrivateRoute
+                          path='/edit-profile'
+                          component={EditProfile}
+                        />
+                        <PrivateRoute
+                          path='/add-experience'
+                          component={AddExperience}
+                        />
+                        <PrivateRoute
+                          path='/add-education'
+                          component={AddEducation}
+                        />
+                        <PrivateRoute
+                          exact
+                          path='/experience/:id'
+                          component={ExperienceDetails}
+                        />
+                        <PrivateRoute
+                          exact
+                          path='/education/:id'
+                          component={EducationDetails}
+                        />
+                        <PrivateRoute path='/posts' component={Posts} />
+                        <PrivateRoute path='/post/:id' component={SinglePost} />
+                      </Switch>
+                    </ScrollIntoView>
                   </Fragment>
-                </LastLocationProvider>
+                  <Footer />
+                </Fragment>
               </BrowserRouter>
             )}
           </Fragment>

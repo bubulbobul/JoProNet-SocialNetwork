@@ -23,13 +23,11 @@ import ProfileContactMe from "./ProfileContactMe";
 import NoProfile from "./NoProfile";
 
 
-const Profile = props => {
-  const { match, apiUrl, profile, auth } = props;
-
+const Profile = ({ match, apiUrl, profile, auth, getProfileByTheUserIdAct, history }) => {
 
   useEffect(() => {
     // console.log("useeffect")
-    props.getProfileByTheUserIdAct(apiUrl, match.params.id);
+    getProfileByTheUserIdAct(apiUrl, match.params.id);
   }, []);
 
   useEffect(() => {
@@ -67,27 +65,31 @@ const Profile = props => {
                   {
                     profile.profile === "" || profile.profile === null ? (
                       <Fragment>
-                        <NoProfile auth={auth} />
+                        <NoProfile auth={auth} profile={profile} />
                       </Fragment>
                     ) : (
                         <Fragment>
-                          <Button icon labelPosition='left' floated='left' onClick={e => goBack(props.history)}>
+                          <Button style={{ borderRadius: "50px" }} icon labelPosition='left' floated='left' onClick={e => goBack(history)}>
                             Go Back
                               <Icon name='left arrow' />
                           </Button>
-                          {auth.isAuthenticated & (auth.loading === false) &&
-                            auth.user._id === profile.profile.user._id && (
-                              <Link to='/edit-profile'>
-                                <Button
-                                  icon
-                                  labelPosition='left'
-                                  floated='right'
-                                  secondary
-                                >
-                                  Edit My Profile <Icon name='edit' />
-                                </Button>
-                              </Link>
-                            )}
+                          <Fragment><Fragment>
+                            {profile !== "" && auth.isAuthenticated && (auth.loading === false) &&
+                              auth.user._id === profile.profile.user._id && (
+                                <Link to='/edit-profile'>
+                                  <Button
+                                    icon
+                                    labelPosition='left'
+                                    floated='right'
+                                    secondary
+                                    style={{ borderRadius: "50px" }}
+                                  >
+                                    Edit My Profile <Icon name='edit' />
+                                  </Button>
+                                </Link>
+                              )}
+                          </Fragment>
+                          </Fragment>
                           <Divider hidden />
                           <Divider hidden />
                           <Fragment>
@@ -114,10 +116,10 @@ const Profile = props => {
                                         </Grid.Column>
                                         <Grid.Column>
                                           <Fragment>
-                                            {auth.isAuthenticated & (auth.loading === false) &&
+                                            {profile !== "" && auth.isAuthenticated && (auth.loading === false) &&
                                               auth.user._id === profile.profile.user._id && (
                                                 <Link to='/add-experience'>
-                                                  <Popup content='Add new experience' trigger={<Button icon='add' floated="right" />} />
+                                                  <Popup content='Add new experience' trigger={<Button circular icon='add' floated="right" />} />
                                                 </Link>
                                               )}
                                           </Fragment>
@@ -129,7 +131,9 @@ const Profile = props => {
                                     <Fragment>
                                       {profile.profile.experience.map(exp => (
                                         <Segment key={exp._id} raised>
-                                          <ProfileExperience experience={exp} auth={auth} />
+                                          <ProfileExperience
+                                            experience={exp}
+                                          />
                                         </Segment>
                                       ))}
                                     </Fragment>
@@ -160,10 +164,10 @@ const Profile = props => {
                                         </Grid.Column>
                                         <Grid.Column>
                                           <Fragment>
-                                            {auth.isAuthenticated & (auth.loading === false) &&
+                                            {profile !== "" && auth.isAuthenticated && (auth.loading === false) &&
                                               auth.user._id === profile.profile.user._id && (
                                                 <Link to='/add-education'>
-                                                  <Popup content='Add new education' trigger={<Button icon='add' floated="right" />} />
+                                                  <Popup content='Add new education' trigger={<Button circular icon='add' floated="right" />} />
                                                 </Link>
                                               )}
                                           </Fragment>

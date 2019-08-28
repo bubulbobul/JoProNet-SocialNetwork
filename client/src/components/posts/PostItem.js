@@ -10,7 +10,8 @@ import {
   Icon,
   Button,
   Label,
-  Divider
+  Divider,
+  Popup
 } from "semantic-ui-react";
 import TextTruncate from "react-text-truncate";
 import Highlighter from "react-highlight-words";
@@ -123,51 +124,40 @@ const PostItem = ({
                 addLikeAct(apiUrl, _id);
               }}
             >
-              <Button icon>
-                <Icon name='heart' />
+              <Button icon style={{ borderRadius: "50px 0 0 50px" }}>
+                <Icon name='heart' />{" "}
                 {likes.length > 1 ? "Likes" : "Like"}
               </Button>
-              <Label as='a' basic pointing='left'>
+              <Label as='a' basic pointing='left' style={{ borderRadius: "0 50px 50px 0" }}>
                 {likes.length}
               </Label>
             </Button>
-            <Button
-              as='div'
-              labelPosition='right'
-              onClick={e => {
-                removeLikeAct(apiUrl, _id);
-              }}
-            >
-              <Button icon>
-                <Icon name='heartbeat' />
-              </Button>
-              <Label as='a' basic pointing='left'>
-                Dislike
-              </Label>
-            </Button>
+            <Popup content='Dislike' trigger={
+              <Button circular onClick={e => removeLikeAct(apiUrl, _id)} icon='heartbeat' />
+            }
+            />
             <Link to={`/post/${_id}`}>
-              <Button as='div' labelPosition='right' primary>
-                <Button icon color='blue'>
-                  <Icon name='comments outline' /> Comment
+              <Popup content='Add a comment' trigger={
+                <Button as='div' labelPosition='right' primary>
+                  <Button icon color='blue' style={{ borderRadius: "50px 0 0 50px" }}>
+                    <Icon name='comments outline' />
+                  </Button>
+                  <Label basic pointing='left' color='blue' style={{ borderRadius: "0 50px 50px 0" }}>
+                    {comments.length}
+                  </Label>
                 </Button>
-                <Label basic pointing='left' color='blue'>
-                  {comments.length}
-                </Label>
-              </Button>
+              }
+              />
             </Link>
 
             <Header as='h5' color='grey' floated='right'>
               Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>{" "}
             </Header>
             {!auth.loading && user === auth.user._id && (
-              <Button
-                icon
-                color='red'
-                floated='right'
-                onClick={e => deletePostAct(apiUrl, _id, title, tr)}
-              >
-                <Icon name='remove' />
-              </Button>
+              <Popup content='Delete' trigger={
+                <Button circular onClick={e => deletePostAct(apiUrl, _id, title, tr)} floated='right' icon='remove' color="red" />
+              }
+              />
             )}
           </Container>
         </Grid.Column>

@@ -12,7 +12,8 @@ import {
   Divider,
   Button,
   Icon,
-  Label
+  Label,
+  Popup
 } from "semantic-ui-react";
 import Moment from "react-moment";
 import Linkify from 'react-linkify';
@@ -79,8 +80,8 @@ const SinglePost = (props) => {
               ) : (
                 <Fragment>
                   <Fragment>
-                    <Button icon labelPosition='left' floated='left' onClick={e => goBack(history)}>
-                      Go Back Posts
+                    <Button style={{borderRadius: "50px"}} icon labelPosition='left' floated='left' onClick={e => goBack(history)}>
+                      Go Back
                         <Icon name='left arrow' />
                     </Button>
                   </Fragment>
@@ -124,47 +125,35 @@ const SinglePost = (props) => {
                               labelPosition='right'
                               onClick={e => {
                                 addLikeAct(apiUrl, post.post._id);
-                                // console.log("addlikes", post.post.likes)
-                                // console.log("addlikes length", post.post.likes.length)
                               }}
                             >
-                              <Button icon>
+                              <Button icon style={{ borderRadius: "50px 0 0 50px" }}>
                                 <Icon name='heart' />
                                 {post.post.likes.length > 1 ? "Likes" : "Like"}
                               </Button>
-                              <Label as='a' basic pointing='left'>
+                              <Label as='a' basic pointing='left' style={{ borderRadius: "0 50px 50px 0" }}>
                                 {post.post.likes.length}
                               </Label>
                             </Button>
-                            <Button
-                              as='div'
-                              labelPosition='right'
-                              onClick={e => {
-                                removeLikeAct(apiUrl, post.post._id);
-                                // console.log("rmvlikes", post.post.likes)
-                                // console.log("rmvlikes length", post.post.likes.length)
-                              }}
-                            >
-                              <Button icon>
-                                <Icon name='heartbeat' />
-                              </Button>
-                              <Label as='a' basic pointing='left'>
-                                Dislike
-                            </Label>
-                            </Button>
+                            <Popup content='Dislike' trigger={
+                              <Button circular onClick={e => removeLikeAct(apiUrl, post.post._id)} icon='heartbeat' />
+                            }
+                            />
 
                             <Header as='h5' color='grey' floated='right'>
                               Posted on <Moment format='YYYY/MM/DD'>{post.post.date}</Moment>{" "}
                             </Header>
                             {!auth.loading && post.post.user === auth.user._id && (
-                              <Button
-                                icon
-                                color='red'
-                                floated='right'
-                                onClick={e => deletePostAct(apiUrl, post.post._id, post.post.title, history, tr)}
-                              >
-                                <Icon name='remove' />
-                              </Button>
+                              <Popup content='Delete' trigger={
+                                <Button
+                                  circular
+                                  icon
+                                  color='red'
+                                  floated='right'
+                                  onClick={e => deletePostAct(apiUrl, post.post._id, post.post.title, history, tr)}
+                                >
+                                  <Icon name='remove' />
+                                </Button>} />
                             )}
                           </Container>
                         </Grid.Column>

@@ -44,9 +44,7 @@ const TopSidebar = () => {
                   target="_blank"
                   rel='noopener noreferrer'
                 >
-                  <Button color='linkedin'>
-                    <Icon name='linkedin' /> LinkedIn
-                  </Button>
+                  <Button circular color='linkedin' icon='linkedin' />
                 </List.Item>
                 <List.Item
                   as="a"
@@ -54,10 +52,7 @@ const TopSidebar = () => {
                   target="_blank"
                   rel='noopener noreferrer'
                 >
-                  <Button basic color="grey" icon labelPosition='left'>
-                    <Icon name='github' />
-                    Github
-                </Button>
+                  <Button circular color="grey" icon='github' />
                 </List.Item>
               </List>
             </Grid.Column>
@@ -86,7 +81,7 @@ const TopSidebar = () => {
             <Grid.Column width={7}>
               <Header inverted as='h4' content='Developped by' />
               <p>
-                Djimi Windam full stack in React, Redux, Node, Express and Mongo
+                Djimi Windam full stack developer in React, Redux, Node, Express and Mongo
                 db.
               </p>
             </Grid.Column>
@@ -97,7 +92,7 @@ const TopSidebar = () => {
             centered
             size='tiny'
             src={Logo}
-            style={{ background: "white", borderRadius: "10px" }}
+            style={{ background: "white", borderRadius: "5px" }}
           />
           <List horizontal inverted divided link size='small'>
             <List.Item as='a'

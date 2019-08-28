@@ -14,8 +14,7 @@ import {
   CLEAR_GET_SINGLE_EXPERIENCE,
   CLEAR_GET_SINGLE_EDUCATION,
   EDIT_SINGLE_EXPERIENCE,
-  EDIT_SINGLE_EDUCATION,
-  PROFILE_LOADING
+  EDIT_SINGLE_EDUCATION
 } from "./types";
 
 // Fct to get the current users profile
@@ -363,12 +362,19 @@ export const deleteAccountAct = apiUrl => async dispatch => {
   }
 };
 
+// // To set profileLoading to false
+// export const setProfileLoadingToFalse = (bool) => dispatch => {
+//   console.log("Hello")
+//   // if (bool === true) {
+//   //   dispatch({
+//   //     type: PROFILE_LOADING
+//   //   })
+//   // }
+
+// }
+
 // GET A SINGLE EXPERIENCE
 export const getSingleExperienceAct = (apiUrl, expId) => async dispatch => {
-  dispatch({
-    type: PROFILE_LOADING
-  })
-
   try {
     const res = await axios.get(`${apiUrl}/api/profile/experience/${expId}`);
     dispatch({
@@ -385,6 +391,8 @@ export const getSingleExperienceAct = (apiUrl, expId) => async dispatch => {
 
 // EDIT A SINGLE EXPERIENCE
 export const editSingleExperienceAct = (apiUrl, formData, expId, company) => async dispatch => {
+
+
   const config = {
     headers: {
       "Content-Type": "application/json"
@@ -436,6 +444,50 @@ export const getSingleEducationAct = (apiUrl, eduId) => async dispatch => {
       payload: res.data
     });
   } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR
+    });
+    throw err
+  }
+};
+
+// EDIT A SINGLE EDUCATION
+export const editSingleEducationAct = (apiUrl, formData, expId, school) => async dispatch => {
+
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  // console.log(apiUrl, formData, expId, company, config)
+
+  try {
+    const res = await axios.put(`${apiUrl}/api/profile/education/${expId}`,
+      formData,
+      config
+    );
+
+    dispatch({
+      type: EDIT_SINGLE_EDUCATION,
+      payload: res.data
+    });
+
+    dispatch(
+      setAlert(
+        "Success",
+        `Your education with ${school} has been updated successfully`,
+        "success"
+      )
+    );
+
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+    }
+
     dispatch({
       type: PROFILE_ERROR
     });

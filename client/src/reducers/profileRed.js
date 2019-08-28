@@ -96,7 +96,8 @@ export default (state = initialState, action) => {
         hasProfile: null,
         // allProfiles: [],
         repos: [],
-        loading: false
+        loading: false,
+        // profileLoading: false
       };
     default:
       return state;
