@@ -4,12 +4,20 @@ import { Link } from "react-router-dom";
 import Moment from "react-moment";
 
 const ProfileExperience = ({
-  experience: { _id, company, title, from, to, country, location, description }
+  experience: { _id, company, title, from, to, country, location, description }, auth, profile
 }) => {
   return (
     <Fragment>
       <Container textAlign='justified'>
-        <Header color='teal'>{company}</Header>
+        {profile !== "" && auth.isAuthenticated && (auth.loading === false) &&
+          auth.user._id === profile.profile.user._id && (
+            <Fragment>
+              <Link to={`/experience/${_id}`}>
+                <Popup content={`View or Edit ${company} experience`} trigger={<Button circular icon='edit' floated="right" color="yellow" />} />
+              </Link>
+            </Fragment>
+          )}
+        <Header color='teal' style={{ marginTop: "0" }}>{company}</Header>
         <p>
           <strong>Position:</strong> {title}
         </p>

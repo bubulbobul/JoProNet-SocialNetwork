@@ -1,9 +1,11 @@
 import React, { Fragment } from "react";
-import { Container, Header, Icon } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Container, Header, Icon, Popup, Button } from "semantic-ui-react";
 import Moment from "react-moment";
 
 const ProfileEducation = ({
   education: {
+    _id,
     school,
     degree,
     fieldofstudy,
@@ -12,12 +14,20 @@ const ProfileEducation = ({
     country,
     location,
     description
-  }
+  }, profile, auth
 }) => {
   return (
     <Fragment>
       <Container textAlign='justified'>
-        <Header color='teal'>{school}</Header>
+        {profile !== "" && auth.isAuthenticated && (auth.loading === false) &&
+          auth.user._id === profile.profile.user._id && (
+            <Fragment>
+              <Link to={`/education/${_id}`}>
+                <Popup content={`View or Edit ${school} education`} trigger={<Button circular icon='edit' floated="right" color="yellow" />} />
+              </Link>
+            </Fragment>
+          )}
+        <Header color='teal' style={{ marginTop: "0" }}>{school}</Header>
         <p>
           <strong>Degre:</strong> {degree}
         </p>

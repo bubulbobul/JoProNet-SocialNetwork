@@ -53,13 +53,10 @@ const EducationDetails = ({ apiUrl, profile: {education, profileLoading}, getSin
   }, []);
 
   const handleChange = e => {
-    // console.log(e.target.name);
-    // console.log(e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = e => {
-    // console.log(formData)
     e.preventDefault();
     editSingleEducationAct(apiUrl, formData, education._id, formData.school);
     setFormData(formData)
@@ -78,12 +75,10 @@ const EducationDetails = ({ apiUrl, profile: {education, profileLoading}, getSin
 
   const onDateChange = (e, name) => {
     if (name.name === "from") {
-      // console.log(name.value);
       setFormData({ ...formData, from: name.value });
     }
 
     if (name.name === "to") {
-      // console.log(name.value);
       setFormData({ ...formData, to: name.value });
     }
   };

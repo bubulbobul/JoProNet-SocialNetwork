@@ -20,7 +20,6 @@ const Login = ({ apiUrl, loginAct, setAlert }) => {
         "error"
       );
     } else {
-      // console.log(formData);
       loginAct(apiUrl, email, password);
     }
   };

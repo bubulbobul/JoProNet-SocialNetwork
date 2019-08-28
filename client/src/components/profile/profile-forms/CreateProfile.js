@@ -78,13 +78,12 @@ const CreateProfile = ({ apiUrl, auth, createOrUpdateProfileAct, history }) => {
     if (skills === "" || languages === "" || status === "") {
       createOrUpdateProfileAct(apiUrl, formData, history, edit);
       setError(true);
+      window.scrollTo(0, 0)
     } else {
       createOrUpdateProfileAct(apiUrl, formData, history, edit);
       setError(false)
       handleReset();
     }
-
-    // handleReset();
   };
 
   const handleReset = e => {

@@ -42,7 +42,6 @@ const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profil
   const currentProfiles = allProfiles.slice(indexOfFirstProfile, indexOfLastProfile);
 
   const handlePaginationChange = (e, pageInfo) => {
-    // console.log(pageInfo)
     setCurrentPage(pageInfo.activePage)
   }
 
@@ -65,12 +64,6 @@ const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profil
       toggleSearching(false)
     }
 
-    // console.log(searchTerm)
-    // console.log(searchTerm.split())
-    // console.log(searchTerm.split().length)
-    // console.log(typeof (searchTerm))
-    // console.log(searching)
-
     /** gi means that we want the RegExp to be applied Globally an case Insensitively */
     const regex = new RegExp(searchTerm, 'gi');
 
@@ -92,7 +85,6 @@ const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profil
   }
 
   const displaySearchProfiles = profiles => {
-    // console.log("displaySearchProfiles")
 
     if (profiles.length === 0) {
       return (
@@ -120,7 +112,6 @@ const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profil
   }
 
   const displayProfiles = profiles => {
-    // console.log("displayProfiles")
     return (
       <Fragment>
         {
@@ -159,9 +150,6 @@ const AllProfiles = ({ apiUrl, getAllProfilesAct, profile: { allProfiles, profil
       </Fragment>
     )
   }
-
-  // console.log(searchWordItem)
-  // console.log(search.searchResults)
 
   return (
     <Fragment>

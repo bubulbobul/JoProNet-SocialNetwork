@@ -26,7 +26,6 @@ import NoProfile from "./NoProfile";
 const Profile = ({ match, apiUrl, profile, auth, getProfileByTheUserIdAct, history }) => {
 
   useEffect(() => {
-    // console.log("useeffect")
     getProfileByTheUserIdAct(apiUrl, match.params.id);
   }, []);
 
@@ -60,7 +59,6 @@ const Profile = ({ match, apiUrl, profile, auth, getProfileByTheUserIdAct, histo
                 <Divider hidden />
               </Fragment>
             ) : (
-
                 <Fragment>
                   {
                     profile.profile === "" || profile.profile === null ? (
@@ -133,6 +131,8 @@ const Profile = ({ match, apiUrl, profile, auth, getProfileByTheUserIdAct, histo
                                         <Segment key={exp._id} raised>
                                           <ProfileExperience
                                             experience={exp}
+                                            auth={auth}
+                                            profile={profile}
                                           />
                                         </Segment>
                                       ))}
@@ -179,7 +179,11 @@ const Profile = ({ match, apiUrl, profile, auth, getProfileByTheUserIdAct, histo
                                     <Fragment>
                                       {profile.profile.education.map(edu => (
                                         <Segment key={edu._id} raised>
-                                          <ProfileEducation education={edu} auth={auth} />
+                                          <ProfileEducation
+                                            education={edu}
+                                            auth={auth}
+                                            profile={profile}
+                                          />
                                         </Segment>
                                       ))}
                                     </Fragment>
@@ -230,8 +234,6 @@ const Profile = ({ match, apiUrl, profile, auth, getProfileByTheUserIdAct, histo
                       )
                   }
                 </Fragment>
-
-
               )}
           </Segment>
         </Container>

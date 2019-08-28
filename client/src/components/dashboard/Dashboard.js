@@ -32,7 +32,6 @@ const Dashboard = ({ apiUrl, auth, profile, getCurrentProfileAct, deleteAccountA
     deleteAccountAct(apiUrl);
   };
 
-  // console.log(typeof (profile.profile))
   return (
     <Fragment>
       <Fragment>
@@ -74,7 +73,6 @@ const Dashboard = ({ apiUrl, auth, profile, getCurrentProfileAct, deleteAccountA
                       <Fragment>
                         {
                           profile.profile.length === 0 && (
-
                             <Fragment>
                               <Fragment>
                                 <Grid columns='equal'>

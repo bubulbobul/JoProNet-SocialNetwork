@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Header, Container, Icon, Grid } from "semantic-ui-react";
 
 const ProfileContactMe = ({ shownumber, showworkingemail, workingemail, number, area, country }) => {
-    // console.log(props)
+
     return (
         <Fragment>
             <Container textAlign='justified'>

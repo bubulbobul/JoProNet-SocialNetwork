@@ -17,8 +17,6 @@ const NoProfile = ({ auth, profile: { hasUserProfile }, history }) => {
         // history.goBack();
     }
 
-    // console.log(profile)
-
     return (
 
         <Fragment>
@@ -26,53 +24,24 @@ const NoProfile = ({ auth, profile: { hasUserProfile }, history }) => {
                 <Divider hidden />
                 <Divider hidden />
                 <Fragment>
-                    {
-                        hasUserProfile === false ? (
-                            <Fragment>
-                                <Image src={Monkey} centered style={{ borderRadius: "50%", width: 300, height: 300 }} />
-                                <Header
-                                    size='huge'
-                                    as='h1'
-                                    textAlign='center'
-                                    style={{ color: "white" }}
-                                >
-                                    Hi {auth.user.name.toUpperCase()}
-                                </Header>
-                                <p
-                                    style={{
-                                        color: "white",
-                                        fontSize: "1.5rem",
-                                        textAlign: "center"
-                                    }}
-                                >
-                                    There is no profile for this users
-                                    <Popup content='Go Back' trigger={<Button circular onClick={e => goBack(history)} floated='right' icon='chevron left' />} />
-                                </p>
-                            </Fragment>
-                        ) : (<Fragment>
-                            <Image src={Monkey} centered style={{ borderRadius: "50%", width: 300, height: 300 }} />
-                            <Header
-                                size='huge'
-                                as='h1'
-                                textAlign='center'
-                                style={{ color: "white" }}
-                            >
-                                Hi {auth.user.name.toUpperCase()}
-                            </Header>
-                            <p
-                                style={{
-                                    color: "white",
-                                    fontSize: "1.5rem",
-                                    textAlign: "center"
-                                }}
-                            >
-                                You did not create your profile, let's go <Link to="/create-profile" style={{ color: "black" }}>Click Here</Link>
-                            </p>
-                        </Fragment>)
-                    }
+                    <Image src={Monkey} centered style={{ borderRadius: "50%", width: 300, height: 300 }} />
+                    <Header
+                        size='huge'
+                        as='h1'
+                        textAlign='center'
+                        style={{ color: "white" }}
+                    >
+                        Hi {auth.user.name.toUpperCase()}
+                        <Header.Subheader>
+                            Profile not Found
+                            </Header.Subheader>
+                    </Header>
+                    <p>
+                        <Popup content='Go Back' trigger={<Button circular onClick={e => goBack(history)} floated='right' icon='chevron left' />} />
+                    </p>
+                    <Divider hidden />
+                    <Divider hidden />
                 </Fragment>
-
-
             </Segment>
         </Fragment>
     )

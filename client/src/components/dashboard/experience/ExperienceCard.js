@@ -54,7 +54,6 @@ const ExperienceCard = ({ profile, apiUrl, deleteExperienceAct }) => {
                       <Card
                         key={exp._id}
                         color='blue'
-                      // style={{ background: "blue" }}
                       >
                         <Card.Content>
                           <Card.Header>{exp.company}</Card.Header>
@@ -82,7 +81,7 @@ const ExperienceCard = ({ profile, apiUrl, deleteExperienceAct }) => {
                           </Link>
                           <Popup content='Delete' trigger={<Button circular onClick={e => handleDelete(e, exp._id, exp.company)} color="red" icon='remove' />} />
                           <Link to={`/experience/${exp._id}`}>
-                            <Popup content='View more ...' trigger={<Button circular icon='chevron right' />} />
+                            <Popup content='View details' trigger={<Button circular icon='chevron right' />} />
                           </Link>
                         </Card.Content>
                       </Card>

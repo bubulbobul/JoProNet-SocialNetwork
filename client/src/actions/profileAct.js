@@ -19,7 +19,6 @@ import {
 
 // Fct to get the current users profile
 export const getCurrentProfileAct = apiUrl => async dispatch => {
-  // console.log(apiUrl)
   dispatch({
     type: CLEAR_GET_SINGLE_EXPERIENCE
   });
@@ -362,17 +361,6 @@ export const deleteAccountAct = apiUrl => async dispatch => {
   }
 };
 
-// // To set profileLoading to false
-// export const setProfileLoadingToFalse = (bool) => dispatch => {
-//   console.log("Hello")
-//   // if (bool === true) {
-//   //   dispatch({
-//   //     type: PROFILE_LOADING
-//   //   })
-//   // }
-
-// }
-
 // GET A SINGLE EXPERIENCE
 export const getSingleExperienceAct = (apiUrl, expId) => async dispatch => {
   try {
@@ -398,8 +386,6 @@ export const editSingleExperienceAct = (apiUrl, formData, expId, company) => asy
       "Content-Type": "application/json"
     }
   };
-
-  // console.log(apiUrl, formData, expId, company, config)
 
   try {
     const res = await axios.put(`${apiUrl}/api/profile/experience/${expId}`,
@@ -460,8 +446,6 @@ export const editSingleEducationAct = (apiUrl, formData, expId, school) => async
       "Content-Type": "application/json"
     }
   };
-
-  // console.log(apiUrl, formData, expId, company, config)
 
   try {
     const res = await axios.put(`${apiUrl}/api/profile/education/${expId}`,

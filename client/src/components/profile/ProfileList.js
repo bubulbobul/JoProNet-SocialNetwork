@@ -16,8 +16,6 @@ import Highlighter from "react-highlight-words";
 
 const ProfileList = ({ profile, searchWordItem }) => {
 
-  // console.log(profile.AllProfiles.length)
-  // console.log(searchWordItem)
   return (
     <Fragment>
       {profile && (

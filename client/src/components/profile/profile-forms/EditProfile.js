@@ -27,12 +27,14 @@ import {
 import { statusOptions } from "../../../utils/dropdownData";
 import { countryOptions } from "../../../utils/dropdownData";
 
-const EditProfile = props => {
-  const {
-    apiUrl,
-    auth,
-    profile: { profile, profileLoading }
-  } = props;
+const EditProfile = ({
+  apiUrl,
+  auth,
+  profile: { profile, profileLoading },
+  history,
+  getCurrentProfileAct,
+  createOrUpdateProfileAct
+}) => {
 
   const [formData, setFormData] = useState({
     company: "",
@@ -64,6 +66,7 @@ const EditProfile = props => {
     showworkingemail,
     languages,
     website,
+    status,
     location,
     skills,
     githubusername,
@@ -76,11 +79,11 @@ const EditProfile = props => {
   } = formData;
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+  const [error, setError] = useState(false)
 
-  // console.log(profileLoading)
   useEffect(
     () => {
-      props.getCurrentProfileAct(apiUrl);
+      getCurrentProfileAct(apiUrl);
       profile &&
         setFormData({
           company: profileLoading || !profile.company ? "" : profile.company,
@@ -117,11 +120,16 @@ const EditProfile = props => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = e => {
-    // console.log(formData);
-    // console.log(checkedEmailValue);
     e.preventDefault();
-    props.createOrUpdateProfileAct(apiUrl, formData, props.history, edit);
-    // handleReset();
+    if (skills === "" || languages === "" || status === "") {
+      createOrUpdateProfileAct(apiUrl, formData, history, edit);
+      setError(true);
+      window.scrollTo(0, 0)
+    } else {
+      createOrUpdateProfileAct(apiUrl, formData, history, edit);
+      setError(false)
+      handleReset();
+    }
   };
 
   const goBack = (history) => {
@@ -211,6 +219,7 @@ const EditProfile = props => {
                               onChange={(e, { value }) =>
                                 setFormData({ ...formData, status: value })
                               }
+                              error={error}
                             />
                             <p style={{ color: "#888" }}>
                               Give us an idea of where you are at in your career
@@ -263,6 +272,7 @@ const EditProfile = props => {
                                 name='skills'
                                 value={skills}
                                 onChange={e => handleChange(e)}
+                                error={error}
                               />
                               <p style={{ color: "#888" }}>
                                 Please use comma separated values (eg.
@@ -291,6 +301,7 @@ const EditProfile = props => {
                                 name='languages'
                                 value={languages}
                                 onChange={e => handleChange(e)}
+                                error={error}
                               />
                               <p style={{ color: "#888" }}>
                                 Please use comma separated values (eg.
@@ -562,7 +573,7 @@ const EditProfile = props => {
                       Cancel
                       <Icon name='cancel' />
                     </Button>
-                    <Button icon labelPosition='left' floated='right' onClick={e => goBack(props.history)}
+                    <Button icon labelPosition='left' floated='right' onClick={e => goBack(history)}
                       style={{ borderRadius: "50px" }}>
                       Go Back
                         <Icon name='left arrow' />

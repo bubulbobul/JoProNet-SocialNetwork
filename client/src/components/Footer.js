@@ -7,11 +7,9 @@ import {
   Grid,
   Image,
   Container,
-  Button,
-  Icon
+  Button
 } from "semantic-ui-react";
 import Logo from "../assets/images/logo.jpg";
-import StickyFooter from 'react-sticky-footer';
 
 
 import PrivacyPolicy from "./PrivacyPolicy";

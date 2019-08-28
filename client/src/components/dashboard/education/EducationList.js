@@ -57,7 +57,7 @@ const EducationList = props => {
                         <List.Item>
                           <List.Content>
                             <Link to={`/education/${edu._id}`}>
-                              <Popup content='View more ...' trigger={<Button circular floated='right' icon='chevron right' />} />
+                              <Popup content='View details' trigger={<Button circular floated='right' icon='chevron right' />} />
                             </Link>
                             <Popup content='Delete' trigger={<Button circular floated='right' onClick={e => handleDelete(e, edu._id, edu.company)} color="red" icon='remove' />} />
                             <Link to={`/add-education`}>

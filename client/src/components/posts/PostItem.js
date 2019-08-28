@@ -26,7 +26,6 @@ const PostItem = ({
   post: { _id, title, text, name, avatar, user, likes, comments, date },
   searchWordItem
 }) => {
-  // console.log(searchWordItem)
 
   return (
     <Segment raised>

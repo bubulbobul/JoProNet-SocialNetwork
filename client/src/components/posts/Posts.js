@@ -76,12 +76,6 @@ const Posts = ({
       toggleSearching(false)
     }
 
-    // console.log(searchTerm)
-    // console.log(searchTerm.split())
-    // console.log(searchTerm.split().length)
-    // console.log(typeof (searchTerm))
-    // console.log(searching)
-
     /** gi means that we want the RegExp to be applied Globally an case Insensitively */
     const regex = new RegExp(searchTerm, 'gi');
 
@@ -99,7 +93,6 @@ const Posts = ({
   }
 
   const displaySearchPosts = posts => {
-    // console.log("displaySearchPosts")
 
     if (posts.length === 0) {
       return (
@@ -135,7 +128,6 @@ const Posts = ({
   }
 
   const displayPosts = postss => {
-    // console.log("displayPosts")
     return (
       <Fragment>
         <TransitionSpring
