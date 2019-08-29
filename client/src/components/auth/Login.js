@@ -1,11 +1,12 @@
 import React, { useState, Fragment } from "react";
-import { Form, Button, Header, Divider } from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react";
 
-const Login = ({ apiUrl, loginAct, setAlert }) => {
+const Login = ({ apiUrl, loginAct }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: ""
   });
+  const [error, setError] = useState(false)
   const { email, password } = formData;
 
   const handleChange = e =>
@@ -14,17 +15,14 @@ const Login = ({ apiUrl, loginAct, setAlert }) => {
   const handleSubmit = e => {
     e.preventDefault();
     if (isFormEmpty()) {
-      setAlert(
-        "Error Credientials",
-        "Please enter you Email and Password",
-        "error"
-      );
+      setError(true)
     } else {
       loginAct(apiUrl, email, password);
+      setError(false)
     }
   };
 
-  const isFormEmpty = (email, password) => {
+  const isFormEmpty = () => {
     return !formData.email.length || !formData.password.length;
   };
 
@@ -38,6 +36,8 @@ const Login = ({ apiUrl, loginAct, setAlert }) => {
           name='email'
           value={email}
           onChange={e => handleChange(e)}
+          error={error}
+          required
         />
         <Form.Input
           icon='lock'
@@ -47,6 +47,8 @@ const Login = ({ apiUrl, loginAct, setAlert }) => {
           name='password'
           value={password}
           onChange={e => handleChange(e)}
+          error={error}
+          required
         />
         <Button content='Login' primary floated="left" />
       </Form>

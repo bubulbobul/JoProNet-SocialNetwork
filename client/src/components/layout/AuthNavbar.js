@@ -1,12 +1,11 @@
 import React, { useState, Fragment } from "react";
-import { Menu, Container, Icon, Image, Message } from "semantic-ui-react";
-import { connect } from "react-redux";
+import { Menu, Container, Icon, Image } from "semantic-ui-react";
 
 import { NavLink } from "react-router-dom";
 import TopSidebar from "./TopSidebar";
 import Logo from "../../assets/images/logo.jpg";
 
-const AuthNavbar = ({ alerts }) => {
+const AuthNavbar = () => {
   const [active, setActive] = useState({
     activeItem: ""
   });
@@ -51,38 +50,6 @@ const AuthNavbar = ({ alerts }) => {
               <Icon name='user' />
               DASHBOARD
             </Menu.Item>
-            <Fragment>
-              {alerts !== null &&
-                alerts.length > 0 &&
-                alerts.map(alert => (
-                  <Fragment key={alert.id}>
-                    {alert.alertType === "success" && (
-                      <Menu.Item>
-                        <Message positive style={{ borderRadius: "50px" }}>
-                          <Message.Header>{alert.msgHeader}</Message.Header>
-                          <p>{alert.msgContent}</p>
-                        </Message>
-                      </Menu.Item>
-                    )}
-                  </Fragment>
-                ))}
-            </Fragment>
-            <Fragment>
-              {alerts !== null &&
-                alerts.length > 0 &&
-                alerts.map(alert => (
-                  <Fragment key={alert.id}>
-                    {alert.alertType === "error" && (
-                      <Menu.Item>
-                        <Message error style={{ borderRadius: "50px" }}>
-                          <Message.Header>{alert.msgHeader}</Message.Header>
-                          <p>{alert.msgContent}</p>
-                        </Message>
-                      </Menu.Item>
-                    )}
-                  </Fragment>
-                ))}
-            </Fragment>
             <Menu.Menu position='right'>
               <Menu.Item
                 as={NavLink}
@@ -104,6 +71,15 @@ const AuthNavbar = ({ alerts }) => {
                 <Icon name='users' />
                 COMMUNITY
               </Menu.Item>
+              <Menu.Item
+                as={NavLink}
+                to='/mern'
+                name='mern'
+                active={activeItem === "mern"}
+                onClick={handleItemClick}
+              >
+                MERN
+            </Menu.Item>
             </Menu.Menu>
           </Container>
         </Menu>
@@ -112,9 +88,4 @@ const AuthNavbar = ({ alerts }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  alerts: state.alert,
-  auth: state.auth
-});
-
-export default connect(mapStateToProps)(AuthNavbar);
+export default AuthNavbar

@@ -21,6 +21,7 @@ import CodingCoffee from "../assets/images/blurred-background-coffee-cup-contemp
 import BumpCollaboration from "../assets/images/bump-collaboration-colleagues-1068523.jpg";
 import Office from "../assets/images/architectural-design-architecture-ceiling-380768.jpg";
 import MernLogo from "../assets/images/mern.jpeg";
+import Bubulbobul from "../assets/images/bubulbobul.jpg";
 
 import Cloud from "../assets/welcomeImg/cloud.svg"
 import Earth from "../assets/welcomeImg/earth.svg"
@@ -102,7 +103,6 @@ const Welcome = () => {
                 offset={1}
                 speed={0.1}
                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                {/* <Image src={Bash} size="medium" /> */}
                 <Fragment>
                   <Container textAlign='center'>
                     <Grid textAlign="center">
@@ -124,6 +124,7 @@ const Welcome = () => {
                             <Image src={Office} />
                             <Image src={HtmlCss} />
                             <Image src={AnimalMonkey} />
+                            <Image src={Bubulbobul} />
                           </Carousel>
                         </Segment>
                       </Grid.Row>

@@ -6,7 +6,7 @@ export const setAlert = (
   msgHeader,
   msgContent,
   alertType,
-  timeout = 5000
+  timeout = 3000
 ) => dispatch => {
   const id = uuid.v4();
 

@@ -41,7 +41,7 @@ export const registerAct = (
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+      errors.forEach(error => dispatch(setAlert("Register Error", error.msg, "error")));
     }
     dispatch({
       type: REGISTER_FAIL
@@ -102,7 +102,7 @@ export const loginAct = (apiUrl, email, password) => async dispatch => {
     if (err !== undefined) {
       const errors = err.response.data.errors;
       if (errors) {
-        errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+        errors.forEach(error => dispatch(setAlert("Login Error", error.msg, "error")));
       }
     }
 

@@ -118,6 +118,8 @@ const ProfileList = ({ profile, searchWordItem }) => {
                     <Button style={{ borderRadius: "50px" }} primary>View Profile</Button>
                   } />
                 </Link>
+                <Fragment>
+                </Fragment>
               </Container>
             </Grid.Column>
             <Grid.Column width={5}>

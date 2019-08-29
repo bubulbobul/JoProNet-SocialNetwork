@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import {
@@ -52,7 +52,6 @@ const AddExperience = ({ apiUrl, auth, addExperienceAct, history }) => {
       setError(false)
       handleReset();
     }
-
   };
 
   const handleReset = e => {

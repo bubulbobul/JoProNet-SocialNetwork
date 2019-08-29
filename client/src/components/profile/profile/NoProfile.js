@@ -7,7 +7,7 @@ import {
     Button,
     Popup
 } from "semantic-ui-react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Monkey from "../../../assets/images/animal-ape-fur-39571.jpg"
 
 const NoProfile = ({ auth, profile: { hasUserProfile }, history }) => {

@@ -11,7 +11,6 @@ import {
   Segment,
   Header,
   Icon,
-  Message,
   Divider,
   Container
 } from "semantic-ui-react";
@@ -20,11 +19,10 @@ import Register from "./Register";
 
 const JoinUs = ({
   apiUrl,
-  setAlert,
   loginAct,
   registerAct,
-  alerts,
-  isAuthenticated
+  isAuthenticated,
+  setAlert
 }) => {
   const [formVisible, toggleFormVisible] = useState({
     login: true,
@@ -49,76 +47,81 @@ const JoinUs = ({
         <Divider hidden />
         <Divider hidden />
         <Divider hidden />
-        <Fragment>
-          {alerts !== null &&
-            alerts.length > 0 &&
-            alerts.map(alert => (
-              <Fragment key={alert.id}>
-                {alert.alertType === "success" && (
-                  <Message positive style={{ borderRadius: "50px" }}>
-                    <Message.Header>{alert.msgHeader}</Message.Header>
-                    <p>{alert.msgContent}</p>
-                  </Message>
-                )}
-              </Fragment>
-            ))}
-        </Fragment>
-        <Fragment>
-          {alerts !== null &&
-            alerts.length > 0 &&
-            alerts.map(alert => (
-              <Fragment key={alert.id}>
-                {alert.alertType === "error" && (
-                  <Message error style={{ borderRadius: "50px" }}>
-                    <Message.Header>{alert.msgHeader}</Message.Header>
-                    <p>{alert.msgContent}</p>
-                  </Message>
-                )}
-              </Fragment>
-            ))}
-        </Fragment>
         <Grid columns={2} relaxed='very' stackable>
           <Grid.Row verticalAlign="top">
             <Grid.Column>
               <Fragment>
-                <Segment style={{ borderRadius: "50px" }}>
-                  <Divider
-                    horizontal
-                    onClick={() =>
-                      toggleFormVisible({ login: !login, register: !register })
-                    }
-                  >
-                    <Header as='h3'>
-                      {login ? (
-                        <Icon name='arrow alternate circle up' />
-                      ) : (
-                          <Icon name='arrow alternate circle down' />
-                        )}
-                      <Header.Content>Login</Header.Content>
-                    </Header>
-                  </Divider>
-                </Segment>
+                <TransitionSpring
+                  native
+                  items={true}
+                  from={{ opacity: 0 }}
+                  enter={{ opacity: 1 }}
+                  leave={{ opacity: 0 }}
+                  config={{ delay: 1000 }}
+                >
+                  {
+                    show => show && (props => (
+                      <animated.div style={props}>
+                        <Fragment>
+                          <Segment style={{ borderRadius: "50px" }}>
+                            <Divider
+                              horizontal
+                              onClick={() =>
+                                toggleFormVisible({ login: !login, register: !register })
+                              }
+                            >
+                              <Header as='h3'>
+                                {login ? (
+                                  <Icon name='arrow alternate circle up' />
+                                ) : (
+                                    <Icon name='arrow alternate circle down' />
+                                  )}
+                                <Header.Content>Login</Header.Content>
+                              </Header>
+                            </Divider>
+                          </Segment>
+                        </Fragment>
+                      </animated.div>
+                    ))
+                  }
+                </TransitionSpring>
               </Fragment>
             </Grid.Column>
             <Grid.Column>
-              <Fragment>
-                <Segment style={{ borderRadius: "50px" }}>
-                  <Divider
-                    horizontal
-                    onClick={() =>
-                      toggleFormVisible({ login: !login, register: !register })
-                    }
-                  >
-                    <Header as='h3'>
-                      {register ? (
-                        <Icon name='arrow alternate circle up' />
-                      ) : (
-                          <Icon name='arrow alternate circle down' />
-                        )}
-                      <Header.Content>Register</Header.Content>
-                    </Header>
-                  </Divider>
-                </Segment>
+              <Fragment><TransitionSpring
+                native
+                items={true}
+                from={{ opacity: 0 }}
+                enter={{ opacity: 1 }}
+                leave={{ opacity: 0 }}
+                config={{ delay: 1000 }}
+              >
+                {
+                  show => show && (props => (
+                    <animated.div style={props}>
+                      <Fragment>
+                        <Segment style={{ borderRadius: "50px" }}>
+                          <Divider
+                            horizontal
+                            onClick={() =>
+                              toggleFormVisible({ login: !login, register: !register })
+                            }
+                          >
+                            <Header as='h3'>
+                              {register ? (
+                                <Icon name='arrow alternate circle up' />
+                              ) : (
+                                  <Icon name='arrow alternate circle down' />
+                                )}
+                              <Header.Content>Register</Header.Content>
+                            </Header>
+                          </Divider>
+                        </Segment>
+                      </Fragment>
+                    </animated.div>
+                  ))
+                }
+              </TransitionSpring>
               </Fragment>
             </Grid.Column>
           </Grid.Row>
@@ -140,7 +143,6 @@ const JoinUs = ({
                           <Login
                             apiUrl={apiUrl}
                             loginAct={loginAct}
-                            setAlert={setAlert}
                           />
                         </Fragment>
                       </animated.div>
@@ -188,11 +190,9 @@ const JoinUs = ({
 JoinUs.protoType = {
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
-  registerAct: PropTypes.func.isRequired,
-  setAlert: PropTypes.func.isRequired
+  registerAct: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  alerts: state.alert,
   apiUrl: state.apiUrl.apiUrl,
   isAuthenticated: state.auth.isAuthenticated
 });

@@ -7,7 +7,6 @@ import {
   getCurrentProfileAct
 } from "../../../actions/profileAct";
 import { LoaderEditProfile } from "../../../utils/Loader";
-import 'react-phone-number-input/style.css'
 import { Transition as TransitionSpring, animated } from 'react-spring/renderprops';
 
 import {
@@ -549,10 +548,6 @@ const EditProfile = ({
                             ))
                           }
                         </TransitionSpring>
-
-                        {/* {displaySocialInputs && (
-                          
-                        )} */}
                       </Grid.Column>
                     </Grid>
                     <Divider hidden />

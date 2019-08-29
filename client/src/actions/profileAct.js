@@ -163,7 +163,7 @@ export const createOrUpdateProfileAct = (
 
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+      errors.forEach(error => dispatch(setAlert("Profile Error", error.msg, "error")));
     }
 
     dispatch({
@@ -212,7 +212,7 @@ export const addExperienceAct = (
 
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+      errors.forEach(error => dispatch(setAlert("Add Experience Error", error.msg, "error")));
     }
 
     dispatch({
@@ -259,7 +259,7 @@ export const addEducationAct = (
 
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+      errors.forEach(error => dispatch(setAlert("Add Education Error", error.msg, "error")));
     }
 
     dispatch({
@@ -409,7 +409,7 @@ export const editSingleExperienceAct = (apiUrl, formData, expId, company) => asy
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+      errors.forEach(error => dispatch(setAlert("Experience Modification Error", error.msg, "error")));
     }
 
     dispatch({
@@ -469,7 +469,7 @@ export const editSingleEducationAct = (apiUrl, formData, expId, school) => async
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+      errors.forEach(error => dispatch(setAlert("Education Modification Error", error.msg, "error")));
     }
 
     dispatch({

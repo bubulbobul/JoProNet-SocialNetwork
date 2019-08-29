@@ -17,12 +17,26 @@ const PostForm = ({ apiUrl, addPostAct }) => {
     title: "",
     text: ""
   });
+  const [error, setError] = useState(false)
   const [displayPostForm, togglePostForm] = useState(false);
 
   const { title, text } = formData;
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (title === "" || text === "") {
+      addPostAct(apiUrl, formData);
+      setError(true);
+    } else {
+      addPostAct(apiUrl, formData);
+      setError(false)
+      handleReset();
+      togglePostForm(!displayPostForm)
+    }
   };
 
   const handleReset = e => {
@@ -67,6 +81,7 @@ const PostForm = ({ apiUrl, addPostAct }) => {
                       name='title'
                       value={title}
                       onChange={e => handleChange(e)}
+                      error={error}
                     />
                   </Form.Field>
                   <Form.Field>
@@ -77,17 +92,14 @@ const PostForm = ({ apiUrl, addPostAct }) => {
                       name='text'
                       value={text}
                       onChange={e => handleChange(e)}
+                      error={error}
                     />
                   </Form.Field>
                   <Button
                     primary
                     icon
                     labelPosition='left'
-                    onClick={e => {
-                      addPostAct(apiUrl, formData);
-                      handleReset(e);
-                      togglePostForm(!displayPostForm)
-                    }}
+                    onClick={e => handleSubmit(e)}
                     style={{ borderRadius: "50px" }}
                   >
                     Submit

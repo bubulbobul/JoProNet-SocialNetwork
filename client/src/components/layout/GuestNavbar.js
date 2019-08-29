@@ -36,6 +36,15 @@ const GuestNavbar = () => {
             >
               COMMUNITY
             </Menu.Item>
+            <Menu.Item
+              as={NavLink}
+              to='/mern'
+              name='mern'
+              active={activeItem === "mern"}
+              onClick={handleItemClick}
+            >
+              MERN
+            </Menu.Item>
           </Menu.Menu>
         </Container>
       </Menu>

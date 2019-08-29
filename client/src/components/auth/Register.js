@@ -9,6 +9,7 @@ const Register = ({ apiUrl, registerAct, setAlert }) => {
     password: "",
     passwordConfirmation: ""
   });
+  const [error, setError] = useState(false)
   const { name, email, password, passwordConfirmation } = formData;
 
   const handleChange = e =>
@@ -18,9 +19,15 @@ const Register = ({ apiUrl, registerAct, setAlert }) => {
     e.preventDefault();
     if (password !== passwordConfirmation) {
       setAlert("Password Error", "Password do not match", "error");
+    } else if (isFormEmpty()) {
+      setError(true)
     } else {
       registerAct(apiUrl, name, email, password);
     }
+  };
+
+  const isFormEmpty = () => {
+    return !formData.name.length || !formData.email.length || !formData.password.length || !formData.passwordConfirmation.length;
   };
 
   return (
@@ -32,6 +39,8 @@ const Register = ({ apiUrl, registerAct, setAlert }) => {
         name='name'
         value={name}
         onChange={e => handleChange(e)}
+        error={error}
+        required
       />
       <Form.Input
         icon='at'
@@ -40,6 +49,8 @@ const Register = ({ apiUrl, registerAct, setAlert }) => {
         name='email'
         value={email}
         onChange={e => handleChange(e)}
+        error={error}
+        required
       />
       <Form.Input
         icon='lock'
@@ -49,6 +60,7 @@ const Register = ({ apiUrl, registerAct, setAlert }) => {
         name='password'
         value={password}
         onChange={e => handleChange(e)}
+        error={error}
       />
       <Form.Input
         icon='redo'
@@ -58,6 +70,7 @@ const Register = ({ apiUrl, registerAct, setAlert }) => {
         name='passwordConfirmation'
         value={passwordConfirmation}
         onChange={e => handleChange(e)}
+        error={error}
       />
 
       <Button content='Register' primary />

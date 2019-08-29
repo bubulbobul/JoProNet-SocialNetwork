@@ -11,7 +11,9 @@ import { Button, Icon } from "semantic-ui-react"
 
 import Navbar from "./components/layout/Navbar";
 import Welcome from "./components/Welcome";
+import MernStack from "./components/MernStack";
 import Footer from "./components/Footer";
+import Alerts from "./components/Alert";
 
 import Dashboard from "./components/dashboard/Dashboard";
 import CreateProfile from "./components/profile/profile-forms/CreateProfile";
@@ -70,6 +72,9 @@ const App = ({ getAPIAct, apiUrl }) => {
               <BrowserRouter>
                 <Fragment>
                   <Navbar />
+                  <Fragment>
+                    <Alerts />
+                  </Fragment>
                   <ScrollToTop showUnder={150} style={{ zIndex: "10002" }}>
                     <Button icon>
                       <Icon name='angle up' />
@@ -79,6 +84,7 @@ const App = ({ getAPIAct, apiUrl }) => {
                     <ScrollIntoView>
                       <Switch>
                         <Route exact path='/' component={Welcome} />
+                        <Route exact path='/mern' component={MernStack} />
                         <Route path='/profiles' component={AllProfiles} />
                         <Route path='/profile/:id' component={Profile} />
                         <PrivateRoute path='/dashboard' component={Dashboard} />

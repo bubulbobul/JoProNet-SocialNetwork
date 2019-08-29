@@ -373,7 +373,6 @@ const CreateProfile = ({ apiUrl, auth, createOrUpdateProfileAct, history }) => {
                         Add Social Network Links
                       </Label>
                     </Button>
-                    {/* Add Social Network Links */}
                   </Header>
                 </Divider>
                 <TransitionSpring

@@ -103,7 +103,7 @@ export const addLikeAct = (apiUrl, postId) => {
       .catch(err => {
         const error = err.response.data;
         if (err) {
-          dispatch(setAlert(error.msg, null, "error"));
+          dispatch(setAlert("Likes Error", error.msg, "error"));
         }
         dispatch(upDateLikeActError());
       });
@@ -206,7 +206,7 @@ export const addPostAct = (apiUrl, formData) => async dispatch => {
   } catch (error) {
     const errors = error.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+      errors.forEach(error => dispatch(setAlert("Post Error", error.msg, "error")));
     }
     dispatch({
       type: POST_ERROR
@@ -271,7 +271,7 @@ export const addCommentAct = (apiUrl, postId, formData) => async dispatch => {
   } catch (error) {
     const errors = error.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+      errors.forEach(error => dispatch(setAlert("Comment Error", error.msg, "error")));
     }
     dispatch({
       type: POST_ERROR
@@ -303,7 +303,7 @@ export const deleteCommentAct = (
   } catch (error) {
     const errors = error.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, null, "error")));
+      errors.forEach(error => dispatch(setAlert("Comment Error", error.msg, "error")));
     }
     dispatch({
       type: POST_ERROR

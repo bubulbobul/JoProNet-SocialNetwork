@@ -186,7 +186,7 @@ const Posts = ({
         <Divider hidden />
         <Divider hidden />
         <Segment color="blue">
-          {loading || posts.length === 0 ? (
+          {loading === 0 ? (
             <PostsPlaceholder />
           ) : (<Fragment>
             <Fragment>
