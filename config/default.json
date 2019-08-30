@@ -1,6 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://bubul:3slFiDL3Jo51otHt@devsocialnet-e2emg.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecretToken": "mySecretToken",
-  "githubClientId": "f1f820b6b40552a4ef3e",
-  "githubSecret": "7ee9f5d4c68782d7aeb4f3bd69c8f1ccaa5b0f20"
-}
