@@ -348,7 +348,7 @@ export const statusOptions = [
   { key: "1", text: "Junior Developer", value: "Junior Developer" },
   { key: "2", text: "Senior Developer", value: "Senior Developer" },
   { key: "3", text: "Manager", value: "Manager" },
-  { key: "4", text: "Student or Learning", value: "Student or Learning" },
+  { key: "4", text: "Student & Learning", value: "Student or Learning" },
   { key: "5", text: "Instructor", value: "Instructor" },
   { key: "6", text: "Intern", value: "Intern" },
   { key: "7", text: "Other", value: "Other" }

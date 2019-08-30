@@ -28,8 +28,8 @@ router.get("/me", auth, async (req, res) => {
       return res.json(profile);
     }
   } catch (err) {
-    console.error(err.message);
-    console.log("There is no profile for this use")
+    // console.error(err.message);
+    // console.log("There is no profile for this use")
     res.status(500).send("Server Error");
   }
 });

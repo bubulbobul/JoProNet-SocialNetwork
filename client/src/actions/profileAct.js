@@ -37,18 +37,11 @@ export const getCurrentProfileAct = apiUrl => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    const msg = err.response.data.msg;
-    const status = err.response.status;
-    const statusText = err.response.statusText;
-
     dispatch({
-      type: PROFILE_ERROR,
-      payload: {
-        msg,
-        status,
-        statusText
-      }
+      type: PROFILE_ERROR
     });
+
+    throw err
   }
 };
 
